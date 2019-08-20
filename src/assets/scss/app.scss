@@ -1,0 +1,133 @@
+@import './base';
+@import './common';
+
+a {
+    color: #666
+}
+
+#procontent img {width:100%; display: block}
+.autoimg img {width:100%; display: block;}
+.autowidth{
+    width:100%;
+}
+#app {
+    margin: 0 auto;
+    background-color: #f6f6f6;
+}
+.page-part{
+    .itemTitle{
+        span{color:#F60;}
+        img{width:30px;
+            position: relative;
+            top:5px;
+            margin-right:5px;
+        }
+    }
+}
+
+
+.faded {
+    display: flex;
+    justify-content: center;
+    -ms-align-items: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 800;
+    width: 100%;
+    height: 100%;
+  z-index:9999;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.lightBtn {
+    display: block;
+    width: 80%;
+    height: 28pt;
+    line-height: 28pt;
+    text-align: center;
+    border-radius: 3pt;
+    color: #fff;
+    font-size: 11pt;
+    margin: 15pt auto 10pt;
+    border: 1pt solid #C9A063;
+    background-color: #fff;
+    color: #C9A063;
+    font-weight: bold;
+}
+
+.darkBtn {
+    display: block;
+    width: 80%;
+    height: 28pt;
+    line-height: 28pt;
+    background-color: #C9A063;
+    text-align: center;
+    border-radius: 3pt;
+    color: #fff;
+    font-size: 11pt;
+    margin: 15pt auto 10pt;
+    font-weight: bold;
+}
+
+.darkerBtn {
+    display: block;
+    width: 80%;
+    height: 28pt;
+    line-height: 28pt;
+    background-color: #C9A063;
+    text-align: center;
+    border-radius: 3pt;
+    color: #fff;
+    font-size: 11pt;
+    margin: 15pt auto 10pt;
+    font-weight: bold;
+}
+
+.smLightBtn {
+    display: block;
+    width: 60pt;
+    height: 25pt;
+    line-height: 20pt;
+    border-radius: 5pt;
+    padding: 3pt 10pt;
+    text-align: center;
+    color: #C9A063;
+    background-color: #fff;
+    border: 1pt solid #C9A063;
+    border-radius: 3pt;
+}
+
+.smDarkBtn {
+    display: block;
+    width: 60pt;
+    height: 25pt;
+    line-height: 20pt;
+    border-radius: 5pt;
+    padding: 3pt 10pt;
+    text-align: center;
+    color: #fff;
+    background-color: #C9A063;
+    border: 1pt solid #C9A063;
+    border-radius: 3pt;
+}
+
+
+
+/* 404 not found*/
+
+#not-found-page {
+    color: #fff;
+    height: 100%;
+    text-align: center;
+    background-color: #555;
+    padding-top: 400px;
+
+    h1 {
+        font-size: 120px
+    }
+    p {
+        font-size: 48px
+    }
+}

@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-style: nomarl;
+    font-weight: nomarl;
+    box-sizing: border-box;
+    font-size: .373333rem;
+}
+
+html,
+body,
+#app {
+    width: 100%;
+    height: 100%;
+  background-color: #f6f6f6;
+
+}
+
+#app {
+    font-family: Helvetica, "PingFang SC", "Hiragino Sans GB", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-width: 320px;
+    max-width: 750px;
+}
+
+button,
+input,
+select,
+a,
+img {
+    outline: none;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.ar-l {
+    float: left;
+}
+
+.ar-r {
+    float: right;
+}
+
+.clear {
+    overflow: hidden;
+    zoom: 1;
+    clear: both;
+    _overflow: visible;
+    /* for IE */
+    _zoom: 1;
+    /* for IE */
+}
+
+.clearfix {
+    &:before,
+    &:after {
+        display: block;
+        content: ''
+    }
+    &:after {
+        clear: both
+    }
+}
+.loading-bar{
+  text-align: center;
+  color:#999;
+  padding:20px 0;
+}
+
+
+
+//.video-js .vjs-fullscreen-control{
+//  display: none;
+//}
+
+.quanziVideo .video-js .enable-volume-control{
+  display: none;
+}
+.quanziVideo .video-js .vjs-menu-button-popup{
+  display: none;
+}
+.quanziVideo .video-js .vjs-time-control{
+  display: none;
+}
+.quanziVideo .tcp-skin:not(.vjs-live) .vjs-current-time, .tcp-skin:not(.vjs-live) .vjs-time-divider, .tcp-skin:not(.vjs-live) .vjs-duration{
+  display: none;
+}
