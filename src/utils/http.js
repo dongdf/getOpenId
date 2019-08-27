@@ -35,6 +35,7 @@ Axios.interceptors.request.use(config => {
 
   config.headers['WX-UID'] = localStorage.getItem('WX_UID') || ''
   config.headers['UUID'] = localStorage.getItem('UUID') || ''
+  // config.headers['x_token'] = localStorage.getItem('UUID') || ''
   //config.headers['reqType'] = 'chsWechat'
   config.headers['Content-Type'] = 'application/json'
   return config

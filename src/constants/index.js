@@ -11,6 +11,7 @@
 /*测试环境*/
 
 /*生产环境*/
+
 export const ENV = process.env.NODE_ENV
 export const APP_ID = 'wx4725dbce52d00d65'
 export const REDIRECT_URL = 'https://wechat.caiheshui.com'

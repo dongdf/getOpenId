@@ -29,7 +29,15 @@ const router = new Router({
         meta: {
           title: '首页'
         }
-      },
+      },{
+        path: '/mlogin',
+        name: 'mlogin',
+        component: (resolve)=>require(['../pages/mlogin'],resolve),
+        meta: {
+          title: '用户登录'
+        }
+      }
+
     ]
 })
 
