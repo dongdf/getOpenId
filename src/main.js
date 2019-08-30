@@ -14,6 +14,10 @@ import './assets/scss/app.scss'
 import './assets/scss/weiui.scss'
 Vue.use(MintUI);
 
+import wxupload from '@/components/wxupload/index.js'
+
+Vue.use(wxupload)
+
 
 
 
