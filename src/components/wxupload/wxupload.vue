@@ -1,6 +1,6 @@
 <template>
   <div class="csup" @click="chooseImg">
-    <div class="upicon">
+    <div class="upicon" v-if="showicon">
       <img src="@/assets/img/upicon.png"/>
       <div class="utext">上传图片</div>
     </div>
@@ -11,7 +11,7 @@
   import axios from 'axios'
   export default {
     name: "wxupload",
-    props:['upinfo'],
+    props:['upinfo','showicon'],
     data() {
       return {
         filePath: null,
