@@ -36,6 +36,13 @@ const router = new Router({
         meta: {
           title: '用户登录'
         }
+      },{
+        path: '/mine',
+        name: 'mine',
+        component: (resolve)=>require(['../pages/mine/index'],resolve),
+        meta: {
+          title: '个人中心'
+        }
       }
 
     ]

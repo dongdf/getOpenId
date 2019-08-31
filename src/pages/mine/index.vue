@@ -5,7 +5,8 @@
 
 <script>
   import './router.js'
-  import '../mine/router.js'
+  import '../testdemo/router.js'
+  import '../comminfo/router.js'
   export default {
     name: "index",
     data(){
