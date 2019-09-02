@@ -1,12 +1,16 @@
 <template>
   <div class="login">
-
+    <div class="loginb">
+      <img src="../assets/img/loginbanner.jpg"/>
+    </div>
     <ul class="loginbox">
-      <li><input type="text" v-model.trim="phone" placeholder="请输入手机号"/></li>
-      <li><input type="text" v-model.trim="phoneCode" style="width:70%" placeholder="请输入验证码"/><div @click="getcode"  class="phonecode"><span>{{timerText}}</span></div></li>
+      <li><label class="loginicon"><img src="../assets/img/login_phone.jpg"/> </label><input type="text" v-model.trim="phone" placeholder="请输入手机号"/></li>
+      <li><label class="loginicon"><img src="../assets/img/login_lock.jpg"/></label><input type="text" v-model.trim="phoneCode" style="width:70%" placeholder="请输入验证码"/><div @click="getcode"  class="phonecode"><span>{{timerText}}</span></div></li>
       <li class="libtn">
         <button @click="login">用户登录</button>
+
       </li>
+      <div class="findpas">找回密码</div>
     </ul>
   </div>
 </template>
@@ -57,15 +61,26 @@
 </script>
 
 <style lang="scss" scoped>
+  .findpas{
+    text-align: center;
+    color:#999;
+  }
+  .loginicon{
+    width:70px;
+    img{width:100%;}
+  }
 
   .login{
-    height:200px;
+    .loginb{
+      img{width:100%;}
+    }
+
     .loginbox{
       padding:20px;
       background: #FFF;
-      li{margin:0 20px;
+      li{margin:55px 20px;
         padding:10px;
-        border:1px solid #DDD;
+        border-bottom:1px solid #eee;
         input[type='text']{
           width: 100%;
           border:none;
@@ -73,16 +88,20 @@
         display: flex;
         .phonecode{
           width:30%;
-          span{display: block; text-align: center}
+          line-height: 200%;
+          span{display: block; text-align: center;color:#FF4A02}
         }
 
       }
       .libtn{
         border:none;
         button{
-          padding:20px; border-radius: 20px;
+          padding:20px; border-radius: 100px;
           border:none;
-          background: #08F;
+          background:#FF4A02;
+          color:#FFF;
+          font-size:35px;
+          box-shadow:0 10px 20px rgba(255,74,2,.3);
           width:100%;
         }
       }

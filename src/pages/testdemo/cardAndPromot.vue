@@ -1,9 +1,15 @@
 <template>
-  <div>cardAndPromot</div>
+  <div>cardAndPromot
+    <elem configs="eleDom"></elem>
+
+  </div>
 </template>
 
 <script>
+  import EleDom from "./eleDom";
+
   export default {
+    components: {EleDom},
     name: "card-and-promot",
     methods:{}
   }

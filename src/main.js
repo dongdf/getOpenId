@@ -49,7 +49,13 @@ function getroutes(rous) {
 }
 
 window.addRouter = function (obj) {
-  window.allRoutes.push(obj)
+  var idx = window.allRoutes.findIndex((item)=>{
+    return item.name == obj.name
+  })
+  if(idx<0){
+    window.allRoutes.push(obj)
+  }
+
 }
 window.getRouter = function (str) {
   let com = window.allRoutes.filter(item => item.name=== str);

@@ -191,6 +191,8 @@
   .csup{
     opacity:.9;
 
+    top:0;
+    left:0;
     text-align:center;
     position:absolute;
     width:100%;

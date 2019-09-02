@@ -43,6 +43,13 @@ const router = new Router({
         meta: {
           title: '个人中心'
         }
+      },{
+        path: '/authPerson',
+        name: 'authPerson',
+        component: (resolve)=>require(['../pages/authPerson/index'],resolve),
+        meta: {
+          title: '身份认证'
+        }
       }
 
     ]
