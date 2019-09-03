@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="forgetSetp">
-      <div class="setp  firt">
-        <div class="itmess"><span>1</span>身份验证</div>
-      </div>
-      <div class="setp cur ctr"><span>2</span>绑定手机</div>
-      <div class="setp end"><span>2</span>找回密码</div>
+        <ul class="clearfix">
+          <li class="leftli active"><a href=""><i>1</i><span>身份验证</span></a></li>
+          <li class="leftli"><a href=""><i>2</i><span>绑定手机</span></a></li>
+          <li class=""><a href=""><i>3</i><span>找回密码</span></a></li>
+        </ul>
     </div>
     <div v-show="setpidx == 1">
     <div class="ptips">
@@ -196,7 +196,23 @@
   }
 
   .forgetSetp {
-    display: flex;
+    text-align: center;
+    li{
+      float: left;width:35%;position:relative;background:#ffded5;padding:10px 0 10px 50px;box-sizing: border-box;
+      a{color:#ff5b2d;display: block;
+        i,span{display: inline-block;vertical-align: middle}
+        i{width:30px;height:30px;border-radius: 50%;margin:0 8px;box-sizing: border-box;border:2px solid #ff5b2d;line-height:30px;font-size:12px}
+      }
+    }
+    li:first-child{width:30%;}
+    .active{
+      background:#ff5b2d;
+        a{color:#fff}
+      i{background:#fff;color:#ff5b2d;border:2px solid #fff;}
+    }
+
+    .leftli:before{position: absolute;width:50px;height:100%;border-radius: 0 500px 500px 0;border-right:8px solid #fff;content:'';top:0;right:-50px;background:#ffded5;z-index:2}
+    .active:before{background:#ff5b2d; }
     .setp {
       position: relative;
       width: 100%;
