@@ -152,6 +152,7 @@
             b:2
           },
           callback:(close,str)=>{
+            // alert(str)
             close()
           }
         })

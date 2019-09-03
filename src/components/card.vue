@@ -91,6 +91,11 @@
    max-height: 500px;
    overflow: auto;
  }
+  .el-dialog__body{
+    position: relative;
+    height:100%;
+
+  }
   .popw{
     background: #FFF;
     position: absolute;
@@ -104,8 +109,11 @@
   }
   .el-dialog__header{
     width:100%;
+    z-index: 99;
     border-bottom: 1px solid #DDD;
     padding:20px;
+     background: #FFF;
+    top:0;left:0;
     padding-top:0;
     text-align: center;
     position: relative;
