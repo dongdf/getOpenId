@@ -4,6 +4,8 @@
 
 <script>
   import './router.js'
+  import '../comminfo/router.js'
+  import '../mine/router.js'
 
   export default {
     name: "index",

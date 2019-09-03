@@ -91,7 +91,7 @@
     background:#FFF;
     position: absolute;
     border-radius: 20px;
-    top:15%;
+    top:25%;
     padding:30px;
 
     z-index:999;

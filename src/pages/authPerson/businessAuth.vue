@@ -109,13 +109,23 @@
               </ul>
             </div>
           </li>
-          <li>
+          <li style="border:none;">
             <h3>请选择/编辑申请名称</h3>
-            <p>请选择个体工商户类型</p>
+            <ul class="rangnamelist">
+              <li>镜湖区<span>刘洋壹九叁</span>商务信息咨商务信息咨询服务部商务信息咨询服务部询服务部<label @click="editcomName()" class="eidtname"><img src="../../assets/img/edit.jpg"/> </label> </li>
+              <li>镜湖区<span>刘洋壹九叁</span>商务信息咨询服务部<label class="eidtname"><img src="../../assets/img/edit.jpg"/> </label> </li>
+              <li>镜湖区<span>刘洋壹九叁</span>商务信息咨询服务部<label class="eidtname"><img src="../../assets/img/edit.jpg"/> </label> </li>
+
+            </ul>
           </li>
+          <button class="main"  @click="gonext(4)">提交</button>
         </ul>
 
       </div>
+
+    </div>
+    <div v-show="setpidx == 4">
+      合同签约
     </div>
 
 
@@ -141,6 +151,23 @@
       this.setpidx = this.$route.query.setp ? this.$route.query.setp : 1
     },
     methods: {
+      editcomName(){
+        this.$promot({
+          name:'$promot',
+          width:'80%',
+          title:'修改公司',
+          funCode:'modifyCom',
+          props:{
+            isableclose:true,
+            comName:'镜湖区刘洋壹九叁商务信息咨商务信息咨询服务部商务信息咨询服务部询服务部'
+
+          },
+          callback:(close,str)=>{
+            close()
+            alert(str)
+          }
+        })
+      },
       openrange(){
         this.$card({
           name:'bisRange',
@@ -226,6 +253,26 @@
         }
 
       }
+    }
+    ul.rangnamelist{
+      padding: 0;
+      padding-top:20px;
+      li{
+        position: relative;
+
+        margin:0;padding:20px 0;
+        padding-right: 70px;
+        span{
+          color:#FF4A02;
+        }
+        .eidtname{
+          position: absolute;
+          width:60px; height:60px;
+          top:15px;right:0;
+          img{width:100%;}
+        }
+      }
+
     }
 
   }

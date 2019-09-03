@@ -99,7 +99,7 @@
   .popw{
     background: #FFF;
     position: absolute;
-    right:0;top:0;
+    right:0;top:0px;
     padding:20px;
     bottom:0;
     overflow: auto;
