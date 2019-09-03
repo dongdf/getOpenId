@@ -236,6 +236,7 @@ export default {
 
     },
     getisguanzhu(){
+      return false;
       this.$http.get('user/userService/getUserWeChatVo').then(res=>{
         // this.$http.get('way/serverport').then(res=>{
         this.isshowma= res.data.data.subscribe;

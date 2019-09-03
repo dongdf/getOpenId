@@ -10,7 +10,7 @@
         <button @click="login">用户登录</button>
 
       </li>
-      <div class="findpas">找回密码</div>
+      <div @click="goforget" class="findpas">找回密码</div>
     </ul>
   </div>
 </template>
@@ -29,6 +29,15 @@
       }
     },
     methods:{
+      goforget(){
+        this.$router.push({
+          path:'/authPerson',
+          query:{
+            funCode:'forgetPas',
+            setp:1
+          }
+        })
+      },
       login(){
 
       },

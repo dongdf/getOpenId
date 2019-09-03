@@ -1,6 +1,9 @@
 import basicAuthPerson from './basicAuthPerson.vue'
 import renzheng from './renzheng'
 import forgetPas from './forgetPas'
+import businessAuth from './businessAuth'
+import bisRange from './bisRange'
+
 
 
 window.addRouter({
@@ -18,5 +21,16 @@ window.addRouter({
   title:'找回密码',
   component:forgetPas
 })
+window.addRouter({
+  name:'businessAuth',
+  title:'工商认证',
+  component:businessAuth
+})
+window.addRouter({
+  name:'bisRange',
+  title:'经营范围',
+  component:bisRange
+})
+
 
 
