@@ -125,14 +125,14 @@
 
     </div>
     <div v-show="setpidx == 4">
-       <elem configs="contractList"></elem>
+       <elem configs="contractList" v-if="!isqz"></elem>
        <div class="tx">
          <button class="main"  @click="isqz = true">一键签约(6)</button>
          <div class="xieyi"><span class="ckbox"><img src="../../assets/img/checkbox.jpg"/> </span>我已阅读并同意非全制度</div>
        </div>
     </div>
 
-    <elem :showQz="isqz" configs="qianzi"></elem>
+    <elem :showQz="isqz"   configs="qianzi"></elem>
 
 
 
@@ -160,6 +160,9 @@
       this.setpidx = this.$route.query.setp ? this.$route.query.setp : 1
     },
     methods: {
+      closepp(){
+        this.isqz =false;
+      },
       editcomName(){
         this.$promot({
           name:'$promot',
@@ -311,10 +314,10 @@
         .filelabel{
           width:300px;
           color:#999;
-          font-size:30px;
+
         }
         .filecontent{
-          font-size:30px;
+
           width:100%;
           text-align: right;
         }
@@ -322,7 +325,7 @@
 
       }
       .fileTitle{
-        font-size:30px;
+
         background:#F7F7F7;
         width:100%;
         border:none;
