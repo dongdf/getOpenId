@@ -125,8 +125,16 @@
 
     </div>
     <div v-show="setpidx == 4">
-      合同签约
+       <elem configs="contractList"></elem>
+       <div class="tx">
+         <button class="main"  @click="isqz = true">一键签约(6)</button>
+         <div class="xieyi"><span class="ckbox"><img src="../../assets/img/checkbox.jpg"/> </span>我已阅读并同意非全制度</div>
+       </div>
     </div>
+
+    <elem :showQz="isqz" configs="qianzi"></elem>
+
+
 
 
   </div>
@@ -137,6 +145,7 @@
     name: "businessAuth",
     data() {
       return {
+        isqz:false,
         setpidx: 1,
         upimgzm:[],
         timer: 10,
@@ -208,6 +217,22 @@
 </script>
 
 <style lang="scss" scoped>
+  .tx{
+    position: fixed;
+    bottom:20px;
+    left:30px;
+    right: 30px;
+  }
+  .xieyi{
+    padding-top:5px;
+    text-align: center;
+    .ckbox{
+      display: inline-block;width:50px;
+      position: relative;
+      top:15px;
+      img{width:100%;}
+    }
+  }
   .mline{
     height:20px; background: #F6F6F6;
     clear:both;

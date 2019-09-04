@@ -3,6 +3,8 @@ import renzheng from './renzheng'
 import forgetPas from './forgetPas'
 import businessAuth from './businessAuth'
 import bisRange from './bisRange'
+import contractList from './contractList'
+import qianzi from './qianzi'
 
 
 
@@ -30,6 +32,16 @@ window.addRouter({
   name:'bisRange',
   title:'经营范围',
   component:bisRange
+})
+window.addRouter({
+  name:'contractList',
+  title:'合同预览',
+  component:contractList
+})
+window.addRouter({
+  name:'qianzi',
+  title:'签字',
+  component:qianzi
 })
 
 
