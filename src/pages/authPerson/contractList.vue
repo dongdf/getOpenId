@@ -15,7 +15,7 @@
        <div class="right-btn fr"><i></i></div>
      </div>
      <div class="contContent">
-       <iframe src="http://www.qq.com" frameborder="0"  class="contractFrame"></iframe>
+       <iframe   frameborder="0"  class="contractFrame"></iframe>
      </div>
    </div>
 
