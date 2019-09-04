@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="forgetSetp">
-      <div class="setp  firt">
-        <div class="itmess"><span>1</span>上传截图</div>
-      </div>
-      <div class="setp cur ctr"><span>2</span>完善信息</div>
-      <div class="setp cur ctr"><span>2</span>确认信息</div>
-      <div class="setp end"><span>2</span>签约合同</div>
+    <div class="forgetSetp breakfour">
+      <ul class="clearfix">
+        <li class="leftli active"><a href=""><i>1</i><span>上传截图</span></a></li>
+        <li class="leftli active"><a href=""><i>2</i><span>完善信息</span></a></li>
+        <li class="leftli active"><a href=""><i>3</i><span>确认信息</span></a></li>
+        <li class="active"><a href=""><i>4</i><span>签约合同</span></a></li>
 
+      </ul>
     </div>
     <div v-show="setpidx == 1">
       <div class="aucontent">
@@ -375,51 +375,7 @@
     }
   }
 
-  .forgetSetp {
-    display: flex;
-    .setp {
-      position: relative;
-      width: 100%;
-      background: #FFDDD3;
-      text-align: center;
-      padding: 15px 0;
-    }
-    .end {
 
-    }
-    .firt {
-
-    }
-    .ctr {
-    }
-
-    .ctr:before {
-      content: '';
-      position: absolute;
-      height: 100%;
-      width: 40px;
-      top: 0;
-      left: -40px;
-      border-radius: 0 50% 50% 0;
-      background: #FF4A02;
-      /*border-right: 5px solid #FFF;*/
-    }
-    .ctr:after {
-      content: '';
-      position: absolute;
-      height: 100%;
-      width: 40px;
-      top: 0;
-      right: 0;
-      border-radius: 0 50% 50% 0;
-      background: #FFDDD3;
-      border-right: 5px solid #FFF;
-    }
-    .cur {
-      background: #FF4A02;
-    }
-
-  }
 
   .itmess {
     background: #FF4A02;
