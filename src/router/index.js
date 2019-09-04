@@ -13,7 +13,7 @@ const router = new Router({
         name: 'Auth',
         component: (resolve)=>require(['../pages/auth'],resolve),
         meta: {
-          title: '微信授权'
+          title: '正在跳转...'
         }
       },{
         path: '/',

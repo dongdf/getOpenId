@@ -7,10 +7,16 @@ import contractList from './contractList'
 import qianzi from './qianzi'
 import personalAuth from './personalAuth'
 import teamAuth from './teamAuth'
+import bistypeRange from './bistypeRange'
 
 
 
 
+window.addRouter({
+  name:'bistypeRange',
+  title:'选择个体工商类型',
+  component:bistypeRange
+})
 window.addRouter({
   name:'basicAuthPerson',
   title:'身份证上传',
@@ -28,17 +34,17 @@ window.addRouter({
 })
 window.addRouter({
   name:'businessAuth',
-  title:'工商认证',
+  title:'工商认证-创业宝',
   component:businessAuth
 })
 window.addRouter({
   name:'personalAuth',
-  title:'个人认证',
+  title:'分工宝',
   component:personalAuth
 })
 window.addRouter({
   name:'teamAuth',
-  title:'团体认证',
+  title:'用工宝',
   component:teamAuth
 })
 window.addRouter({

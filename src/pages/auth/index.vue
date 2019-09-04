@@ -1,14 +1,14 @@
 <template>
   <div id="auth">
-    <div class="broswerc" v-show="!iswbroswer">
-       <!--<button @click="gowelogin">微信登录</button>-->
-    </div>
-    <div v-show="iswbroswer">
+    <!--<div class="broswerc" v-show="!iswbroswer">-->
+       <!--&lt;!&ndash;<button @click="gowelogin">微信登录</button>&ndash;&gt;-->
+    <!--</div>-->
+    <!--<div v-show="iswbroswer">-->
 
-      <div style="text-align: center; padding-top:20%;">授权中...<br>请允许,否则无法正常访问</div>
-      <div style="text-align: center; color:#red;font-weight: bold; padding-top:20%;" v-show="shouquanShow">{{error}}</div>
+      <!--<div style="text-align: center; padding-top:20%;">授权中...<br>请允许,否则无法正常访问</div>-->
+      <!--<div style="text-align: center; color:#red;font-weight: bold; padding-top:20%;" v-show="shouquanShow">{{error}}</div>-->
 
-    </div>
+    <!--</div>-->
 
   </div>
 </template>
@@ -41,19 +41,19 @@ export default {
     var ua = navigator.userAgent.toLowerCase();
     // alert(ua)
     var isWeixin = ua.match(/MicroMessenger/i) == 'micromessenger';
-    if (isWeixin) {
-      that.iswbroswer = true;
-    }else{
-      that.iswbroswer = false;
-
-      // var s = uuidv1().replace(/-/g,'');
-      var s = uuidv1();
-      localStorage.setItem('UUID',s);
-      var sorgPage = localStorage.getItem('llrouterUrl')?localStorage.getItem('llrouterUrl'):REDIRECT_URL;
-      window.location.replace(sorgPage);
-      return false;
-
-    }
+    // if (isWeixin) {
+    //   that.iswbroswer = true;
+    // }else{
+    //   that.iswbroswer = false;
+    //
+    //   // var s = uuidv1().replace(/-/g,'');
+    //   var s = uuidv1();
+    //   localStorage.setItem('UUID',s);
+    //   var sorgPage = localStorage.getItem('llrouterUrl')?localStorage.getItem('llrouterUrl'):REDIRECT_URL;
+    //   window.location.replace(sorgPage);
+    //   return false;
+    //
+    // }
 
     function getQueryString(name) {
       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -105,7 +105,7 @@ export default {
           mobile = getUrlname(orgPage,'mobile');
         }
 
-        this.$http.post('/authentication/weChatAut/userinfo', {code:code,popenId:pids,mobile:mobile}).then(res => {
+        this.$http.get('mapi/getOpenid?code='+code).then(res => {
           // console.log(res.data);
           if(res.data.code == 0){
             storage.set('USER_INFO', JSON.stringify(res.data.data))

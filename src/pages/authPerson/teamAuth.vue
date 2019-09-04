@@ -70,6 +70,20 @@
           </li>
 
 
+          <li>
+            <div class="filelabel">学历</div>
+            <div class="filecontent">大专</div>
+          </li>
+          <li>
+            <div class="filelabel">每小时工资</div>
+            <div class="filecontent">20</div>
+          </li>
+          <li>
+            <div class="filelabel">工种</div>
+            <div class="filecontent">中关村西三旗支行</div>
+          </li>
+
+
 
         </ul>
       </div>

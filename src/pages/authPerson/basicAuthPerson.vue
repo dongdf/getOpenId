@@ -5,12 +5,12 @@
        <li v-if="upimgzm.length>0">
          <img src="../../assets/img/uploadDemo.png"/>
          <span class="delicon" @click="delimgzm()">删除</span></li>
-       <li v-else><img src="../../assets/img/authZm.jpg"/><wxupload @upinfo="upinfozm"></wxupload></li>
+       <li @click="chooseimgs(1)" v-else><img src="../../assets/img/authZm.jpg"/><wxupload ref="zm" @upinfo="upinfozm"></wxupload></li>
 
        <li v-if="upimgfm.length>0">
          <img src="../../assets/img/uploadDemo.png"/>
          <span  class="delicon" @click="delimgfm()">删除</span></li>
-       <li v-else><img src="../../assets/img/authFm.jpg"/><wxupload @upinfo="upinfofm"></wxupload></li>
+       <li  @click="chooseimgs(2)" v-else><img src="../../assets/img/authFm.jpg"/><wxupload ref="fm" @upinfo="upinfofm"></wxupload></li>
 
      </ul>
      <div class="auDemo">
@@ -30,6 +30,15 @@
 
     },
     methods:{
+      chooseimgs(str){
+        if(str == 1){
+          this.$refs.zm.chooseImg('zm');
+        }else {
+          this.$refs.fm.chooseImg('fm');
+        }
+
+
+      },
       upinfozm(value){
         // alert(value)
         this.upimgzm.push(value)
@@ -39,10 +48,6 @@
         this.upimgfm.push(value)
       },
 
-      upinfo(value){
-        // alert(value)
-        this.upimgs.push(value)
-      },
       delimgzm(){
         this.upimgzm.splice(0,1)
       },

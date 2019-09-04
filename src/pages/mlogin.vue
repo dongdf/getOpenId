@@ -39,6 +39,18 @@
         })
       },
       login(){
+        if(!this.phoneCode){
+          this.$toast('请输入验证码')
+          return false
+        }
+        this.$http.post('bind',{
+          data:{
+            phone:this.phone,
+            code:this.phoneCode
+          }
+        }).then(res=>{
+
+        })
 
       },
       getcode(){
@@ -52,18 +64,27 @@
         }
         this.codeSending = false
         this.timerText =  this.timer+'S'
-        let t = setInterval(()=>{
-          if(this.timer == 0){
-            this.timerText = '获取验证码'
-            this.codeSending = true
-            this.timer = 10
-            clearInterval(t)
-          }else{
-            this.timer--;
-            this.timerText =  this.timer+'S'
+        this.$http.post('sendCode',{
+          data:{
+            phone:this.phone
           }
 
-        },1000)
+        }).then(res=>{
+          let t = setInterval(()=>{
+            if(this.timer == 0){
+              this.timerText = '获取验证码'
+              this.codeSending = true
+              this.timer = 10
+              clearInterval(t)
+            }else{
+              this.timer--;
+              this.timerText =  this.timer+'S'
+            }
+
+          },1000)
+        })
+
+
       }
     }
   }

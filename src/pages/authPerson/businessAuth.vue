@@ -2,10 +2,10 @@
   <div>
     <div class="forgetSetp breakfour">
       <ul class="clearfix">
-        <li class="leftli active"><a href=""><i>1</i><span>上传截图</span></a></li>
-        <li class="leftli active"><a href=""><i>2</i><span>完善信息</span></a></li>
-        <li class="leftli active"><a href=""><i>3</i><span>确认信息</span></a></li>
-        <li class="active"><a href=""><i>4</i><span>签约合同</span></a></li>
+        <li class="leftli active "><a href=""><i>1</i><span>上传截图</span></a></li>
+        <li class="leftli " :class="setpidx>=2?'active':''"><a href=""><i>2</i><span>完善信息</span></a></li>
+        <li class="leftli "  :class="setpidx>=3?'active':''"><a href=""><i>3</i><span>确认信息</span></a></li>
+        <li class=""  :class="setpidx>=4?'active':''"><a href=""><i>4</i><span>签约合同</span></a></li>
 
       </ul>
     </div>
@@ -93,22 +93,35 @@
     <div v-show="setpidx == 3">
       <div class="chooseMain">
         <ul>
-          <li>
+          <li @click="openrangetype">
             <h3>个体工商户类型</h3>
             <p>请选择个体工商户类型</p>
           </li>
 
           <li>
-            <h3>附加经营范围</h3>
-            <p @click="openrange()">请选择个体工商户类型</p>
+            <h3>经营范围</h3>
+            <!--<p @click="openrange()">请选择个体工商户类型</p>-->
             <div class="comrange">
               <ul>
-                <li class="dis">经营范经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围围</li>
-                <li>经营范经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围围</li>
-                <li>经营范经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围围</li>
+                <!--<li class="dis">经营范经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围围</li>-->
+                <li class="dis">网上从事：化工产品市场推广服务、企业形象策划服务
+                  市场营销策划服务、保健用品市场推广服务
+                  室内设计及市场推广服务、陶瓷产品市场推广服务
+                  系统安装服务、软件、信息技术、电子产品
+                  机械设备领域内的技术开发、技术咨询、技术服务
+                  技术转让服务、计算机软件开发、维护
+                  信息咨询服务、信息咨询，财务信息咨询
+                  电子商务信息咨询、房产信息咨询、互联网信息咨询
+                  电商信息咨询推广服务、知识产权相关信息咨询
+                  工程造价信息咨询、企业管理咨询、劳务信息咨询
+                  电脑图文设计制作、多媒体技术开发服务
+                  网页设计（涉及前置审批的除外）</li>
+                <!--<li>经营范经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围围</li>-->
               </ul>
             </div>
           </li>
+
+
           <li style="border:none;">
             <h3>请选择/编辑申请名称</h3>
             <ul class="rangnamelist">
@@ -179,6 +192,23 @@
             alert(str)
           }
         })
+      },
+      openrangetype(){
+        this.$card({
+          name:'bistypeRange',
+          width:'90%',
+          title:'选择类型',
+          funCode:'bistypeRange',
+          props:{
+            a:1,
+            b:2
+          },
+          callback:(close,str)=>{
+            // alert(str)
+            close()
+          }
+        })
+
       },
       openrange(){
         this.$card({

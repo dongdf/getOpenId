@@ -50,7 +50,7 @@
                   return that.getwxImg(serverObj)
                 }).then(ossimg=>{
                   // alert('oss上传'+ossimg.data)
-                  that.tempImgs.push({url:ossimg.data});
+                  that.tempImgs.push({url:ossimg.url});
                 })
               }
             });
@@ -72,7 +72,13 @@
       },
       getwxImg(mid){//获取mideid 并得到oss 地址
         return new Promise((resolve,reject)=> {
-          this.$http.get('authentication/weChat/uploadMediaToOSS?mediaId='+mid).then(res => {
+          this.$http.post('uploadCardImages',{
+            data:{
+              mediaId:'',
+              image_type:'',
+              name:''//可选
+            }
+          }).then(res => {
             resolve(res.data);
           })
         })

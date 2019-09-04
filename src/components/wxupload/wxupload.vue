@@ -1,5 +1,5 @@
 <template>
-  <div class="csup" @click="chooseImg">
+  <div class="csup">
     <div class="upicon" v-if="showicon">
       <img src="@/assets/img/upicon.png"/>
       <div class="utext">上传图片</div>
@@ -22,8 +22,9 @@
       }
     },
     methods: {
-      chooseImg(){//微信选择图片
+      chooseImg(str='',name=''){//微信选择图片
 
+        alert(str)
         this.$emit('upinfo','图片地址')
         return false;
         let that = this;
