@@ -36,7 +36,7 @@
     .leftbox{width:90%;height:80px;overflow: hidden;margin:0;
       .leftnav{overflow-x:auto;width:100%;margin:0;height:100px;
         ul{display: inline-block;white-space: nowrap;margin:0;
-          li{display:inline-block;padding:10px 10px 20px 10px;font-size:32px;margin:0;position: relative;
+          li{display:inline-block;padding:10px 14px 20px 14px;font-size:32px;margin:0;position: relative;
             i{
               position:absolute;width: 0;height:0;border-top:12px solid #ff5b2d;border-right:20px solid transparent;border-left:20px solid
               transparent;bottom:6px;left:50%;margin-left:-12px;}
