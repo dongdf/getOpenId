@@ -89,7 +89,7 @@
 <style lang="scss"   scoped>
   .promotContent{
     background:#FFF;
-    position: absolute;
+    position: fixed;
     border-radius: 20px;
     top:25%;
     padding:30px;
