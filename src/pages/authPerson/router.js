@@ -5,6 +5,9 @@ import businessAuth from './businessAuth'
 import bisRange from './bisRange'
 import contractList from './contractList'
 import qianzi from './qianzi'
+import personalAuth from './personalAuth'
+import teamAuth from './teamAuth'
+
 
 
 
@@ -29,6 +32,16 @@ window.addRouter({
   component:businessAuth
 })
 window.addRouter({
+  name:'personalAuth',
+  title:'个人认证',
+  component:personalAuth
+})
+window.addRouter({
+  name:'teamAuth',
+  title:'团体认证',
+  component:teamAuth
+})
+window.addRouter({
   name:'bisRange',
   title:'经营范围',
   component:bisRange
@@ -43,6 +56,4 @@ window.addRouter({
   title:'签字',
   component:qianzi
 })
-
-
 
