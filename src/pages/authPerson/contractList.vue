@@ -57,7 +57,7 @@
     bottom:190px;
     top:150px;left:0;right:0;
 
-    background: red;
+
     .contractFrame{
       position: relative;
       width:100%;

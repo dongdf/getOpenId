@@ -35,6 +35,7 @@
     created(){
       this.$nextTick(()=>{
         this.render()
+        document.body.style.overflow='hidden'
       })
 
 
@@ -72,6 +73,7 @@
 
 
       close(){
+        document.body.style.overflow='auto'
 
         this.$destroy()
         this.$el.remove();
@@ -98,7 +100,7 @@
   }
   .popw{
     background: #FFF;
-    position: absolute;
+    position: fixed;
     right:0;top:0px;
     padding:20px;
     bottom:0;
