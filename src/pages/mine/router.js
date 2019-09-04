@@ -2,7 +2,7 @@ import qyts from './qyts'
 import modifyCom from './modifyCom'
 import minfo from './minfo'
 import selectCompany from './selectCompany'
-
+import contractnameList from './contractnameList'
 
 window.addRouter({
   name:'qyts',
@@ -23,4 +23,9 @@ window.addRouter({
   name:'selectCompany',
   title:'选择公司',
   component:selectCompany
+})
+window.addRouter({
+  name:'contractnameList',
+  title:'合同列表',
+  component:contractnameList
 })

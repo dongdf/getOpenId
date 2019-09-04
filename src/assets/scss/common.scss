@@ -75,7 +75,8 @@ a {
   padding:20px 0;
 }
 
-
+.fr{float:right}
+.fl{float:left}
 
 //.video-js .vjs-fullscreen-control{
 //  display: none;
@@ -123,4 +124,34 @@ button.main{
   display: block;
   width:100%;
 
+}
+.forgetSetp {
+  text-align: center;
+  li{
+    float: left;width:35%;position:relative;background:#ffded5;padding:10px 0 10px 30px;box-sizing: border-box;
+    a{color:#ff5b2d;display: block;width:100%;
+      i,span{display: inline-block;vertical-align: middle}
+      i{width:30px;height:30px;border-radius: 50%;margin:0 8px;box-sizing: border-box;border:2px solid #ff5b2d;line-height:30px;font-size:12px}
+    }
+  }
+  li:first-child{width:30%;}
+  .active{
+    background:#ff5b2d;
+    a{color:#fff}
+    i{background:#fff;color:#ff5b2d;border:2px solid #fff;}
+  }
+
+  .leftli:before{position: absolute;width:30px;height:100%;border-radius: 0 500px 500px 0;border-right:8px solid #fff;content:'';top:0;right:-30px;background:#ffded5;z-index:2}
+  .active:before{background:#ff5b2d; }
+
+
+}
+.breakfour{
+  li{width:26%;padding:10px 0 10px 30px;
+    a{
+      i{margin:0 4px}
+    }
+
+  }
+  li:first-child{width:22%;padding-left:0}
 }
