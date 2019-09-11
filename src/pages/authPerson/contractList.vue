@@ -39,7 +39,6 @@
   import { CONTRACT_URL } from '@/constants'
   export default {
     name: "contract-list",
-    props:['contactnumb'],
     data(){
       return{
         showm:false,
@@ -49,6 +48,7 @@
       }
     },
     created(){
+
 
       this.getcontract()
     },
@@ -68,6 +68,7 @@
         }).then(res=>{
           this.clist = res.data
 
+          window.connumb = this.clist.length
           this.curUrl = CONTRACT_URL+this.clist[this.curTab].url;
           this.$emit('contactnumb','https://www.baidu.com/img/bd_logo1.png?qua=high')
 

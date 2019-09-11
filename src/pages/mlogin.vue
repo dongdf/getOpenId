@@ -61,6 +61,14 @@
         })
       },
       login(){
+        if(!this.phone){
+          this.$toast('请输入手机号')
+          return false
+        }
+        if(!this.$options.filters.isphone(this.phone)){
+          this.$toast('请输入正确的手机号')
+          return false;
+        }
         if(!this.phoneCode){
           this.$toast('请输入验证码')
           return false
@@ -82,9 +90,12 @@
               }
             })
           }else{
-            this.$toast(res.msg)
+            this.$messagebox.alert(res.msg);
+            // this.$toast(res.msg)
           }
 
+        },error=>{
+          alert(res.msg)
         })
 
       },
@@ -123,7 +134,7 @@
             },1000)
           }else{
             this.codeSending = true
-            this.$toast(info.msg)
+            this.$messagebox.alert(info.msg);
           }
 
         },error=>{

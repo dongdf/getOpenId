@@ -201,7 +201,7 @@
                   query:{
                     funCode:'teamAuth',
                     setp:2,
-                    cid:id
+                    cid:this.curInfo.cmpy_id
                   }
                 })
               }
@@ -225,7 +225,7 @@
                   query:{
                     funCode:'businessAuth',
                     setp:2,
-                    cid:id
+                    cid:this.curInfo.cmpy_id
                   }
                 })
               }
@@ -249,7 +249,7 @@
                   query:{
                     funCode:'personalAuth',
                     setp:2,
-                    cid:id
+                    cid:this.curInfo.cmpy_id
                   }
                 })
               }

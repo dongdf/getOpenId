@@ -123,7 +123,7 @@
     <div v-show="setpidx == 3">
        <elem configs="contractList" @contactnumb="contactnumb" ref="con"  v-show="!isqz"></elem>
        <div class="tx">
-         <button class="main"  @click="isqz = true">一键签约()</button>
+         <button class="main"  @click="isqz = true">一键签约({{cnumb}})</button>
          <div class="xieyi"><span class="ckbox"><img src="../../assets/img/checkbox.jpg"/> </span>我已阅读并同意非全制度</div>
        </div>
     </div>
@@ -167,7 +167,8 @@
           {classfyName:'初中',value:2}
 
         ],
-        areaselectname:''
+        areaselectname:'',
+        cnumb:0,
 
       }
     },
@@ -176,6 +177,9 @@
       if(this.$route.query.cid){
         this.getCurinfo(this.$route.query.cid)
       }
+      setTimeout(()=>{
+        this.cnumb = window.connumb
+      },500)
 
     },
     methods: {
