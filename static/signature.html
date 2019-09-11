@@ -8,7 +8,7 @@
     <title>电子签约</title>
 </head>
 
-<style>
+<style type="text/css">
     html, body {
         position: relative;
         width: 100%;
@@ -83,10 +83,25 @@
         background: transparent;
         z-index: 1;
     }
+  .qianying:before{
+    position: absolute;
+    content:'请在这里写您的姓名';
+
+    z-index: -1;
+    top:40%;
+    left:50%;
+    width:150px;
+
+     margin-left:-60px;
+
+    color:#666;
+  }
+
+
 </style>
 
 <body>
-<div id="layer"></div>
+<div id="layer" class="qianying"></div>
 <canvas id="canvas"></canvas>
 <div id="menuPanel" style="display: none">
     <button id="clearBtn">重置</button>
@@ -95,6 +110,7 @@
 </body>
 
 <script>
+
     try {
         let canvas = document.getElementById("canvas");
         let layer = document.getElementById("layer");
@@ -104,7 +120,22 @@
         let lastY = null;
         let context = canvas.getContext("2d");
 
+
+      let  cleartips = function() {
+        console.log(document.styleSheets)
+
+        // document.style.insertRule('.qianying:before','content:""');
+        document.styleSheets['0'].insertRule(".qianying:before{display:none}",0);
+      }
+      let  showtips = function() {
+        console.log(document.styleSheets)
+
+        // document.style.insertRule('.qianying:before','content:""');
+        document.styleSheets['0'].insertRule(".qianying:before{display:block}",0);
+      }
+
         let setLine = function(event) {
+
             context.lineCap = "round";
             context.lineJoin = "round";
             context.lineWidth = 5;
@@ -139,6 +170,7 @@
             lastY = y;
         };
         layer.addEventListener("touchstart", function(event) {
+          cleartips();
             let touch = event.touches[0];
             lastX = touch.clientX;
             lastY = touch.clientY;
@@ -160,6 +192,7 @@
         });
 
         clearBtn.addEventListener("click", function() {
+          showtips()
             context.clearRect(0, 0, width, height);
         });
         function  clearcanvas() {

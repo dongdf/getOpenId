@@ -27,8 +27,8 @@
        </div>
 
      </div>
-     <div class="contContent">
-       <iframe  v-show="!showm && curUrl"  :src="curUrl"   frameborder="0"  class="contractFrame"></iframe>
+     <div class="contContent" id="fcontent">
+       <!--<iframe  v-show="!showm && curUrl"  :src="curUrl"   frameborder="0"  class="contractFrame"></iframe>-->
      </div>
    </div>
 
@@ -60,7 +60,20 @@
       },
       changec(idx){
         this.curTab = idx;
-        this.curUrl = CONTRACT_URL+this.clist[this.curTab].url
+        this.curUrl = CONTRACT_URL+this.clist[this.curTab].url;
+        document.getElementById('fcontent').innerHTML = ''
+        this.creatFrame(this.curUrl)
+      },
+      creatFrame(url){
+        var iframe = document.createElement('iframe');
+        iframe.src = url;
+        // iframe.classList('contractFrame')
+        iframe.setAttribute('id','conFrame')
+        iframe.setAttribute('frameborder','0')
+        iframe.style.width="100%"
+        iframe.style.height="100%"
+        iframe.style.position="relative"
+        document.getElementById('fcontent').appendChild(iframe);
       },
       getcontract(){
         this.request.post('mapi/getUserContract',{
@@ -70,6 +83,7 @@
 
           window.connumb = this.clist.length
           this.curUrl = CONTRACT_URL+this.clist[this.curTab].url;
+          this.creatFrame(this.curUrl)
           this.$emit('contactnumb','https://www.baidu.com/img/bd_logo1.png?qua=high')
 
         })

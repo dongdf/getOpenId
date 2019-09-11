@@ -128,7 +128,7 @@
       </div>
     </div>
 
-    <elem :showQz="isqz"   configs="qianzi"></elem>
+    <elem :showQz="isqz" :numbs="cnumb" :qname="curInfo.name"  configs="qianzi"></elem>
 
 
     <div :is="item.component" v-for="item in itemComponents" :pickerShow="item.isshow" :pickerList="item.data"  @itemok="itemOk" @itemcancle="itemCancle"></div>

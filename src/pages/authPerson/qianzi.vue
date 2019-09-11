@@ -5,7 +5,7 @@
       <div class="qzqContent">
 
         <div class="qzqbar">
-          <div class="demoname">签名:往事随风</div>
+          <div class="demoname">签名:{{qname}}</div>
           <div @click="reset()" class="clearname" style="text-align: center"><i><img src="../../assets/img/clearname.jpg"/> </i>清除 </div>
           <div class="demoname" style="text-align: right" @click="closepp"> 关闭 </div>
 
@@ -20,7 +20,7 @@
 
         </div>
         <div>
-          <button class="main" @click="saveqzq">立即签约(6)</button>
+          <button class="main" @click="saveqzq">立即签约({{numbs}})</button>
         </div>
       </div>
     </div>
@@ -49,10 +49,12 @@
   }
 
   export default {
-    props:['showQz'],
+    props:['showQz','numbs','qname'],
     name: "qianzi",
+
     data() {
       return {
+
 
       }
     },
@@ -324,6 +326,7 @@
           return false;
         }
         this.saveqm(returnImg).then(res=>{
+          // Indicator.close()
           this.$indicator.open({
             text: '签约中,请稍后...',
             spinnerType: 'snake'
@@ -470,7 +473,7 @@
     width:100%;
 
   }
-  .canvasqz{height:500px; position:relative; border:2px solid #DDD; margin-bottom: 20px;}
+  .canvasqz{height:500px; position:relative; border:2px solid #DDD; overflow:hidden; margin-bottom: 20px;}
   .mint-popup-3 {
     background: none !important;
     width: 100%;
