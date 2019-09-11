@@ -5,8 +5,7 @@ import { HOST } from '@/constants'
 import {storage} from '@/utils/tools'
 import md5 from "js-md5";
 
-
-
+import { Indicator } from 'mint-ui';
 
 var openid  = localStorage.getItem('WX_UID') || ''
 var openToken  = md5('renshe_member_'+openid)
@@ -16,6 +15,7 @@ Axios.post = function (url,data={}) {
   return new Promise((resolve,reject)=> {
     data.openid = openid;
     data.token = openToken;
+    Indicator.open()
     $.ajax({
       //请求方式
       type : "POST",
@@ -27,12 +27,17 @@ Axios.post = function (url,data={}) {
       data:data,
       //请求成功
       success : function(result) {
-
+        // document.getElementById('loading').style = 'none'
+        setTimeout(()=>{
+          Indicator.close()
+        },200)
         resolve(result)
       },
       //请求失败，包含具体的错误信息
       error : function(e){
-
+        setTimeout(()=>{
+          Indicator.close()
+        },200)
         reject(e)
       }
     });
@@ -59,11 +64,13 @@ Axios.get = function (url,data={}) {
       data:data,
       //请求成功
       success : function(result) {
+
         resolve(result)
 
       },
       //请求失败，包含具体的错误信息
       error : function(e){
+
         reject(e)
 
       }

@@ -145,7 +145,7 @@
 
     components:{pickeritem,areas},
 
-    name: "personalAuth",
+    name: "teamAuth",
     data() {
       return {
         itemComponents:[],

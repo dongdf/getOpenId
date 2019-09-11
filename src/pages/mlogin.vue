@@ -70,10 +70,11 @@
             code:this.phoneCode
         }).then(res=>{
           if(res.code == 0){
-            this.request.post('/mapi/getUserInfo',{}).then(res=>{
-
-            })
-            return false;
+            localStorage.setItem('islogin',1)
+            // this.request.post('/mapi/getUserInfo',{}).then(res=>{
+            //
+            // })
+            // return false;
             this.$router.push({
               path:'/authPerson',
               query:{
@@ -101,11 +102,11 @@
         }
         this.codeSending = false
 
-        this.$http.post('mapi/sendCode',{
+        this.request.post('mapi/sendCode',{
           phone:this.phone
-        }).then(res=>{
-          console.log(res.data)
-          var info =JSON.parse(res.data)
+        }).then(info=>{
+
+
           if(info.code == 0){
             this.timerText =  this.timer+'S'
             let t = setInterval(()=>{

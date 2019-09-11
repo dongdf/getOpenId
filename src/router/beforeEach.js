@@ -23,11 +23,20 @@ const beforeEach = (to, from, next) => {
   //
   //   }
   // }
-  if(from.meta.keepAlive){
-    var scrollHeight=$(document).scrollTop();
-    if(scrollHeight != 0){
-      sessionStorage.setItem('srheight',scrollHeight);
-    }
+  // if(from.meta.keepAlive){
+  //   var scrollHeight=$(document).scrollTop();
+  //   if(scrollHeight != 0){
+  //     sessionStorage.setItem('srheight',scrollHeight);
+  //   }
+  // }
+  var islogin  = localStorage.getItem('islogin') || ''
+  if(!islogin){
+      if(to.name == 'mlogin'){
+        next()
+      }else{
+        next({path:'/mlogin'});
+      }
+
   }
   next();
 }
