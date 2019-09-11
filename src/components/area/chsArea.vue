@@ -45,12 +45,12 @@
             content: '-',
             className: 'slot4'
           },
-          // {
-          //   flex: 1,
-          //   values: [],
-          //   className: 'slot5',
-          //   textAlign: 'center'
-          // }
+          {
+            flex: 1,
+            values: [],
+            className: 'slot5',
+            textAlign: 'center'
+          }
         ],
         myAddressProvince:null,
         myAddressCity:null,
@@ -96,19 +96,19 @@
             };
           }
           //县区
-          // if(values[2]) {
-          //   // this.myAddresscounty = {
-          //   //   name:values[2].name,
-          //   //   code:values[2].code
-          //   // };
-          //
-          //   this.myAddresscounty = {
-          //     name:'',
-          //     code:''
-          //   };
-          //
-          //
-          // }
+          if(values[2]) {
+            this.myAddresscounty = {
+              name:values[2].name,
+              code:values[2].code
+            };
+
+            // this.myAddresscounty = {
+            //   name:'',
+            //   code:''
+            // };
+
+
+          }
         }
       },
     },
@@ -130,11 +130,11 @@
         position: fixed; bottom:0;}
 
     .picker-toolbar h3 {border-bottom:1px solid  #EEE;
-          padding:10px;height:1rem;
+          padding:20px;height:90px;
         position: relative; text-align: center;
         font-weight: normal;}
     .ok {
-        position: absolute; color:#C9A063;  top:15px; right:10px;}
+        position: absolute; color:#FF4A02; font-size:30px;font-weight: bold;  top:25px; right:30px;}
     .cancle {
-        position: absolute;color:#C9A063;  top:15px;left:10px;}
+        position: absolute;color:#666; font-size:30px; top:25px;left:30px;}
 </style>

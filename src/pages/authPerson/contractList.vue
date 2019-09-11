@@ -1,21 +1,34 @@
 <template>
    <div>
      <div class="contractBar">
-       <div class="leftbox fl">
+
          <div class="leftnav ">
-           <ul>
-             <li>非全日制合同<i></i></li>
-             <li>委托授权书</li>
-             <li>非全日制合同</li>
-             <li>委托授权书</li>
-           </ul>
+
+             <div class="slideitem" @click="changec(index)" :class="curTab == index?'cur':''" v-for="c,index in clist">{{c.contract_name}}
+               <!--<span><img src="../../assets/img/reda.png"/> </span>-->
+             </div>
+
+
+
+
+
          </div>
+         <div class="lefticon" @click="showm = !showm"><label><img src="../../assets/img/reda.png"/></label></div>
+
+
+
+
+
+     </div>
+     <div class="ppdiv" v-show="showm">
+       <div class="mmc" >
+         <p  @click="changeitem(index)" :class="curTab == index?'cur':''" v-for="c,index in clist">{{c.contract_name}}</p>
+
        </div>
 
-       <div class="right-btn fr"><i></i></div>
      </div>
      <div class="contContent">
-       <iframe   frameborder="0"  class="contractFrame"></iframe>
+       <iframe  v-show="!showm && curUrl"  :src="curUrl"   frameborder="0"  class="contractFrame"></iframe>
      </div>
    </div>
 
@@ -23,35 +36,125 @@
 </template>
 
 <script>
+  import { CONTRACT_URL } from '@/constants'
   export default {
     name: "contract-list",
+    props:['contactnumb'],
+    data(){
+      return{
+        showm:false,
+        curUrl:'',
+        curTab:0,
+        clist:[],
+      }
+    },
+    created(){
+
+      this.getcontract()
+    },
     methods:{
+      changeitem(idx){
+        this.curTab = idx;
+        this.curUrl = CONTRACT_URL+this.clist[this.curTab].url
+        this.showm = false;
+      },
+      changec(idx){
+        this.curTab = idx;
+        this.curUrl = CONTRACT_URL+this.clist[this.curTab].url
+      },
+      getcontract(){
+        this.request.post('mapi/getUserContract',{
+          company_id:this.$route.query.cid
+        }).then(res=>{
+          this.clist = res.data
+
+          this.curUrl = CONTRACT_URL+this.clist[this.curTab].url;
+          this.$emit('contactnumb','https://www.baidu.com/img/bd_logo1.png?qua=high')
+
+        })
+      },
 
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  .contractBar{height:80px;margin:0;
-    .leftbox{width:90%;height:80px;overflow: hidden;margin:0;
-      .leftnav{overflow-x:auto;width:100%;margin:0;height:100px;
-        ul{display: inline-block;white-space: nowrap;margin:0;
-          li{display:inline-block;padding:10px 14px 20px 14px;font-size:32px;margin:0;position: relative;
-            i{
-              position:absolute;width: 0;height:0;border-top:12px solid #ff5b2d;border-right:20px solid transparent;border-left:20px solid
-              transparent;bottom:6px;left:50%;margin-left:-12px;}
-          }
-        }
-      }
-    }
-
-    .right-btn{width:10%;
-      i{display:block;width:0;height:0;border-top:24px solid #ff5b2d;border-left:20px solid transparent;border-right:20px solid
-        transparent;margin:20px auto}
-    }
+  .alls{
+    position: absolute;
+    background: #FFF;
+    top:140px;
+    left:0;right:0;
+    padding:30px;
+    p{padding:20px; border-bottom: 1px solid #EEE}
 
   }
+  .contractBar{
+    position: relative;
+    height:80px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    .leftnav{
+      position: absolute;
+      top:0;right:100px;
+      left:0;
+      bottom:0;
+      display: -webkit-box;
+      overflow: hidden;
+      overflow-x: scroll;
+      -webkit-overflow-scrolling:touch;
+      .slideitem{
+        position: relative;line-height: 100%;
+        margin:0 30px;
+        font-size:30px;
+        line-height: 80px;
+        span{
+          position: absolute;
+          bottom:-20px;
+          left:50%;
+          margin-left:-20px;
+          width:20px;img{width:100%;}
+        }
+      }
+      .cur{
+        color:#FF4a02;
+      }
 
+
+    }
+    .lefticon{
+      position: absolute;
+      width:70px;
+       text-align: center;
+      vertical-align:middle;
+       bottom:20px;
+      right:0;top:20px;
+      border-left:1px solid #EEE;
+      label{width:25px;display: inline-block;img{width:100%;
+        position: relative; top:0px;}}
+    }
+
+
+  }
+  .ppdiv{
+    position: fixed;
+    top:140px;
+    width:100%;height:100%;
+
+    .mmc{
+      background: #FFF;
+      box-shadow: 0 2px 10px rgba(0,0,0,.2);
+      padding:20px;
+      p{
+        padding:15px; border-bottom: 1px solid #EEE;
+      }
+      .cur{
+        color:#FF4a02
+      }
+    }
+    z-index: 999;
+
+    bottom:0;
+    background:rgba(0,0,0,.5);
+  }
   .contContent{
     position:absolute;
     bottom:190px;

@@ -6,11 +6,16 @@
   </div>
   <div class="companyList">
     <ul>
-      <li class="actives">北京位置微云北京位置微云北京位置微云北京位置微云<label class="ckbox ckboxed"></label></li>
-      <li>北京位置微云北京位置微云北京位置微云北京位置微云<label class="ckbox"></label></li>
-      <li>北京位置微云北京位置微云北京位置微云北京位置微云<label class="ckbox"></label></li>
-      <li>北京位置微云北京位置微云北京位置微云北京位置微云<label class="ckbox"></label></li>
+      <!--<li class="actives">北京位置微云北京位置微云北京位置微云北京位置微云<label class="ckbox ckboxed"></label></li>-->
+      <!--<li>北京位置微云北京位置微云北京位置微云北京位置微云<label class="ckbox"></label></li>-->
+      <!--<li>北京位置微云北京位置微云北京位置微云北京位置微云<label class="ckbox"></label></li>-->
+      <!--<li>北京位置微云北京位置微云北京位置微云北京位置微云<label class="ckbox"></label></li>-->
+      <li v-for="c,index in comlist" @click="selcom(c)">{{c.company_name}}<label class="ckbox" :class="sele.id == c.id?'ckboxed':''"></label></li>
+
     </ul>
+    <div class="sele">
+      <button class="main" @click="gomine">确定</button>
+    </div>
   </div>
 
 </div>
@@ -18,11 +23,63 @@
 
 <script>
   export default {
-    name: "select-company"
+    name: "select-company",
+    data(){
+      return{
+        comlist:[],
+        sele:{},
+      }
+    },
+    created(){
+      this.getcominfo()
+    },
+    methods:{
+      gomine(){
+        this.$router.replace({
+          path:'/mine',
+          query:{
+            funCode:'minfo',
+            id:this.sele.cmpy_id
+          }
+        })
+      },
+      selcom(obj){
+        this.sele = obj;
+      },
+      getcominfo(){
+        this.request.post('mapi/getCompanyList',{}).then(res=>{
+          if(res.code == 0){
+            this.comlist = res.data;
+
+
+          }else{
+            this.$toast(res.msg)
+          }
+
+        },error=>{
+
+          this.$messagebox({
+            title: '提示',
+            message: '认证失败',
+            showCancelButton: false
+          }).then(action => {
+            location.reload()
+
+
+          });
+
+
+        })
+      }
+    }
   }
 </script>
 
 <style lang="scss" scoped>
+  .sele{
+    padding:20px 30%;
+    text-align: center;
+  }
   .seltitle{
     padding:40px;
     h3{font-size:35px;}

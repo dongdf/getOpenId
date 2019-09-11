@@ -19,17 +19,14 @@ import wxupload from '@/components/wxupload/index.js'
 Vue.use(wxupload)
 
 
+import http2 from '@/utils/http2'
 
-
+Vue.prototype.request = http2
 
 Vue.prototype.$http = http
 Object.keys(filters).forEach(k => Vue.filter(k,filters[k]));
 
 Vue.config.productionTip = false
-
-
-
-
 
 // 组件安装
 

@@ -3,7 +3,7 @@
       <img src="../../assets/img/qyts.jpg">
       <p>{{tipText}}</p>
       <div class="qbtn">
-        <span>立即签约</span>
+        <span @click="callback()">立即签约</span>
       </div>
     </div>
 </template>

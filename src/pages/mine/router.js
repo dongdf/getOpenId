@@ -3,6 +3,7 @@ import modifyCom from './modifyCom'
 import minfo from './minfo'
 import selectCompany from './selectCompany'
 import contractnameList from './contractnameList'
+import myContract from './myContract'
 
 window.addRouter({
   name:'qyts',
@@ -28,4 +29,9 @@ window.addRouter({
   name:'contractnameList',
   title:'合同列表',
   component:contractnameList
+})
+window.addRouter({
+  name:'myContract',
+  title:'我的合同',
+  component:myContract
 })

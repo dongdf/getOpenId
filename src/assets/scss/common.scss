@@ -125,6 +125,17 @@ button.main{
   width:100%;
 
 }
+button.sm{
+  font-size:28px;
+  padding:10px;
+}
+button.trans{
+  font-size:28px;
+  background:#FFF;
+  color:#FF4A02;
+  border:2px solid #FF4A02;
+  padding:10px;
+}
 .forgetSetp {
   text-align: center;
   li{
@@ -154,4 +165,42 @@ button.main{
 
   }
   li:first-child{width:22%;padding-left:0}
+}
+
+
+.mint-msgbox{
+
+  border-radius:20px ;}
+
+.mint-msgbox-confirm{
+  color:#ff5b2d;
+}
+
+.resext{
+  text-align: right;
+  label{
+    margin-left:50px;
+    i{
+      border-radius: 100px;
+      position: relative;
+      top:3px;
+      margin-right:10px;
+      width:30px;
+      height:30px;
+      display: inline-block;
+      border:3px solid #ddd;
+    }
+    .ichecked{
+      border:5px solid #FF4A02;
+      background: #FF4A02;
+    }
+    .ichecked:after{
+      content:'';
+      position: absolute;
+
+      width:15px;height:15px; background: #FFF;
+      border-radius: 100px;
+      top:0px;left:0px;
+    }
+  }
 }

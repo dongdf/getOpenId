@@ -5,7 +5,7 @@
         <li class="leftli active "><a href=""><i>1</i><span>上传截图</span></a></li>
         <li class="leftli " :class="setpidx>=2?'active':''"><a href=""><i>2</i><span>完善信息</span></a></li>
         <li class="leftli "  :class="setpidx>=3?'active':''"><a href=""><i>3</i><span>确认信息</span></a></li>
-        <li class=""  :class="setpidx>=4?'active':''"><a href=""><i>4</i><span>签约合同</span></a></li>
+        <li class=""  :class="setpidx>=4?'active':''"><a href=""><i>4</i><span>签约</span></a></li>
 
       </ul>
     </div>
@@ -14,9 +14,9 @@
         <ul>
 
           <li v-if="upimgzm.length>0">
-            <img src="../../assets/img/uploadDemo.png"/>
+            <img :src="upimgzm[0]"/>
             <span class="delicon" @click="delimgzm()">删除</span></li>
-          <li v-else><img src="../../assets/img/bsiup.jpg"/><wxupload @upinfo="upinfozm"></wxupload></li>
+          <li v-else @click="upimgadd"><img src="../../assets/img/bsiup.jpg"/><wxupload ref="gsup" @upinfo="upinfozm"></wxupload></li>
 
 
 
@@ -173,6 +173,9 @@
       this.setpidx = this.$route.query.setp ? this.$route.query.setp : 1
     },
     methods: {
+      upimgadd(){
+        this.$refs.gsup.chooseImg('');
+      },
       closepp(){
         this.isqz =false;
       },

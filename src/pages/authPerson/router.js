@@ -8,9 +8,17 @@ import qianzi from './qianzi'
 import personalAuth from './personalAuth'
 import teamAuth from './teamAuth'
 import bistypeRange from './bistypeRange'
+import xieyi from './xieyi'
+import idcardview from './idcardview'
 
 
 
+
+window.addRouter({
+  name:'idcardview',
+  title:'身份证预览',
+  component:idcardview
+})
 
 window.addRouter({
   name:'bistypeRange',
@@ -61,5 +69,11 @@ window.addRouter({
   name:'qianzi',
   title:'签字',
   component:qianzi
+})
+
+window.addRouter({
+  name:'xieyi',
+  title:'返佣协议',
+  component:xieyi
 })
 

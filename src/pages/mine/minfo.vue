@@ -5,11 +5,12 @@
         <img class="bgimg" src="../../assets/img/pbanner1.jpg"/>
         <div class="pinfoContent">
            <div class="headerimg">
-             <img  src="../../assets/img/uploadDemo.png"/>
+             <img  :src="curInfo.avatar?curInfo.avatar:morehead"/>
            </div>
            <div class="headerinfos">
-             <h3>刘志军<span>未签约</span></h3>
-             <p>江苏神州易桥财税科技有限公司</p>
+             <h3>{{curInfo.name?curInfo.name:curInfo.nickname}}<span>未签约</span></h3>
+             <p @click="gocompany()" v-show="allcList.length>1"><label class="micons"><img src="../../assets/img/storeicon1.png"/> </label> {{curInfo.company_name}}<label class="micons"><img class="downimg" src="../../assets/img/storedown.png"/> </label></p>
+             <p v-show="allcList.length==1"><label class="micons"><img src="../../assets/img/storeicon1.png"/> </label> {{curInfo.company_name}}</p>
            </div>
         </div>
       </div>
@@ -24,7 +25,7 @@
           <h3>4,000</h3>
           <p>积分(UHRB)</p>
         </div>
-        <div class="quickItem">
+        <div @click="gopage('myContract')" class="quickItem">
           <div class="lines"></div>
           <h3>3</h3>
           <p>合同</p>
@@ -52,6 +53,7 @@
       </div>
       </div>
       <div class="mlists">
+<!--用工宝-->
         <ul>
           <li>
             <div class="lname">我的工作</div>
@@ -62,7 +64,9 @@
             <div class="lbq"><i class="aright"><img src="../../assets/img/arrowRight.jpg"/> </i></div>
           </li>
         </ul>
+<!--用工宝-->
 
+        <!--创业宝-->
         <ul>
           <li>
             <div class="lname">我的个体工商执照</div>
@@ -81,6 +85,11 @@
             <div class="lbq"><i class="aright"><img src="../../assets/img/arrowRight.jpg"/> </i></div>
           </li>
         </ul>
+        <!--创业宝-->
+
+
+<!--分工宝-->
+
         <ul>
 
           <li>
@@ -96,7 +105,7 @@
             <div class="lbq"><i class="aright"><img src="../../assets/img/arrowRight.jpg"/> </i></div>
           </li>
         </ul>
-
+<!--分工宝-->
 
       </div>
     </div>
@@ -104,7 +113,106 @@
 
 <script>
   export default {
-    name: "minfo"
+    name: "minfo",
+    data(){
+      return{
+        curInfo:{},
+        morehead:require('../../assets/img/moren.jpg'),
+        allcList:[]
+
+      }
+    },
+    created(){
+      // if(this.$route.query.id){
+      //   this.getCurinfo(this.$route.query.id)
+      // }else {
+        this.getallcom()
+      // }
+
+      // this.getCurinfo()
+    },
+    methods:{
+      gopage(str){
+        this.$router.push({
+          path:'/mine',
+          query:{
+            funCode:str
+          }
+        })
+      },
+      gocompany(){
+        this.$router.replace({
+          path:'/mine',
+          query:{
+            funCode:'selectCompany'
+          }
+        })
+      },
+      getallcom(){
+        this.request.post('mapi/getCompanyList',{}).then(res=>{
+          if(res.code == 0){
+            this.allcList = res.data;
+            if(this.$route.query.id){
+              this.getCurinfo(this.$route.query.id)
+            }else{
+              if(res.company){
+                this.getCurinfo(res.company.cmpy_id)
+              }else{
+                this.getCurinfo(res.data[0].cmpy_id)
+              }
+            }
+
+
+          }else{
+            this.$toast(res.msg)
+          }
+
+        },error=>{
+
+          this.$messagebox.alert('获取公司列表失败！')
+
+
+        })
+      },
+      getCurinfo(id){
+        this.request.post('mapi/getOneCompanyInfo',{company_id:id}).then(res=>{
+          if(res.code == 0){
+            this.curInfo = res.data
+            console.log(this.curInfo)
+return false;
+            this.$promot({
+              name:'$promot',
+              width:'80%',
+              title:'基本信息',
+              funCode:'qyts',
+              props:{
+                isableclose:false,
+                tipText:'请签约合同用工宝合同'
+
+              },
+              callback:(close)=>{
+                close();
+                this.$router.push({
+                  path:'/authPerson',
+                  query:{
+                    funCode:'teamAuth',
+                    setp:2,
+                    cid:id
+                  }
+                })
+              }
+            })
+
+          }else{
+            this.$toast(res.msg)
+
+          }
+
+        },error=>{
+          this.$messagebox.alert('获取信息失败,点击右上角三个点选择刷新！')
+        })
+      }
+    }
   }
 </script>
 
@@ -229,6 +337,19 @@
             color:#FFF;
           }
         }
+        p{
+          .micons{
+            display: inline-block;
+            width:40px;
+            vertical-align: middle;
+            img{width:100%;}
+            .downimg{width:50%;margin-left:5px;
+              position: relative; top:-5px;}
+
+          }
+          padding-top:10px;
+        }
+
 
       }
     }

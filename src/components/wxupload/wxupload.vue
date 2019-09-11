@@ -23,10 +23,16 @@
     },
     methods: {
       chooseImg(str='',name=''){//微信选择图片
+         // if(str == 1){
+         //   this.$emit('upinfo','https://www.baidu.com/img/bd_logo1.png?qua=high')
+         // }else{
+         //   this.$emit('upinfo','https://mat1.gtimg.com/pingjs/ext2020/qqindex2018/dist/img/qq_logo_2x.png')
+         //
+         // }
+         //
+         // return false
 
-        alert(str)
-        this.$emit('upinfo','图片地址')
-        return false;
+
         let that = this;
         wx.ready(function () {
           wx.chooseImage({
@@ -37,10 +43,19 @@
               var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
               that.uploadWximg(res.localIds).then(serverObj=>{
                 // alert('上传成功'+JSON.stringify(serverObj));
-                return that.getwxImg(serverObj)
+                return that.getwxImg(serverObj,str,name)
               }).then(ossimg=>{
                 // alert('oss上传'+ossimg.data)
-                that.tempImgs.push({url:ossimg.data});
+                if(ossimg.code == 0){
+                  alert(JSON.stringify(ossimg))
+                  this.$emit('upinfo',ossimg.data)
+                }else{
+                  alert(ossimg.msg)
+                }
+
+                // that.tempImgs.push({url:ossimg.data});
+              },error=>{
+                alert('上传失败请重新选择')
               })
             }
           });
@@ -60,11 +75,32 @@
           })
         })
       },
-      getwxImg(mid){//获取mideid 并得到oss 地址
+      getwxImg(mid,str,name){//获取mideid 并得到oss 地址
         return new Promise((resolve,reject)=> {
-          this.$http.get('authentication/weChat/uploadMediaToOSS?mediaId='+mid).then(res => {
-            resolve(res.data);
-          })
+
+          if(str == 1 || str == 2){//身份证验证
+            var pdata;
+            pdata={
+              mediaId:mid,
+              image_type:str,
+              name:name
+            }
+            this.request.post('mapi/uploadCardImages',pdata).then(res => {
+              resolve(res.data);
+            },error=>{
+              reject()
+            })
+          }else{//公司营业执照
+            var pdata={
+              id:mid
+            }
+            this.request.post('mapi/uploadIndustryImg',pdata).then(res => {
+              resolve(res.data);
+            },error=>{
+              reject()
+            })
+          }
+
         })
       },
       delimg(obj){

@@ -10,12 +10,14 @@
         <button @click="login">用户登录</button>
 
       </li>
-      <div @click="goforget" class="findpas">找回密码</div>
+      <div @click="goforget" class="findpas">找回账号</div>
     </ul>
+    <div class="showxy">*登录即同意<a target="_blank" :href="xyUrl">平台服务协议</a></div>
   </div>
 </template>
 
 <script>
+  import {XIEYI_URL} from '@/constants'
   export default {
     name: "login",
     data(){
@@ -24,11 +26,31 @@
         timerText:'获取验证码',
         codeSending:true,
         phone:'',
-        phoneCode:''
+        phoneCode:'',
+        xyUrl:'',
 
       }
     },
+    created(){
+
+      this.getxieyi()
+    },
     methods:{
+      getxieyi(){
+        this.request.post('mapi/getContractByName',{name:"优才管家平台服务协议"}).then(res=>{
+          this.xyUrl = XIEYI_URL+res.data;
+
+        })
+      },
+      goxieyi(){
+        this.$router.push({
+          path:'/authPerson',
+          query:{
+            funCode:'xieyi'
+
+          }
+        })
+      },
       goforget(){
         this.$router.push({
           path:'/authPerson',
@@ -43,17 +65,32 @@
           this.$toast('请输入验证码')
           return false
         }
-        this.$http.post('bind',{
-          data:{
+        this.request.post('mapi/bind',{
             phone:this.phone,
             code:this.phoneCode
-          }
         }).then(res=>{
+          if(res.code == 0){
+            this.request.post('/mapi/getUserInfo',{}).then(res=>{
+
+            })
+            return false;
+            this.$router.push({
+              path:'/authPerson',
+              query:{
+                funCode:'renzheng'
+              }
+            })
+          }else{
+            this.$toast(res.msg)
+          }
 
         })
 
       },
       getcode(){
+
+//        $.post({url:'https://www.lyphp.cn/mapi/sendCode',dataType: 'json',data:{token:'1212',a:{c:1,d:2},openid:'1212'}})
+// return false;
         if(!this.$options.filters.isphone(this.phone)){
           this.$toast('请输入正确的手机号')
           return false;
@@ -63,25 +100,34 @@
           return false;
         }
         this.codeSending = false
-        this.timerText =  this.timer+'S'
-        this.$http.post('sendCode',{
-          data:{
-            phone:this.phone
+
+        this.$http.post('mapi/sendCode',{
+          phone:this.phone
+        }).then(res=>{
+          console.log(res.data)
+          var info =JSON.parse(res.data)
+          if(info.code == 0){
+            this.timerText =  this.timer+'S'
+            let t = setInterval(()=>{
+              if(this.timer == 0){
+                this.timerText = '获取验证码'
+                this.codeSending = true
+                this.timer = 10
+                clearInterval(t)
+              }else{
+                this.timer--;
+                this.timerText =  this.timer+'S'
+              }
+
+            },1000)
+          }else{
+            this.codeSending = true
+            this.$toast(info.msg)
           }
 
-        }).then(res=>{
-          let t = setInterval(()=>{
-            if(this.timer == 0){
-              this.timerText = '获取验证码'
-              this.codeSending = true
-              this.timer = 10
-              clearInterval(t)
-            }else{
-              this.timer--;
-              this.timerText =  this.timer+'S'
-            }
-
-          },1000)
+        },error=>{
+          this.codeSending = true
+          alert('请求失败')
         })
 
 
@@ -91,9 +137,19 @@
 </script>
 
 <style lang="scss" scoped>
+  .showxy{
+    position: fixed;width:100%;
+    color:#666;
+    left:0;
+    bottom:80px;
+    text-align: center;
+
+    a{color:#fa4412;}
+
+  }
   .findpas{
     text-align: center;
-    color:#999;
+    color:#666;
   }
   .loginicon{
     width:70px;

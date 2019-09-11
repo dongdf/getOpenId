@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>play balloons</title>
+<style type="text/css">
+ *{
+    /*设置外边距*/
+     margin: 0px;
+     /*设置内边距*/
+     padding:0px;
+     /*设置背景颜色*/
+     color: gray;
+ }
+ body{
+     overflow:hidden;
+     background: gray;
+ }
+ .balloon{
+      /*设置布局方式*/
+      position:absolute;
+      color:#333;
+      border-radius: 1000px;
+      /*设置块的宽和高*/
+      width:160px;
+      height:160px;
+
+      /*设置背景颜色*/
+
+ }
+
+</style>
+</head>
+<body>
+   <!-- 播放歌曲 -->
+  <!--<audio src="song/song01.mp3" controls="controls"
+  loop="loop" preload="auto" autoplay="autoplay">
+  </audio>-->
+  <!-- 播放视频 -->
+  <!--<video src="vidio/bian.mp4" controls="controls" autoplay="autoplay" width="500"
+         height="600" style="-webkit-transform:rotate(-90deg)"></video>-->
+  <script>
+  var num;
+  var Ww=window.innerWidth;
+  var Wh=window.innerHeight;
+  var bz=160;
+  var i=0;
+  var templist=[{name:'张三'},{name:'李四'},{name:'王五'},{name:'赵六'},{name:'钱七'},{name:'钱七'},{name:'钱七'},{name:'钱七'},{name:'钱七'},{name:'钱七'},]
+  init(templist);
+  window.setInterval(move,100);
+  function init(num){//初始化创造气球集群
+    var balloons=document.querySelectorAll('.balloon');
+    if(balloons.length>10){
+      return false
+    }
+	  var fragment=document.createDocumentFragment();
+	 for(i=0;i<num.length;i++) {
+		 var p=document.createElement("div");
+		 p.classList.add('balloon');
+     p.innerHTML='<img mid='+i+' src="deng1.png"/>';
+		 p.style.top=Wh-bz+160+'px';
+     p.setAttribute('mid',i)
+		 p.style.left=Math.floor(Math.random()*Ww)+'px';
+     var x  = Math.floor(Math.random()*50+150)+'px'
+     p.style.width=x;
+     p.style.height=x;
+		 fragment.appendChild(p);
+		 p.speed=Math.floor(Math.random()*10+1);
+	 }
+	 document.body.appendChild(fragment);
+  }//setinterval:循环
+   //settimeout：延迟
+   //request
+  function move(){
+	    var balloons=document.querySelectorAll('.balloon');
+      if(balloons.length<3){
+        var x = [{name:'张三'},{name:'李四'},{name:'王五'},{name:'赵六'},{name:'钱七'},{name:'钱七'},{name:'钱七'},{name:'钱七'},{name:'钱七'},{name:'钱七'},]
+        init(x);
+      }
+	    //document.Lienter
+	    for(var i=0;i<balloons.length;i++){
+	    	balloons[i].style.top=balloons[i].offsetTop-balloons[i].speed-.5+'px';
+	    	if(balloons[i].offsetTop<-160)
+	    		{
+	    		balloons[i].parentNode.removeChild(balloons[i]);
+	    		init(1);
+	    		}
+	    }
+  }
+  function boom(){
+	   document.addEventListener(
+			                      'click',function(e){
+                              console.log(e.target)
+
+			                           var ele=e.target.parentNode;
+                                 alert(ele.getAttribute('mid'))
+
+			                           //删除节点
+			                           ele.parentNode.removeChild(ele);
+                                 var temps = [{name:'董登发'}]
+			                           // init(temps);
+
+	                                               }
+			                      )
+  }
+  boom();
+  </script>
+</body>
+</html>

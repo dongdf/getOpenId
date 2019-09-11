@@ -9,20 +9,20 @@ const beforeEach = (to, from, next) => {
 
   const WX_UID = storage.get('WX_UID');
   var ss = window.location;
-  if(!WX_UID){
-    if(/^(Auth|invitation|TestCourseDetail|apply)$/.test(to.name)){
-      console.log(/^(Auth|invitation|apply)$/.test(to.name))
-      next();
-    }else{
-      if(!getQueryString('code')){
-        localStorage.setItem('llrouterUrl',ss);
-      }
-      // localStorage.setItem('furl',to.name);
-      console.log('4'+'else')
-      next({path:'/auth',query:{orgiPage:from.name}});
-
-    }
-  }
+  // if(!WX_UID){
+  //   if(/^(Auth|invitation|TestCourseDetail|apply)$/.test(to.name)){
+  //     console.log(/^(Auth|invitation|apply)$/.test(to.name))
+  //     next();
+  //   }else{
+  //     if(!getQueryString('code')){
+  //       localStorage.setItem('llrouterUrl',ss);
+  //     }
+  //     // localStorage.setItem('furl',to.name);
+  //     console.log('4'+'else')
+  //     next({path:'/auth',query:{orgiPage:from.name}});
+  //
+  //   }
+  // }
   if(from.meta.keepAlive){
     var scrollHeight=$(document).scrollTop();
     if(scrollHeight != 0){

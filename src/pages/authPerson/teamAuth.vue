@@ -2,16 +2,16 @@
   <div>
     <div class="forgetSetp">
       <ul class="clearfix">
-        <li class="leftli active"><a href=""><i>1</i><span>身份验证</span></a></li>
-        <li v-bind:class="setpidx>=2?'leftli active':'leftli'"><a href=""><i>2</i><span>填写资料</span></a></li>
-        <li  v-bind:class="setpidx>=3? 'active':''"><a href=""><i>3</i><span>签约非全</span></a></li>
+        <li class="leftli active"><a ><i>1</i><span>身份验证</span></a></li>
+        <li v-bind:class="setpidx>=2?'leftli active':'leftli'"><a ><i>2</i><span>填写资料</span></a></li>
+        <li  v-bind:class="setpidx>=3? 'active':''"><a ><i>3</i><span>签约</span></a></li>
 
       </ul>
     </div>
     <div v-show="setpidx == 1">
       <div class="ptips">
-        请拍摄上传<span>张三</span>的身份证
-        <p>请上传该账户本人的身份证照片</p>
+        <!--请拍摄上传<span>张三</span>的身份证-->
+        <p>国家要求网络运营者为在与用户签订协议或者提供服务时，用户需提供真实身份信息</p>
       </div>
       <elem configs="basicAuthPerson"></elem>
       <div class="subc">
@@ -27,61 +27,89 @@
           <li class="fileTitle">基本信息</li>
           <li>
             <div class="filelabel">姓名</div>
-            <div class="filecontent" style="color:#999">张三</div>
+            <div class="filecontent" style="color:#666;"  >
+              <!--<input v-model="curInfo.name"  type="text" style="text-align: right" placeholder="请输入姓名"/>-->
+              {{curInfo.name}}
+            </div>
           </li>
           <li>
             <div class="filelabel">性别</div>
-            <div class="filecontent">男</div>
+            <div class="filecontent" style="color:#666;"  >
+               <span>{{curInfo.sex_str}}</span>
+               <!--<div class="resext">-->
+                 <!--<label><i class="ichecked"></i>男</label>-->
+                 <!--<label><i></i>女</label>-->
+               <!--</div>-->
+            </div>
           </li>
           <li>
             <div class="filelabel">身份证</div>
-            <div class="filecontent">1305291988***&*3733</div>
+            <div class="filecontent" style="color:#666;"  >
+              {{curInfo.id_card}}
+              <!--<input v-model="curInfo.id_card"  type="text" style="text-align: right" placeholder="请输入身份证"/>-->
+            </div>
           </li>
           <li>
             <div class="filelabel">生日</div>
-            <div class="filecontent">1994-09-28</div>
+            <div class="filecontent" style="color:#666;"  >{{curInfo.birthday}}</div>
           </li>
           <li>
             <div class="filelabel">户籍所在地</div>
-            <div class="filecontent">河北省石家庄市</div>
+            <div class="filecontent" style="color:#666;"  >
+              {{curInfo.registration}}
+              <!--<input v-model="curInfo.registration"  type="text" style="text-align: right" placeholder="请输入户籍所在地"/>-->
+            </div>
           </li>
           <li>
             <div class="filelabel">身份证</div>
-            <div class="filecontent" style="color:#00B12E">已上传></div>
+            <div class="filecontent" style="color:#00B12E" @click="viewIdcard">
+              <span>已上传<i class="rightas"><img src="../../assets/img/righta.jpg"/> </i></span>
+            </div>
           </li>
 
           <li class="fileTitle">其它信息</li>
 
           <li>
-            <div class="filelabel" style="color:#FF4A02">手机号</div>
-            <div class="filecontent"><input type="text" style="text-align: right" placeholder="请输入手机号"/></div>
+            <div class="filelabel"  >手机号</div>
+            <div class="filecontent"  style="color:#666;"  >
+              {{curInfo.phone}}
+              <!--<input v-model="curInfo.phone"  type="number" style="text-align: right" placeholder="请输入手机号"/>-->
+              <!--<input v-model="curInfo.phone"  type="number" style="text-align: right" placeholder="请输入手机号"/>-->
+            </div>
           </li>
           <li>
             <div class="filelabel">银行开卡号</div>
-            <div class="filecontent">3982398239823789</div>
+            <div class="filecontent">
+              <!--{{curInfo.bank_account}}-->
+              <input v-model="curInfo.bank_account"  type="text" style="text-align: right" placeholder="请输入银行开卡号"/>
+            </div>
           </li>
           <li>
             <div class="filelabel">银行卡开户地址</div>
-            <div class="filecontent"><span>山西省</span><span>阳泉市</span><span>高邑县</span></div>
+            <div class="filecontent" @click="areaShow = true">{{areaselectname?areaselectname:'请选择开户行'}}<i class="rightas"><img src="../../assets/img/righta.jpg"/> </i></div>
           </li>
           <li>
             <div class="filelabel">银行卡开户行</div>
-            <div class="filecontent">中关村西三旗支行</div>
+            <div class="filecontent">
+              <input v-model="curInfo.bank_name"  type="text" style="text-align: right" placeholder="请输入银行卡开户行"/>
+            </div>
           </li>
 
 
           <li>
             <div class="filelabel">学历</div>
-            <div class="filecontent">大专</div>
+            <div class="filecontent">
+              <span @click="selectXl()">{{curInfo.education?curInfo.education:'初中'}}<i class="rightas"><img src="../../assets/img/righta.jpg"/> </i></span>
+            </div>
           </li>
           <li>
             <div class="filelabel">每小时工资</div>
-            <div class="filecontent">20</div>
+            <div class="filecontent" style="color:#666;"  >￥20</div>
           </li>
-          <li>
-            <div class="filelabel">工种</div>
-            <div class="filecontent">中关村西三旗支行</div>
-          </li>
+          <!--<li>-->
+            <!--<div class="filelabel">工种</div>-->
+            <!--<div class="filecontent">初中，小学，默认初中</div>-->
+          <!--</li>-->
 
 
 
@@ -93,9 +121,9 @@
       </div>
     </div>
     <div v-show="setpidx == 3">
-       <elem configs="contractList" v-if="!isqz"></elem>
+       <elem configs="contractList" @contactnumb="contactnumb" ref="con"  v-show="!isqz"></elem>
        <div class="tx">
-         <button class="main"  @click="isqz = true">一键签约(6)</button>
+         <button class="main"  @click="isqz = true">一键签约()</button>
          <div class="xieyi"><span class="ckbox"><img src="../../assets/img/checkbox.jpg"/> </span>我已阅读并同意非全制度</div>
        </div>
     </div>
@@ -103,42 +131,207 @@
     <elem :showQz="isqz"   configs="qianzi"></elem>
 
 
+    <div :is="item.component" v-for="item in itemComponents" :pickerShow="item.isshow" :pickerList="item.data"  @itemok="itemOk" @itemcancle="itemCancle"></div>
 
-
+    <areas :pickerShow="areaShow" @areaok="areaOk" @areacancle="areaCancle"></areas>
   </div>
 </template>
 
 <script>
+
+  import pickeritem from '../../components//pickercustom/picker'
+  import areas from '../../components//area/chsArea'
   export default {
+
+    components:{pickeritem,areas},
+
     name: "personalAuth",
     data() {
       return {
+        itemComponents:[],
+        areaShow:false,
+        selectAreaInfo:{},
+        isshow:false,
+        isxueli:false,
         isqz:false,
         setpidx: 1,
         upimgzm:[],
+        curInfo:{},
         timer: 10,
         timerText: '获取验证码',
         codeSending: true,
         phone: '',
-        phoneCode: ''
+        phoneCode: '',
+        fitem2:[
+          {classfyName:'小学',value:1},
+          {classfyName:'初中',value:2}
+
+        ],
+        areaselectname:''
 
       }
     },
     created() {
       this.setpidx = this.$route.query.setp ? this.$route.query.setp : 1;
+      if(this.$route.query.cid){
+        this.getCurinfo(this.$route.query.cid)
+      }
+
     },
     methods: {
+      viewIdcard(){
+        this.$card({
+          funCode:'idcardview',
+          width:'90%',
+          title:'身份证预览',
+          props:{
+            cardinfo:this.curInfo
+          }
+        })
+      },
+      contactnumb(value){
+        alert(value)
+      },
+      areaOk(areaObj){
+        console.log(JSON.stringify(areaObj))
+        this.areaShow = false;
+        this.areaselectname = areaObj.province.name+'/'+areaObj.city.name+'/'+areaObj.county.name;
+        this.selectAreaInfo = areaObj;
+      },
+      areaCancle(){
+        this.areaShow = false;
+      },
+      itemOk(obj){
+        this.itemComponents[0].isshow=false;
+        this.itemComponents=[];
+        this.curInfo.education = obj.selectItem.classfyName
+        console.log(obj)
+      },
+      itemCancle(){
+        this.itemComponents[0].isshow=false;
+        this.itemComponents=[];
+      },
+      selectXl(){
+        this.itemComponents.push({
+          component:pickeritem,
+          data: this.fitem2,
+          isshow:true
+        })
+      },
+
+      getCurinfo(id){
+        this.request.post('mapi/getOneCompanyInfo',{company_id:id}).then(res=>{
+          if(res.code == 0){
+            this.curInfo = res.data
+            if(res.data.bank_aname){
+              this.areaselectname = res.data.bank_pname+'/'+res.data.bank_cname+'/'+res.data.bank_aname
+              this.selectAreaInfo = {
+                "province":{
+                  "name":res.data.bank_pname,
+                  "code":res.data.bank_pid
+                },
+                "city":{
+                  "name":res.data.bank_cname,
+                  "code":res.data.bank_cid
+                },
+                "county":{
+                  "name":res.data.bank_aname,
+                  "code":res.data.bank_aid
+                }
+              };
+            }
+
+
+          }else{
+            this.$toast(res.msg)
+
+          }
+
+        },error=>{
+          this.$messagebox.alert('获取信息失败,点击右上角三个点选择刷新！')
+        })
+      },
       closepp(){
         this.isqz =false;
       },
-      gonext(str){
-        this.$router.push({
-          path:'/authPerson',
-          query:{
-            funCode:'personalAuth',
-            setp:str
-          }
+      checkThree(obj){
+        return new Promise((reslove,reject)=>{
+
+          this.request.post('mapi/checkThree',{
+            company_id:this.$route.query.cid,
+            name:obj.name,
+            bank_account:obj.bank_account,
+            id_card:obj.id_card
+
+          }).then(res=>{
+            if(res.code == 0){
+              reslove()
+            }else {
+              reject(res.msg)
+            }
+          },error=>{
+            reject('请求失败，请重新提交')
+          })
         })
+      },
+      gonext(str){
+        if(!this.curInfo.bank_account){
+          this.$toast('请输入银行开卡号')
+          return false
+        }
+        if(!this.selectAreaInfo.county){
+          this.$toast('请选择银行卡开户地址')
+          return false
+        }
+        if(!this.curInfo.bank_name){
+          this.$toast('请输入银行卡开户行')
+          return false
+        }
+        if(!this.$options.filters.isphone(this.curInfo.phone)){
+          this.$toast('请输入正确的手机号')
+          return false
+        }
+         this.checkThree(this.curInfo).then(cres=>{
+
+           var pdata = {
+             province_id:this.selectAreaInfo.province.code,
+             province:this.selectAreaInfo.province.name,
+             city_id:this.selectAreaInfo.city.code,
+             city:this.selectAreaInfo.city.name,
+             area_id:this.selectAreaInfo.county.code,
+             area:this.selectAreaInfo.county.name,
+             bank_account:this.curInfo.bank_account,
+             bank_name:this.curInfo.bank_name,
+             education:this.curInfo.education,
+             company_id:this.$route.query.cid,
+             id:this.curInfo.id
+           }
+           this.request.post('mapi/saveInfo',pdata).then(res=>{
+             if(res.code == 0){
+               this.$router.push({
+                 path:'/authPerson',
+                 query:{
+                   funCode:'personalAuth',
+                   cid:this.$route.query.cid,
+                   setp:str
+                 }
+               })
+             }else{
+               alert(res.msg)
+             }
+
+
+           },error=>{
+             alert('请重新保存')
+           })
+
+
+         },error=>{
+           alert(error)
+         })
+
+
+
       },
       upinfozm(value){
         // alert(value)
@@ -154,6 +347,15 @@
 </script>
 
 <style lang="scss" scoped>
+  .rightas{
+    display: inline-block;
+    width:40px;
+    text-align: center;
+    img{width:60%;
+      vertical-align: center;
+      position: relative; top:0px}
+    vertical-align: center;
+  }
   .tx{
     position: fixed;
     bottom:20px;
@@ -300,6 +502,7 @@
 
   .ptips {
     text-align: center;
+    padding:0 50px;
     padding-top: 50px;
     span {
       font-size: 30px;

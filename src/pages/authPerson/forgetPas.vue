@@ -2,18 +2,18 @@
   <div>
     <div class="forgetSetp">
         <ul class="clearfix">
-          <li class="leftli active"><a href=""><i>1</i><span>身份验证</span></a></li>
-          <li class="leftli"><a href=""><i>2</i><span>绑定手机</span></a></li>
-          <li class=""><a href=""><i>3</i><span>找回密码</span></a></li>
+          <li class="leftli active" :class="setpidx>=1?'active':''"><a ><i>1</i><span>身份验证</span></a></li>
+          <li class="leftli" :class="setpidx>=2?'active':''"><a ><i>2</i><span>绑定手机</span></a></li>
+          <li class="" :class="setpidx>=3?'active':''"><a  ><i>3</i><span>找回账号</span></a></li>
         </ul>
     </div>
     <div v-show="setpidx == 1">
     <div class="ptips">
-      请拍摄上传<span>张三</span>的身份证
-      <p>请上传该账户本人的身份证照片</p>
+      <!--请拍摄上传<span>张三</span>的身份证-->
+      <p>国家要求网络运营者为在与用户签订协议或者提供服务时，用户需提供真实身份信息</p>
     </div>
 
-      <elem configs="basicAuthPerson"></elem>
+      <elem ref="forget" configs="basicAuthPerson"></elem>
       <div class="subc">
         <button @click="gonext(2)" class="main">提交</button>
       </div>
@@ -47,27 +47,26 @@
         </ul>
       </div>
 
-
     </div>
 
     <div v-show="setpidx == 3">
-          <div class="resetinfo">
+          <div class="resetinfo" v-if="$route.query.zz == 1">
             <div class="restinfocontent">
               <img src="../../assets/img/fotgetSuccess.jpg"/>
               <h3>账号找回成功</h3>
-              <p>5秒后将返回登录页</p>
+              <p></p>
             </div>
             <div   class="compds">
 
 
             <li class="libtn">
-              <button @click="gologin(3)" >重新登录</button>
+              <button @click="gohome" >重新登录</button>
 
             </li>
             </div>
           </div>
 
-          <div class="resetinfo">
+          <div class="resetinfo" v-if="$route.query.zz == 2">
             <div class="restinfocontent">
               <img src="../../assets/img/fotgetSuccess.jpg"/>
               <h3>账号找回失败</h3>
@@ -111,38 +110,106 @@
           path:'/mlogin'
         })
       },
-      gonext(str) {
-        this.$router.push({
-          path: '/authPerson',
-          query: {
-            funCode: 'forgetPas',
-            setp: str
+      gohome(){
+        this.request.post('mapi/getCompanyList',{}).then(res=>{
+          if(res.code == 0){
+            this.$router.replace({
+              path:'/mlogin'
+
+            })
+            // location.replace('/#/mlogin')
           }
+
         })
       },
-      getcode() {
-        if (!this.$options.filters.isphone(this.phone)) {
+      gonext(str) {
+
+        if(str ==2){//上传身份证
+          if(!this.$refs.forget.$children[0]._data.upimgfm || !this.$refs.forget.$children[0]._data.upimgzm){
+            this.$toast('请上传身份证正反面进行验证')
+          }else{
+            this.$router.replace({
+              path: '/authPerson',
+              query: {
+                funCode: 'forgetPas',
+                setp: str
+              }
+            })
+          }
+        }
+        if(str ==3){
+
+            if(!this.phoneCode){
+              this.$toast('请输入验证码')
+              return false
+            }
+            this.request.post('mapi/bind',{
+              phone:this.phone,
+              code:this.phoneCode
+            }).then(res=>{
+              if(res.code == 0){
+                this.$router.replace({
+                  path: '/authPerson',
+                  query: {
+                    funCode: 'forgetPas',
+                    setp: str,
+                    zz:1
+                  }
+                })
+              }else{
+                this.$toast(res.msg)
+              }
+
+            })
+
+        }
+
+
+
+
+
+
+      },
+      getcode(){
+
+        if(!this.$options.filters.isphone(this.phone)){
           this.$toast('请输入正确的手机号')
           return false;
         }
-        if (!this.codeSending) {
+        if(!this.codeSending) {
           console.log('请勿重复');
           return false;
         }
         this.codeSending = false
-        this.timerText = this.timer + 'S'
-        let t = setInterval(() => {
-          if (this.timer == 0) {
-            this.timerText = '获取验证码'
+
+        this.request.post('mapi/sendCode',{
+          phone:this.phone
+        }).then(res=>{
+          if(res.code == 0){
+            this.timerText =  this.timer+'S'
+            let t = setInterval(()=>{
+              if(this.timer == 0){
+                this.timerText = '获取验证码'
+                this.codeSending = true
+                this.timer = 10
+                clearInterval(t)
+              }else{
+                this.timer--;
+                this.timerText =  this.timer+'S'
+              }
+
+            },1000)
+          }else{
             this.codeSending = true
-            this.timer = 10
-            clearInterval(t)
-          } else {
-            this.timer--;
-            this.timerText = this.timer + 'S'
+            this.$toast(res.msg)
           }
 
-        }, 1000)
+        },error=>{
+          this.codeSending = true
+          alert('请求失败')
+        })
+
+
       }
     }
   }
@@ -183,6 +250,7 @@
 
   .ptips {
     text-align: center;
+    padding:50px;
     padding-top: 50px;
     span {
       font-size: 30px;
@@ -194,7 +262,6 @@
       font-size: 25px;
     }
   }
-
 
 
   .itmess {

@@ -2,13 +2,13 @@
    <div class="aucontent">
      <ul>
 
-       <li v-if="upimgzm.length>0">
-         <img src="../../assets/img/uploadDemo.png"/>
+       <li v-if="upimgzm">
+         <img :src="upimgzm" />
          <span class="delicon" @click="delimgzm()">删除</span></li>
        <li @click="chooseimgs(1)" v-else><img src="../../assets/img/authZm.jpg"/><wxupload ref="zm" @upinfo="upinfozm"></wxupload></li>
 
-       <li v-if="upimgfm.length>0">
-         <img src="../../assets/img/uploadDemo.png"/>
+       <li v-if="upimgfm">
+         <img :src="upimgfm"/>
          <span  class="delicon" @click="delimgfm()">删除</span></li>
        <li  @click="chooseimgs(2)" v-else><img src="../../assets/img/authFm.jpg"/><wxupload ref="fm" @upinfo="upinfofm"></wxupload></li>
 
@@ -24,35 +24,36 @@
     name: "basicAuthPerson",
     data(){
       return{
-        upimgzm:[],
-        upimgfm:[]
+        upimgzm:'',
+        upimgfm:''
       }
 
     },
     methods:{
       chooseimgs(str){
         if(str == 1){
-          this.$refs.zm.chooseImg('zm');
+          this.$refs.zm.chooseImg('1');
         }else {
-          this.$refs.fm.chooseImg('fm');
+          this.$refs.fm.chooseImg('2');
         }
 
 
       },
       upinfozm(value){
         // alert(value)
-        this.upimgzm.push(value)
+        this.upimgzm = value
       },
       upinfofm(value){
         // alert(value)
-        this.upimgfm.push(value)
+        this.upimgfm = value
       },
 
       delimgzm(){
-        this.upimgzm.splice(0,1)
+
+        this.upimgzm =''
       },
       delimgfm(){
-        this.upimgfm.splice(0,1)
+        this.upimgfm =''
       }
 
     }
