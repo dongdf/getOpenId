@@ -120,7 +120,7 @@
         <button @click="gonext(3)" class="main">提交</button>
       </div>
     </div>
-    <div v-show="setpidx == 3">
+    <div v-if="setpidx == 3">
       <elem configs="contractList" ref="cons"  v-show="!isqz"></elem>
       <div class="tx">
         <button class="main"  @click="isqz = true">一键签约({{cnumb}})</button>
@@ -172,7 +172,7 @@
 
       }
     },
-    mounted() {
+    created() {
       this.setpidx = this.$route.query.setp ? this.$route.query.setp : 1;
       if(this.$route.query.cid){
         this.getCurinfo(this.$route.query.cid)
