@@ -123,8 +123,11 @@
     <div v-if="setpidx == 3">
        <elem configs="contractList" @contactnumb="contactnumb" ref="con"  v-show="!isqz"></elem>
        <div class="tx">
-         <button class="main"  @click="isqz = true">一键签约({{cnumb}})</button>
-         <div class="xieyi"><span class="ckbox"><img src="../../assets/img/checkbox.jpg"/> </span>我已阅读并同意非全制度</div>
+         <button class="main"  @click="qianyuePop">一键签约({{cnumb}})</button>
+         <div class="xieyi"  ><a @click="isallow = !isallow"><span class="ckbox">
+           <img v-show="isallow" src="../../assets/img/checkbox.jpg"/>
+           <img v-show="!isallow" src="../../assets/img/checkboxed.jpg"/></span>我已阅读并同意
+         </a><a @click="isallow = true" style="color:#FF4A02" :href="xyUrl" target="_blank">非全管理制度</a></div>
        </div>
     </div>
 
@@ -141,6 +144,7 @@
 
   import pickeritem from '../../components//pickercustom/picker'
   import areas from '../../components//area/chsArea'
+  import {XIEYI_URL} from '@/constants'
   export default {
 
     components:{pickeritem,areas},
@@ -149,6 +153,7 @@
     data() {
       return {
         itemComponents:[],
+        isallow:true,
         areaShow:false,
         selectAreaInfo:{},
         isshow:false,
@@ -169,6 +174,7 @@
         ],
         areaselectname:'',
         cnumb:0,
+        xyUrl:'',
 
       }
     },
@@ -180,9 +186,23 @@
       setTimeout(()=>{
         this.cnumb = window.connumb
       },500)
+      this.getxieyi();
 
     },
     methods: {
+      qianyuePop(){
+        if(!this.isallow){
+          this.$toast('请先同意非全管理制度')
+          return false;
+        }
+        this.isqz = true;
+      },
+      getxieyi(){
+        this.request.post('mapi/getContractByName',{name:"非全日制员工管理制度终版"}).then(res=>{
+          this.xyUrl = XIEYI_URL+res.data;
+
+        })
+      },
       viewIdcard(){
         this.$card({
           funCode:'idcardview',
@@ -315,7 +335,7 @@
                this.$router.push({
                  path:'/authPerson',
                  query:{
-                   funCode:'personalAuth',
+                   funCode:'teamAuth',
                    cid:this.$route.query.cid,
                    setp:str
                  }
@@ -372,7 +392,7 @@
     .ckbox{
       display: inline-block;width:50px;
       position: relative;
-      top:15px;
+      top:10px;
       img{width:100%;}
     }
   }

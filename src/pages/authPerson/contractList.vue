@@ -13,7 +13,7 @@
 
 
          </div>
-         <div class="lefticon" @click="showm = !showm"><label><img src="../../assets/img/reda.png"/></label></div>
+         <div class="lefticon" v-show="clist.length>1" @click="showm = !showm"><label><img src="../../assets/img/reda.png"/></label></div>
 
 
 

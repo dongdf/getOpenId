@@ -10,8 +10,14 @@
            </div>
            <div class="headerinfos">
              <h3>{{curInfo.name?curInfo.name:curInfo.nickname}}<span v-show="!curInfo.sign_status && curInfo.role!=0">未签约</span></h3>
-             <p @click="gocompany()" v-show="allcList.length>1"><label class="micons"><img src="../../assets/img/storeicon1.png"/> </label> {{curInfo.company_name}}<label class="micons"><img class="downimg" src="../../assets/img/storedown.png"/> </label></p>
-             <p v-show="allcList.length==1"><label class="micons"><img src="../../assets/img/storeicon1.png"/> </label> {{curInfo.company_name}}</p>
+             <p @click="gocompany()" v-show="allcList.length>1"><label v-show="curInfo.role !=0" class="micons">
+               <img v-show="curInfo.role == 2" src="../../assets/img/storeicon2.png"/>
+               <img v-show="curInfo.role == 1 || curInfo.role == 3 " src="../../assets/img/storeicon1.png"/>
+             </label> {{curInfo.company_name}}<label class="micons"><img class="downimg" src="../../assets/img/storedown.png"/> </label></p>
+             <p v-show="allcList.length==1"><label v-show="curInfo.role !=0" class="micons">
+               <img v-show="curInfo.role == 2" src="../../assets/img/storeicon2.png"/>
+               <img v-show="curInfo.role == 1 || curInfo.role == 3 " src="../../assets/img/storeicon1.png"/>
+             </label> {{curInfo.company_name}}</p>
            </div>
         </div>
       </div>
@@ -58,7 +64,7 @@
         <ul @click="showtip()" v-show="curInfo.role  == 1">
           <li>
             <div class="lname">我的工作</div>
-            <div class="lbq"><span>3988</span><i class="aright"><img src="../../assets/img/arrowRight.jpg"/> </i></div>
+            <div class="lbq"><span style="display: none">3988</span><i class="aright"><img src="../../assets/img/arrowRight.jpg"/> </i></div>
           </li>
           <li>
             <div class="lname">我的工资条</div>
