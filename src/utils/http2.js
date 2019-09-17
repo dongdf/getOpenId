@@ -15,7 +15,12 @@ Axios.post = function (url,data={}) {
   return new Promise((resolve,reject)=> {
     data.openid = openid;
     data.token = openToken;
-    Indicator.open()
+    if(!data.cmloading){
+      Indicator.open()
+    }else{
+      delete data['cmloading']
+    }
+
     $.ajax({
       //请求方式
       type : "POST",
@@ -28,6 +33,7 @@ Axios.post = function (url,data={}) {
       //请求成功
       success : function(result) {
         // document.getElementById('loading').style = 'none'
+
         setTimeout(()=>{
           Indicator.close()
         },200)

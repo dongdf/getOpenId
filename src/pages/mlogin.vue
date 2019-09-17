@@ -86,7 +86,8 @@
             this.$router.push({
               path:'/authPerson',
               query:{
-                funCode:'renzheng'
+                funCode:'renzheng',
+                phone:this.phone
               }
             })
           }else{

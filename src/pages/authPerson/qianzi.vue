@@ -326,13 +326,15 @@
           return false;
         }
         this.saveqm(returnImg).then(res=>{
-          // Indicator.close()
-          this.$indicator.open({
-            text: '签约中,请稍后...',
-            spinnerType: 'snake'
-          });
+
+           this.$indicator.open({
+             text: '签约中,请稍后...',
+             spinnerType: 'snake'
+           });
+
+
           //进行签名
-          this.request.post('mapi/upSign',{url:res.data,company_id:this.$route.query.cid}).then(sidata=>{
+          this.request.post('mapi/upSign',{url:res.data,company_id:this.$route.query.cid,cmloading:true}).then(sidata=>{
             this.$indicator.close();
             if(sidata.code == 0){
               this.$toast('签约完成')

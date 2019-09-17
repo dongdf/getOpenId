@@ -80,10 +80,19 @@
 
           if(str == 1 || str == 2){//身份证验证
             var pdata;
+            var phone = this.$route.query.phone || ''
+
             pdata={
               mediaId:mid,
               image_type:str,
               name:name
+            }
+            if(phone){
+              pdata.phone = phone
+              pdata.is_return = 0
+            }else{
+              pdata.phone = phone
+              pdata.is_return = 1
             }
             this.request.post('mapi/uploadCardImages',pdata).then(res => {
               resolve(res.data);
