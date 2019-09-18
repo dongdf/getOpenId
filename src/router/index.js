@@ -17,11 +17,7 @@ const router = new Router({
         }
       },{
         path: '/',
-        name: 'home',
-        component: (resolve)=>require(['../pages/hello'],resolve),
-        meta: {
-          title: '首页'
-        }
+        redirect: '/mlogin'
       },{
         path: '/test',
         name: 'test',

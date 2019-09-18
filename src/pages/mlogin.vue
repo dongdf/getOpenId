@@ -78,25 +78,56 @@
             code:this.phoneCode
         }).then(res=>{
           if(res.code == 0){
-            localStorage.setItem('islogin',1)
-            // this.request.post('/mapi/getUserInfo',{}).then(res=>{
-            //
-            // })
-            // return false;
-            this.$router.push({
-              path:'/authPerson',
-              query:{
-                funCode:'renzheng',
-                phone:this.phone
-              }
-            })
+            localStorage.setItem('is_auth',res.is_auth)
+            // debugger
+            if(res.is_auth == 1){
+              this.$router.push({
+                path:'/authPerson',
+                query:{
+                  funCode:'renzheng',
+                  phone:this.phone
+                }
+              })
+            }else {
+
+              this.request.post('mapi/getCompanyList',{}).then(res=>{
+                if(res.code == 0){
+                  if(res.data.length>1){
+                    this.$router.push({
+                      path:'/mine',
+                      query:{
+                        funCode:'selectCompany'
+                      }
+                    })
+                  }else{
+                    this.$router.push({
+                      path:'/mine',
+                      query:{
+                        funCode:'minfo'
+                      }
+                    })
+                  }
+
+
+
+                }else{
+                  this.$toast(res.msg)
+                }
+
+              })
+
+
+            }
+
+
+
           }else{
             this.$messagebox.alert(res.msg);
             // this.$toast(res.msg)
           }
 
         },error=>{
-          alert(res.msg)
+          console.log('登录失败！请重新登录')
         })
 
       },

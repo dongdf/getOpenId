@@ -9,34 +9,47 @@ const beforeEach = (to, from, next) => {
 
   const WX_UID = storage.get('WX_UID');
   var ss = window.location;
-  // if(!WX_UID){
-  //   if(/^(Auth|invitation|TestCourseDetail|apply)$/.test(to.name)){
-  //     console.log(/^(Auth|invitation|apply)$/.test(to.name))
-  //     next();
-  //   }else{
-  //     if(!getQueryString('code')){
-  //       localStorage.setItem('llrouterUrl',ss);
-  //     }
-  //     // localStorage.setItem('furl',to.name);
-  //     console.log('4'+'else')
-  //     next({path:'/auth',query:{orgiPage:from.name}});
-  //
-  //   }
-  // }
+  if(!WX_UID){
+    if(/^(Auth|invitation|TestCourseDetail|apply)$/.test(to.name)){
+      console.log(/^(Auth|invitation|apply)$/.test(to.name))
+      next();
+    }else{
+      if(!getQueryString('code')){
+        localStorage.setItem('llrouterUrl',ss);
+      }
+      // localStorage.setItem('furl',to.name);
+      console.log('4'+'else')
+      next({path:'/auth',query:{orgiPage:from.name}});
+
+    }
+  }
   // if(from.meta.keepAlive){
   //   var scrollHeight=$(document).scrollTop();
   //   if(scrollHeight != 0){
   //     sessionStorage.setItem('srheight',scrollHeight);
   //   }
   // }
-  var islogin  = localStorage.getItem('islogin') || ''
-  if(!islogin){
+  var is_auth  = localStorage.getItem('is_auth') || ''
+  if(is_auth == ''){
       if(to.name == 'mlogin'){
         next()
       }else{
         next({path:'/mlogin'});
       }
 
+  }else if(is_auth == 0){
+    if(to.name == 'mine'){
+      next()
+    }else{
+      next({path:'/mine',query:{funCode:'minfo'}})
+    }
+
+  }else{
+    // alert('1')
+    if(to.name == 'authPerson'){
+      next()
+    }
+    // next({path:'/authPerson',query:{funCode:'renzheng'}})
   }
   next();
 }
