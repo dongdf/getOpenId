@@ -11,7 +11,7 @@
   import axios from 'axios'
   export default {
     name: "wxupload",
-    props:['upinfo','showicon'],
+    props:['upinfo','showicon','upinfozm','upinfofm'],
     data() {
       return {
         filePath: null,
@@ -29,7 +29,7 @@
          //   this.$emit('upinfo','https://mat1.gtimg.com/pingjs/ext2020/qqindex2018/dist/img/qq_logo_2x.png')
          //
          // }
-         //
+
          // return false
 
 
@@ -49,11 +49,11 @@
                 if(ossimg.code == 0){
                   // alert(JSON.stringify(ossimg))
                   if(str == 1){
-                    this.$emit('upinfozm',ossimg.url)
+                    that.$emit('upinfozm',ossimg.url)
                   }else if(str ==2){
-                    this.$emit('upinfofm',ossimg.url)
+                    that.$emit('upinfofm',ossimg.url)
                   }else {
-                    this.$emit('upinfo',ossimg.url)
+                    that.$emit('upinfo',ossimg.url)
                   }
 
 
@@ -63,6 +63,9 @@
 
                 // that.tempImgs.push({url:ossimg.data});
               },error=>{
+
+                 // that.$emit('upinfozm','111')
+
                 alert('上传失败请重新选择')
               })
             }

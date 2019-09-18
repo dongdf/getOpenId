@@ -5,12 +5,12 @@
        <li v-if="upimgzm">
          <img :src="upimgzm" />
          <span class="delicon" @click="delimgzm()">删除</span></li>
-       <li @click="chooseimgs(1)" v-else><img src="../../assets/img/authZm.jpg"/><wxupload ref="zm" @upinfo="upinfozm"></wxupload></li>
+       <li @click="chooseimgs(1)" v-else><img src="../../assets/img/authZm.jpg"/><wxupload ref="zm" @upinfozm="upinfozm"></wxupload></li>
 
        <li v-if="upimgfm">
          <img :src="upimgfm"/>
          <span  class="delicon" @click="delimgfm()">删除</span></li>
-       <li  @click="chooseimgs(2)" v-else><img src="../../assets/img/authFm.jpg"/><wxupload ref="fm" @upinfo="upinfofm"></wxupload></li>
+       <li  @click="chooseimgs(2)" v-else><img src="../../assets/img/authFm.jpg"/><wxupload ref="fm" @upinfofm="upinfofm"></wxupload></li>
 
      </ul>
      <div class="auDemo">
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+  import {IMG_URL} from '@/constants'
   export default {
     name: "basicAuthPerson",
     data(){
@@ -40,12 +41,13 @@
 
       },
       upinfozm(value){
-         alert(value)
-        this.upimgzm = value
+
+        this.upimgzm = IMG_URL+value
+        alert(this.upimgzm)
       },
       upinfofm(value){
         // alert(value)
-        this.upimgfm = value
+        this.upimgfm = IMG_URL+value
       },
 
       delimgzm(){
