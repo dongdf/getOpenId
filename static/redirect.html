@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+  var url = location.href;
+  var origin = location.origin;
+  var param = {};
+  var reg = /([^?&=]+)=([^?&=#]+)/g;
+  url.replace(reg, function(str, key, value) {
+    param[key] = value;
+  });
+  var newtime = new Date().getTime();
+  var rurl=''
+  var purl = param.url?param.url:''
+  if(purl){
+    rurl = '../index.html#/'+purl+'?vs='+newtime;
+  }else{
+    rurl = '../index.html?vs='+newtime;
+  }
+  alert(rurl)
+  window.location.replace(rurl);
+</script>
+
+
+</body>
+</html>
