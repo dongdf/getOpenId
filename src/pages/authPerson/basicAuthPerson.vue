@@ -40,7 +40,7 @@
 
       },
       upinfozm(value){
-        // alert(value)
+         alert(value)
         this.upimgzm = value
       },
       upinfofm(value){

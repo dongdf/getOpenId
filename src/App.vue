@@ -422,7 +422,7 @@ export default {
       var locationUrl = location.href.split('#')[0];
       alert(locationUrl)
       // locationUrl = locationUrl.split('?')[0];
-      locationUrl = encodeURIComponent(locationUrl);
+      locationUrl = locationUrl;
       // alert(locationUrl)
       this.request.post('mapi/getConfig',{web_url:locationUrl}).then(res=>{
         var qm = res.data.signature;

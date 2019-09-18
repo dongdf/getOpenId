@@ -47,8 +47,16 @@
               }).then(ossimg=>{
                 // alert('oss上传'+ossimg.data)
                 if(ossimg.code == 0){
-                  alert(JSON.stringify(ossimg))
-                  this.$emit('upinfo',ossimg.data)
+                  // alert(JSON.stringify(ossimg))
+                  if(str == 1){
+                    this.$emit('upinfozm',ossimg.url)
+                  }else if(str ==2){
+                    this.$emit('upinfofm',ossimg.url)
+                  }else {
+                    this.$emit('upinfo',ossimg.url)
+                  }
+
+
                 }else{
                   alert(ossimg.msg)
                 }
@@ -94,9 +102,12 @@
               pdata.phone = phone
               pdata.is_return = 1
             }
+            // alert('开始请求uploadCardImages'+ JSON.stringify(pdata))
             this.request.post('mapi/uploadCardImages',pdata).then(res => {
-              resolve(res.data);
+              // alert('请求成功'+JSON.stringify(res))
+              resolve(res);
             },error=>{
+              // alert('请求失败')
               reject()
             })
           }else{//公司营业执照
@@ -104,7 +115,7 @@
               id:mid
             }
             this.request.post('mapi/uploadIndustryImg',pdata).then(res => {
-              resolve(res.data);
+              resolve(res);
             },error=>{
               reject()
             })

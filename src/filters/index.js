@@ -221,8 +221,8 @@ exports.longtime = function(msd){
 }
 
 exports.isphone =function (str) {
-  let reg = /^(((14[0-9]{1})|(13[0-9]{1})|(16[0-9]{1})|(19[0-9]{1})|(17[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-  return reg.test(str)
+  let reg = /^[1][3,4,5,6,7,8,9]{9}$/;
+  return !reg.test(str)
 }
 
 
