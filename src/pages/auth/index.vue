@@ -108,11 +108,11 @@ export default {
         this.request.get('mapi/getOpenid',{code:code}).then(res => {
           // console.log(res.data);
           var gourl = localStorage.getItem('llrouterUrl') || '/#/mlogin'
-          if(res.data.code == 0){
+          if(res.code == 0){
             // storage.set('USER_INFO', JSON.stringify(res.data.data))
-            storage.set('WX_UID', res.openid)
+            storage.set('WX_UID', res.data)
             location.replace(gourl);
-            return false;
+
             let page = localStorage.getItem('orgPage')?localStorage.getItem('orgPage'):'';
             let pageQuery = localStorage.getItem('boss')?localStorage.getItem('boss'):'';
             if(page){
@@ -134,7 +134,7 @@ export default {
       }
 
     }else{
-      this.$router.push({path:'/home'});
+      this.$router.push({path:'/mine',query:{funCode:'minfo'}});
     }
   }
 }

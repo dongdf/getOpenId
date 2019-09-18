@@ -182,10 +182,11 @@
 
 <style lang="scss" scoped>
   .showxy{
-    position: fixed;width:100%;
+
+    width:100%;
     color:#666;
     left:0;
-    bottom:80px;
+    padding-top:50px;
     text-align: center;
 
     a{color:#fa4412;}

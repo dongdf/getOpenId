@@ -285,6 +285,7 @@
             company_id:this.$route.query.cid,
             name:obj.name,
             bank_account:obj.bank_account,
+            bank_name:obj.bank_name,
             id_card:obj.id_card
 
           }).then(res=>{
@@ -326,7 +327,7 @@
              area:this.selectAreaInfo.county.name,
              bank_account:this.curInfo.bank_account,
              bank_name:this.curInfo.bank_name,
-             education:this.curInfo.education,
+             education:this.curInfo.education?this.curInfo.education:'初中',
              company_id:this.$route.query.cid,
              id:this.curInfo.id
            }

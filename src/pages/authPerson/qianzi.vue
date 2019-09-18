@@ -327,10 +327,13 @@
         }
         this.saveqm(returnImg).then(res=>{
 
-           this.$indicator.open({
-             text: '签约中,请稍后...',
-             spinnerType: 'snake'
-           });
+          setTimeout(()=>{
+            this.$indicator.open({
+              text: '签约中,请稍后...',
+              spinnerType: 'snake'
+            });
+          },220)
+
 
 
           //进行签名
@@ -338,6 +341,12 @@
             this.$indicator.close();
             if(sidata.code == 0){
               this.$toast('签约完成')
+              this.$router.push({
+                path:'/mine',
+                query:{
+                  funCode:"minfo"
+                }
+              })
             }else{
               alert(sidata.msg)
             }
