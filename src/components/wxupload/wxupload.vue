@@ -1,10 +1,17 @@
 <template>
-  <div class="csup">
-    <div class="upicon" v-if="showicon">
-      <img src="@/assets/img/upicon.png"/>
-      <div class="utext">上传图片</div>
+
+
+
+    <div class="csup">
+      <div class="upicon" v-if="showicon">
+        <img src="@/assets/img/upicon.png"/>
+        <div class="utext">上传图片</div>
+      </div>
     </div>
-  </div>
+
+
+
+
 </template>
 
 <script>
@@ -30,8 +37,6 @@
          //
          // }
 
-         // return false
-
 
         let that = this;
         wx.ready(function () {
@@ -49,6 +54,7 @@
                 if(ossimg.code == 0){
                   // alert(JSON.stringify(ossimg))
                   if(str == 1){
+                    that.$parent.$data.idcard = ossimg.id_card
                     that.$emit('upinfozm',ossimg.url)
                   }else if(str ==2){
                     that.$emit('upinfofm',ossimg.url)
@@ -104,6 +110,11 @@
             }else{
               pdata.phone = phone
               pdata.is_return = 1
+            }
+            if(str == 2){
+              pdata.id_card = this.$parent.$data.idcard;
+              // alert(JSON.stringify(pdata))
+
             }
             // alert('开始请求uploadCardImages'+ JSON.stringify(pdata))
             this.request.post('mapi/uploadCardImages',pdata).then(res => {

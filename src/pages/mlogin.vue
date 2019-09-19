@@ -22,7 +22,7 @@
     name: "login",
     data(){
       return{
-        timer:10,
+        timer:60,
         timerText:'获取验证码',
         codeSending:true,
         phone:'',
@@ -77,9 +77,11 @@
             phone:this.phone,
             code:this.phoneCode
         }).then(res=>{
+          alert(JSON.stringify(res))
           if(res.code == 0){
             localStorage.setItem('is_auth',res.is_auth)
             // debugger
+
             if(res.is_auth == 1){
               this.$router.push({
                 path:'/authPerson',
@@ -127,7 +129,8 @@
           }
 
         },error=>{
-          console.log('登录失败！请重新登录')
+          this.$messagebox.alert('登录失败！请重新登录');
+          // console.log('登录失败！请重新登录')
         })
 
       },
@@ -156,7 +159,7 @@
               if(this.timer == 0){
                 this.timerText = '获取验证码'
                 this.codeSending = true
-                this.timer = 10
+                this.timer = 60
                 clearInterval(t)
               }else{
                 this.timer--;

@@ -26,6 +26,7 @@
     data(){
       return{
         upimgzm:'',
+        idcard:'',
         upimgfm:''
       }
 

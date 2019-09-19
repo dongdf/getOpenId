@@ -37,6 +37,8 @@
     },
     methods: {
       chooseImg(){//微信选择图片
+
+        alert()
         let that = this;
           wx.ready(function () {
             wx.chooseImage({

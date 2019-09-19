@@ -93,7 +93,7 @@
       return {
         setpidx: 1,
 
-        timer: 10,
+        timer: 60,
         timerText: '获取验证码',
         codeSending: true,
         phone: '',
@@ -191,7 +191,7 @@
               if(this.timer == 0){
                 this.timerText = '获取验证码'
                 this.codeSending = true
-                this.timer = 10
+                this.timer = 60
                 clearInterval(t)
               }else{
                 this.timer--;

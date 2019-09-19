@@ -5,6 +5,7 @@
       <p>国家要求网络运营者为在与用户签订协议或者提供服务时，用户需提供真实身份信息</p>
     </div>
     <elem ref="renzheng" configs="basicAuthPerson"></elem>
+    <div class="wjpass" @click="goforget">身份证与手机不匹配时,请点此<b>找回账号</b></div>
     <div class="subc">
       <button @click="gonext" class="main">提交</button>
     </div>
@@ -26,6 +27,15 @@
     },
     // components:{authperson},
     methods:{
+      goforget(){
+        this.$router.push({
+          path:'/authPerson',
+          query:{
+            funCode:'forgetPas',
+            setp:1
+          }
+        })
+      },
       gonext(){
         if(!this.$refs.renzheng.$children[0]._data.upimgfm || !this.$refs.renzheng.$children[0]._data.upimgzm){
           this.$toast('请上传身份证正反面进行验证')
@@ -65,6 +75,11 @@
 </script>
 
 <style lang="scss" scoped>
+  .wjpass{
+     text-align: center;
+    color:#666;
+    b{color:#ff4a02;}
+  }
   .subc{
     padding:30px;
   }

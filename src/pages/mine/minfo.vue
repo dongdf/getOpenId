@@ -203,7 +203,7 @@
 
                 },
                 callback:(close)=>{
-                  alert()
+
                   close();
                   this.$router.push({
                     path:'/authPerson',
