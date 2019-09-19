@@ -1,7 +1,7 @@
 <template>
    <div class="aucontent">
      <ul>
-
+<!--{{upimgzm}}-->
        <li v-if="upimgzm">
          <img :src="upimgzm" />
          <span class="delicon" @click="delimgzm()">删除</span></li>
@@ -43,7 +43,7 @@
       upinfozm(value){
 
         this.upimgzm = IMG_URL+value
-        alert(this.upimgzm)
+        // alert(this.upimgzm)
       },
       upinfofm(value){
         // alert(value)
