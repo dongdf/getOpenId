@@ -77,9 +77,10 @@
             phone:this.phone,
             code:this.phoneCode
         }).then(res=>{
-          alert(JSON.stringify(res))
+          // alert(JSON.stringify(res))
           if(res.code == 0){
             localStorage.setItem('is_auth',res.is_auth)
+            localStorage.setItem('myphone',this.phone)
             // debugger
 
             if(res.is_auth == 1){
@@ -111,9 +112,9 @@
                   }
 
 
-
                 }else{
                   this.$toast(res.msg)
+                  return false;
                 }
 
               })
@@ -124,12 +125,13 @@
 
 
           }else{
-            this.$messagebox.alert(res.msg);
+            alert(res.msg)
+            // this.$messagebox.alert(res.msg);
             // this.$toast(res.msg)
           }
 
         },error=>{
-          this.$messagebox.alert('登录失败！请重新登录');
+          alert('登录失败！请重新登录');
           // console.log('登录失败！请重新登录')
         })
 

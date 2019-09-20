@@ -2,51 +2,60 @@
 <div class="mycon">
   <div class="conlist">
     <ul>
-      <li>
+      <!--v-show="conlist.length == 0"-->
+      <div v-show="conlist.length == 0" class="nocon">
+        <img src="../../assets/img/nohetong.png"/>
+        <br>
+        暂无合同
+      </div>
+      <li v-for="c,index in  conlist">
         <div class="coninfo">
           <div class="iteminfo">
-            <p class="jtitle">sdsdfdfsfddsfdfsfd</p>
-            <h3>合同名称合同名称合同</h3>
-            <p class="timer">230230932902390</p>
+            <p class="jtitle">签约时间:{{c.start_at}}</p>
+            <h3>{{c.company_name}}/{{c.member_contract_str}}</h3>
+            <p class="timer">{{c.contracts}}</p>
           </div>
           <div class="iteminfobtn">
-            <button class="main sm">立即续签</button>
+            <a class="main sm" target="_blank" :href="burl+'mapi/getContract/'+c.contracts">查看合同</a>
           </div>
 
         </div>
         <div class="contractState"><img src="../../assets/img/c_yqy.png"/> </div>
       </li>
-      <li>
-        <div class="coninfo">
-          <div class="iteminfo">
-            <p class="jtitle">sdsdfdfsfddsfdfsfd</p>
-            <h3>合同名称合同名称合同名称合同名称合同名称合同名称</h3>
-            <p class="timer">230230932902390</p>
-          </div>
-          <div class="iteminfobtn">
-            <button class="main sm trans">立即续签</button>
-          </div>
+      <div>
+        {{pdf}}
+      </div>
+      <!--<li>-->
+        <!--<div class="coninfo">-->
+          <!--<div class="iteminfo">-->
+            <!--<p class="jtitle">sdsdfdfsfddsfdfsfd</p>-->
+            <!--<h3>合同名称合同名称合同名称合同名称合同名称合同名称</h3>-->
+            <!--<p class="timer">230230932902390</p>-->
+          <!--</div>-->
+          <!--<div class="iteminfobtn">-->
+            <!--<button class="main sm trans">立即续签</button>-->
+          <!--</div>-->
 
-        </div>
-        <div class="contractState"><img src="../../assets/img/c_ygq.png"/> </div>
-      </li>
-      <li>
-        <div class="coninfo">
-          <div class="iteminfo">
-            <p class="jtitle">sdsdfdfsfddsfdfsfd</p>
-            <h3>合同名称合同名称合同名称合同名称合同名称合同名称</h3>
-            <p class="timer">230230932902390</p>
-          </div>
-          <div class="iteminfobtn">
-            <button class="main sm trans">立即续签</button>
-          </div>
+        <!--</div>-->
+        <!--<div class="contractState"><img src="../../assets/img/c_ygq.png"/> </div>-->
+      <!--</li>-->
+      <!--<li>-->
+        <!--<div class="coninfo">-->
+          <!--<div class="iteminfo">-->
+            <!--<p class="jtitle">sdsdfdfsfddsfdfsfd</p>-->
+            <!--<h3>合同名称合同名称合同名称合同名称合同名称合同名称</h3>-->
+            <!--<p class="timer">230230932902390</p>-->
+          <!--</div>-->
+          <!--<div class="iteminfobtn">-->
+            <!--<button class="main sm trans">立即续签</button>-->
+          <!--</div>-->
 
-        </div>
-        <div class="errin">
-          这里展示审核失败原因！！这里展示审核失败原因这里展示审核失败原因
-        </div>
-        <div class="contractState"><img src="../../assets/img/c_sb.png"/> </div>
-      </li>
+        <!--</div>-->
+        <!--<div class="errin">-->
+          <!--这里展示审核失败原因！！这里展示审核失败原因这里展示审核失败原因-->
+        <!--</div>-->
+        <!--<div class="contractState"><img src="../../assets/img/c_sb.png"/> </div>-->
+      <!--</li>-->
 
     </ul>
   </div>
@@ -54,12 +63,45 @@
 </template>
 
 <script>
+  import {XIEYI_URL} from '@/constants'
   export default {
-    name: "my-contract"
+    name: "my-contract",
+    data(){
+      return{
+        conlist:[],
+        pdf:'',
+        burl:''
+      }
+    },
+    created(){
+      this.getcon();
+      this.burl = XIEYI_URL
+    },
+    methods:{
+      // viewpdf(obj){
+      //   var x = XIEYI_URL+'mapi/getContract/'+obj.contracts
+      //
+      //   location.href = ;
+      //   return false;
+      //
+      // },
+      getcon(){
+        this.request.post('mapi/showContracts').then(res=>{
+          this.conlist =res.data;
+        })
+      }
+    }
   }
 </script>
 
 <style lang="scss" scoped>
+  .nocon{
+    padding:30px;
+    padding-top:50%;
+    img{width:30%;}
+    text-align: center;
+    color:#999;
+  }
 .coninfo{
   position: relative;
   z-index:9;

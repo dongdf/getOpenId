@@ -22,28 +22,33 @@ const beforeEach = (to, from, next) => {
 
     }
   }else{
+
     var is_auth  = localStorage.getItem('is_auth') || ''
     if(is_auth == ''){
-      if(to.name == 'mlogin'){
+      if(to.name == 'mlogin' || to.query.funCode == 'forgetPas'){
         next()
-      }else{
-        next({path:'/mlogin'});
+      }else {
+        next({path:'/mlogin'})
       }
 
     }else if(is_auth == 0){
-
-      next()
-
-    }else{
-
-      if(to.name == 'authPerson'){
+      if(to.name == 'mlogin' || to.name == 'nlogin'){
+        next({path:'/mine',query:{funCode:'minfo'}});
+      }else{
         next()
+      }
+    } else if(is_auth == 1){
+
+      if(to.query.funCode == 'renzheng' || to.query.funCode == 'forgetPas'){
+        next()
+      }else{
+        var m = localStorage.getItem('myphone') || ''
+        next({path:'/authPerson',query:{funCode:'renzheng',phone:m}});
       }
 
     }
   }
 
-  next();
 }
 
 function getQueryString(name) {

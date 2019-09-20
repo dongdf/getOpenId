@@ -377,11 +377,11 @@
         })
       },
       reset(){
+        alert('清楚')
         document.getElementById('qzq').contentWindow.clearcanvas()
       },
       upload() {
         let that = this;
-
         function ossSign() {//签名
           var p = new Promise(function (resolve, reject) {
             that.$http.get('authentication/weChat/ossSignature').then((res) => {

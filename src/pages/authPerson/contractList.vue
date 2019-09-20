@@ -1,12 +1,13 @@
 <template>
    <div>
-     <div class="contractBar">
+     <div v-if="mydevice">
+       <div class="contractBar">
 
          <div class="leftnav ">
 
-             <div class="slideitem" @click="changec(index)" :class="curTab == index?'cur':''" v-for="c,index in clist">{{c.contract_name}}
-               <!--<span><img src="../../assets/img/reda.png"/> </span>-->
-             </div>
+           <div class="slideitem" @click="changec(index)" :class="curTab == index?'cur':''" v-for="c,index in clist">{{c.contract_name}}
+             <!--<span><img src="../../assets/img/reda.png"/> </span>-->
+           </div>
 
 
 
@@ -19,17 +20,28 @@
 
 
 
-     </div>
-     <div class="ppdiv" v-show="showm">
-       <div class="mmc" >
-         <p  @click="changeitem(index)" :class="curTab == index?'cur':''" v-for="c,index in clist">{{c.contract_name}}</p>
+       </div>
+       <div class="ppdiv" v-show="showm">
+         <div class="mmc" >
+           <p  @click="changeitem(index)" :class="curTab == index?'cur':''" v-for="c,index in clist">{{c.contract_name}}</p>
+
+         </div>
 
        </div>
+       <div class="contContent" id="fcontent">
+         <!--<iframe  v-show="!showm && curUrl"  :src="curUrl"   frameborder="0"  class="contractFrame"></iframe>-->
+       </div>
+     </div>
+     <div class="htview" v-if="!mydevice">
 
+       <h3>合同列表</h3>
+       <ul>
+         <li v-for="c,index in clist"><a target="_blank" :href="conurl+c.url">{{c.contract_name}}</a></li>
+       </ul>
      </div>
-     <div class="contContent" id="fcontent">
-       <!--<iframe  v-show="!showm && curUrl"  :src="curUrl"   frameborder="0"  class="contractFrame"></iframe>-->
-     </div>
+
+
+
    </div>
 
 
@@ -42,12 +54,23 @@
     data(){
       return{
         showm:false,
+        conurl:'',
         curUrl:'',
+        mydevice:false,
         curTab:0,
         clist:[],
       }
     },
     created(){
+
+      this.conurl = CONTRACT_URL
+      var u = navigator.userAgent;
+
+      if (u.indexOf("iPhone") > -1 || u.indexOf("iOS") > -1) {
+        this.mydevice = true;
+      }else{
+        this.mydevice = false;
+      }
 
 
       this.getcontract()
@@ -62,7 +85,10 @@
         this.curTab = idx;
         this.curUrl = CONTRACT_URL+this.clist[this.curTab].url;
         document.getElementById('fcontent').innerHTML = ''
-        this.creatFrame(this.curUrl)
+        if(this.mydevice){
+          this.creatFrame(this.curUrl)
+        }
+
       },
       creatFrame(url){
         var iframe = document.createElement('iframe');
@@ -72,7 +98,7 @@
         iframe.setAttribute('frameborder','0')
         iframe.style.width="100%"
         iframe.style.height="100%"
-        iframe.style.position="relative"
+        iframe.style.position="absolute"
         document.getElementById('fcontent').appendChild(iframe);
       },
       getcontract(){
@@ -94,6 +120,27 @@
 </script>
 
 <style lang="scss" scoped>
+  .htview{
+    padding-top: 40px;
+    h3{
+      text-align: center;
+      font-size: 30px;
+    }
+    ul{
+
+      padding:30px;
+      li{
+        padding:20px;
+        border-bottom: 1px solid #eee;
+        a{
+          color:#ff4a02;
+
+        }
+      }
+
+    }
+
+  }
   .alls{
     position: absolute;
     background: #FFF;

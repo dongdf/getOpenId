@@ -3,7 +3,8 @@
       <div class="headertop">
       <div class="pinfoheader">
         <img class="bgimg" v-if="curInfo.role == 1" src="../../assets/img/pbanner2.jpg"/>
-        <img class="bgimg" v-else src="../../assets/img/pbanner1.jpg"/>
+        <img class="bgimg" v-if="curInfo.role!=1 && curInfo.role!=''" src="../../assets/img/pbanner1.jpg"/>
+        <img class="bgimg" v-if="curInfo.role == 0 " src="../../assets/img/pbanner1.jpg"/>
         <div class="pinfoContent">
            <div class="headerimg">
              <img  :src="curInfo.avatar?curInfo.avatar:morehead"/>
@@ -24,17 +25,17 @@
       <div class="quickinfo">
 
         <div class="quickItem">
-          <h3>3,000</h3>
+          <h3>--</h3>
           <p>钱包(元)</p>
         </div>
         <div class="quickItem">
           <div class="lines"></div>
-          <h3>4,000</h3>
+          <h3>--</h3>
           <p>积分(UHRB)</p>
         </div>
         <div @click="gopage('myContract')" class="quickItem">
           <div class="lines"></div>
-          <h3>3</h3>
+          <h3>{{topinfo.contract_count}}</h3>
           <p>合同</p>
         </div>
 
@@ -123,9 +124,10 @@
     name: "minfo",
     data(){
       return{
-        curInfo:{},
+        curInfo:{role:''},
         morehead:require('../../assets/img/moren.jpg'),
-        allcList:[]
+        allcList:[],
+        topinfo:{}
 
       }
     },
@@ -137,10 +139,19 @@
       // }
 
       // this.getCurinfo()
+      this.gettopInfo();
     },
     methods:{
+      gettopInfo(){
+        this.request.post('mapi/showTopData').then(res=>{
+          this.topinfo = res.data
+        })
+
+      },
       gopage(str){
+
         if(this.checkcontract()){
+
           this.$router.push({
             path:'/mine',
             query:{
@@ -185,7 +196,7 @@
         })
       },
       showtip(){
-        this.$messagebox.alert('功能开发中,敬请期待')
+        this.$messagebox.alert('建设中,敬请期待')
       },
       checkcontract(){
         if(!this.curInfo.sign_status){
@@ -272,6 +283,8 @@
 
 
 
+        }else {
+          return true
         }
 
 
@@ -388,6 +401,7 @@
 
   .pinfoheader{
     position:relative;
+    min-height: 150px;
     .bgimg{width:100%}
     .pinfoContent{
       position: absolute;
@@ -401,7 +415,6 @@
         width:120px;height:120px;
         border-radius: 1000px;
         overflow: hidden;
-
         img{width:100%; height: 100%;}
       }
       .headerinfos{

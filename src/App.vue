@@ -471,9 +471,9 @@ export default {
             'openCard'
           ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
-        // wx.error(function(res){
-        //    alert(JSON.stringify(res))
-        // });
+        wx.error(function(res){
+           alert('签名失败，请刷新页面')
+        });
 
       })
     }

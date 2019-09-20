@@ -98,7 +98,8 @@
           if(str == 1 || str == 2){//身份证验证
             var pdata;
             var phone = this.$route.query.phone || ''
-
+            var m = localStorage.getItem('myphone') || ''
+            phone = phone?phone:m
             pdata={
               mediaId:mid,
               image_type:str,

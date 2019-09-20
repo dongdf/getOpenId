@@ -9,12 +9,14 @@ import { Indicator } from 'mint-ui';
 
 var openid  = localStorage.getItem('WX_UID') || ''
 var openToken  = md5('renshe_member_'+openid)
+var myphone = localStorage.getItem('myphone') || ''
 const Axios={}
 Axios.post = function (url,data={}) {
 
   return new Promise((resolve,reject)=> {
     data.openid = openid;
     data.token = openToken;
+    data.phonetoken = myphone
     if(!data.cmloading){
       Indicator.open()
     }else{
@@ -33,7 +35,6 @@ Axios.post = function (url,data={}) {
       //请求成功
       success : function(result) {
         // document.getElementById('loading').style = 'none'
-
         setTimeout(()=>{
           Indicator.close()
         },200)

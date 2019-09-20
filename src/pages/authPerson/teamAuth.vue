@@ -81,19 +81,31 @@
             <div class="filelabel">银行开卡号</div>
             <div class="filecontent">
               <!--{{curInfo.bank_account}}-->
-              <input v-model="curInfo.bank_account"  type="text" style="text-align: right" placeholder="请输入银行开卡号"/>
+              <input v-model="curInfo.bank_account"  class="nostyle"  type="text" style="text-align: right" placeholder="请输入银行开卡号"/>
             </div>
           </li>
           <li>
             <div class="filelabel">银行卡开户地址</div>
-            <div class="filecontent" @click="areaShow = true">{{areaselectname?areaselectname:'请选择开户行'}}<i class="rightas"><img src="../../assets/img/righta.jpg"/> </i></div>
+            <div class="filecontent" @click="areaShow = true">{{areaselectname?areaselectname:'请选择'}}<i class="rightas"><img src="../../assets/img/righta.jpg"/> </i></div>
           </li>
           <li>
             <div class="filelabel">银行卡开户行</div>
             <div class="filecontent">
-              <input v-model="curInfo.bank_name"  type="text" style="text-align: right" placeholder="请输入银行卡开户行"/>
+              <input v-model="curInfo.bank_name" class="nostyle"  type="text" style="text-align: right" placeholder="请输入银行卡开户行"/>
             </div>
           </li>
+          <!--<li>-->
+            <!--<div class="filelabel">现居住地址</div>-->
+            <!--<div class="filecontent">-->
+              <!--<input v-model="curInfo.address" class="nostyle"  type="text" style="text-align: right" placeholder="请输入现居住地址"/>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li>-->
+            <!--<div class="filelabel">工种</div>-->
+            <!--<div class="filecontent">-->
+              <!--<input v-model="curInfo.work_type" class="nostyle"  type="text" style="text-align: right" placeholder="请输入工种"/>-->
+            <!--</div>-->
+          <!--</li>-->
 
 
           <li>
@@ -300,6 +312,7 @@
         })
       },
       gonext(str){
+
         if(!this.curInfo.bank_account){
           this.$toast('请输入银行开卡号')
           return false
@@ -327,9 +340,12 @@
              area:this.selectAreaInfo.county.name,
              bank_account:this.curInfo.bank_account,
              bank_name:this.curInfo.bank_name,
+             // address:this.curInfo.address?this.curInfo.address:'暂无地址',
              education:this.curInfo.education?this.curInfo.education:'初中',
              company_id:this.$route.query.cid,
-             id:this.curInfo.id
+             id:this.curInfo.id,
+             hourly_wage:20,
+             // work_type:this.curInfo.work_type?this.curInfo.work_type:'保洁员'
            }
            this.request.post('mapi/saveInfo',pdata).then(res=>{
              if(res.code == 0){
@@ -372,6 +388,11 @@
 </script>
 
 <style lang="scss" scoped>
+  .nostyle{
+    border:none;
+    outline: none;
+    webkit-appearance: none; -moz-appearance: none; -o-appearance: none; appearance: none;
+  }
   .rightas{
     display: inline-block;
     width:40px;

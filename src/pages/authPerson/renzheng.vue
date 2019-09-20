@@ -40,6 +40,8 @@
         if(!this.$refs.renzheng.$children[0]._data.upimgfm || !this.$refs.renzheng.$children[0]._data.upimgzm){
           this.$toast('请上传身份证正反面进行验证')
         }else{
+
+          localStorage.setItem('is_auth','0')
           this.request.post('mapi/getCompanyList',{}).then(res=>{
             if(res.code == 0){
               this.$router.push({
