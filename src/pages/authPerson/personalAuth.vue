@@ -141,6 +141,7 @@
 
   import pickeritem from '../../components//pickercustom/picker'
   import areas from '../../components//area/chsArea'
+  import {IMG_URL} from '@/constants'
   export default {
 
     components:{pickeritem,areas},

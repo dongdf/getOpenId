@@ -4,7 +4,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 const beforeEach = (to, from, next) => {
 
-  const title = to.meta.title
+  var title = to.meta.title
+
+
+
+
   document.title = title;
 
   const WX_UID = storage.get('WX_UID');

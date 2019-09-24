@@ -154,6 +154,7 @@
 </template>
 
 <script>
+  import {IMG_URL} from '@/constants'
   export default {
     name: "businessAuth",
     data() {
@@ -241,7 +242,7 @@
       },
       upinfozm(value){
         // alert(value)
-        this.upimgzm.push(value)
+        this.upimgzm.push(IMG_URL+value)
       },
 
       delimgzm(){

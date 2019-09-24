@@ -1,5 +1,12 @@
 <template>
 <div class="mycon">
+  <!--<div class="contypes">-->
+    <!--&lt;!&ndash;<div class="tabc">&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="curent">已签约</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;<div>未签约</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+  <!--</div>-->
   <div class="conlist">
     <ul>
       <!--v-show="conlist.length == 0"-->
@@ -8,23 +15,31 @@
         <br>
         暂无合同
       </div>
-      <li v-for="c,index in  conlist">
-        <div class="coninfo">
-          <div class="iteminfo">
-            <p class="jtitle">签约时间:{{c.start_at}}</p>
-            <h3>{{c.company_name}}/{{c.member_contract_str}}</h3>
-            <p class="timer">{{c.contracts}}</p>
-          </div>
-          <div class="iteminfobtn">
-            <a class="main sm" target="_blank" :href="burl+'mapi/getContract/'+c.contracts">查看合同</a>
-          </div>
-
+      <template v-for="d,index in  conlist">
+        <div v-if="d.length>0" class="comtitle">
+{{d[0].company_name}}
         </div>
-        <div class="contractState"><img src="../../assets/img/c_yqy.png"/> </div>
-      </li>
-      <div>
-        {{pdf}}
-      </div>
+        <li v-for="c,idx in d">
+          <div class="coninfo">
+            <div class="iteminfo">
+              <p class="jtitle">签约时间:{{c.start_at}}</p>
+              <h3>{{c.company_name}}/{{c.member_contract_str}}</h3>
+              <p class="timer">{{c.contracts}}</p>
+            </div>
+            <div class="iteminfobtn" v-if="c.sign_status == 0"  >
+              <a class="main sm" target="_blank" :href="burl+'mapi/getContract/'+c.contracts">查看合同</a>
+            </div>
+
+            <div class="iteminfobtn" v-if="c.sign_status == 1"  >
+              <a class="main sm" target="_blank" @click="goqianyue(c)">立即签约</a>
+            </div>
+
+          </div>
+          <div class="contractState"><img src="../../assets/img/c_yqy.png"/> </div>
+        </li>
+      </template>
+
+
       <!--<li>-->
         <!--<div class="coninfo">-->
           <!--<div class="iteminfo">-->
@@ -78,6 +93,45 @@
       this.burl = XIEYI_URL
     },
     methods:{
+      goqianyue(obj){
+        if(obj.role_id == 1){//用工宝
+
+          this.$router.push({
+            path:'/authPerson',
+            query:{
+              funCode:'teamAuth',
+              setp:2,
+              cid:this.obj.company_id
+            }
+          })
+
+        }
+        if(obj.role_id == 2){//创业宝
+
+          this.$router.push({
+            path:'/authPerson',
+            query:{
+              funCode:'businessAuth',
+              setp:2,
+              cid:this.obj.company_id
+            }
+          })
+
+        }
+        if(obj.role_id == 3){//分工宝
+
+          this.$router.push({
+            path:'/authPerson',
+            query:{
+              funCode:'personalAuth',
+              setp:2,
+              cid:this.obj.company_id
+            }
+          })
+
+        }
+
+      },
       // viewpdf(obj){
       //   var x = XIEYI_URL+'mapi/getContract/'+obj.contracts
       //
@@ -95,6 +149,31 @@
 </script>
 
 <style lang="scss" scoped>
+  .comtitle{
+    color:#999;
+  }
+  .contypes{
+    text-align: center;
+    padding:20px;
+    .tabc{
+      display:inline-block;
+      margin:0 auto;
+      border-radius: 10px;
+      overflow: hidden;
+      div{
+        display: flex;
+        background: #FFF;
+        padding:10px 20px;
+        text-align: center;
+        display: inline-block;
+
+      }
+      .curent{
+        background: #fa4412;
+        color:#FFF;
+      }
+    }
+  }
   .nocon{
     padding:30px;
     padding-top:50%;

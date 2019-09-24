@@ -57,12 +57,15 @@ const router = new Router({
 
 router.beforeEach(beforeEach);
 router.afterEach((to, from)=>{
-  if(to.meta.keepAlive){
-    if(sessionStorage.getItem('srheight')){
-      setTimeout(()=>{
-        $(document).scrollTop(localStorage.getItem('srheight'));
-      },200)
-    }
+  var x = to.query.funCode || ''
+  console.log(x)
+
+  if(x){
+    console.log(window.allRoutes)
+    let com = window.getRouter(x)
+    console.log(com)
+    document.title = com.title
+
   }
 
 

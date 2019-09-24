@@ -55,6 +55,7 @@
                   // alert(JSON.stringify(ossimg))
                   if(str == 1){
                     that.$parent.$data.idcard = ossimg.id_card
+                    localStorage.setItem('forgetcard',ossimg.id_card)
                     that.$emit('upinfozm',ossimg.url)
                   }else if(str ==2){
                     that.$emit('upinfofm',ossimg.url)

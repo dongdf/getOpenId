@@ -283,8 +283,8 @@ export default {
         }
       }else{
         objs = {
-          title:'财合税专家咨询平台',
-          desc:'传播最新财税法知识，提供一站式财税法服务！财合税，做您身边的财税法专家',
+          title:'雇员签约',
+          desc:'雇员签约',
           link:REDIRECT_URL+'/#'+templink,
           imgUrl:'https://chs-picture.oss-cn-beijing.aliyuncs.com/chs-hb/logo.jpg'
         }
@@ -338,8 +338,8 @@ export default {
         }
       }else{
         objs = {
-          title:'财合税专家咨询平台',
-          desc:'传播最新财税法知识，提供一站式财税法服务！财合税，做您身边的财税法专家',
+          title:'雇员签约',
+          desc:'雇员签约',
           link:REDIRECT_URL+'/#'+templink,
           imgUrl:'https://chs-picture.oss-cn-beijing.aliyuncs.com/chs-hb/logo.jpg'
         }

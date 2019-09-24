@@ -11,15 +11,19 @@
   import {IMG_URL} from "@/constants";
 
   export default {
-    props:['cardinfo'],
+
     name: "idcardview",
     data(){
       return{
-        burl:''
+        burl:'',
+        cardinfo:{zidimg:'',fidimg:''}
       }
     },
     created(){
-      this.burl = IMG_URL
+      this.burl = IMG_URL;
+      this.cardinfo.zidimg = this.$route.query.zidimg
+      this.cardinfo.fidimg = this.$route.query.fidimg
+
     },
     methods:{
       prewimg(str){

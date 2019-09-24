@@ -34,9 +34,24 @@
      </div>
      <div class="htview" v-if="!mydevice">
 
-       <h3>合同列表</h3>
-       <ul>
-         <li v-for="c,index in clist"><a target="_blank" :href="conurl+c.url">{{c.contract_name}}</a></li>
+       <!--<h3>合同列表<i></i></h3>-->
+       <ul class="comtrans">
+         <li v-for="c,index in clist"><a target="_blank" :href="conurl+c.url">
+           <img src="../../assets/img/htbgs.png"/>
+           <span>{{c.contract_name}}</span></a>
+         </li>
+         <!--<li v-for="c,index in clist"><a target="_blank" :href="conurl+c.url">-->
+           <!--<img src="../../assets/img/htbgs.png"/>-->
+           <!--<span>{{c.contract_name}}</span></a>-->
+         <!--</li>-->
+         <!--<li v-for="c,index in clist"><a target="_blank" :href="conurl+c.url">-->
+           <!--<img src="../../assets/img/htbgs.png"/>-->
+           <!--<span>{{c.contract_name}}</span></a>-->
+         <!--</li>-->
+         <!--<li v-for="c,index in clist"><a target="_blank" :href="conurl+c.url">-->
+           <!--<img src="../../assets/img/htbgs.png"/>-->
+           <!--<span>{{c.contract_name}}</span></a>-->
+         <!--</li>-->
        </ul>
      </div>
 
@@ -67,7 +82,7 @@
       var u = navigator.userAgent;
 
       if (u.indexOf("iPhone") > -1 || u.indexOf("iOS") > -1) {
-        this.mydevice = true;
+        this.mydevice = false;
       }else{
         this.mydevice = false;
       }
@@ -98,6 +113,7 @@
         iframe.setAttribute('frameborder','0')
         iframe.style.width="100%"
         iframe.style.height="100%"
+        iframe.style.overflow="hidden"
         iframe.style.position="absolute"
         document.getElementById('fcontent').appendChild(iframe);
       },
@@ -105,12 +121,17 @@
         this.request.post('mapi/getUserContract',{
           company_id:this.$route.query.cid
         }).then(res=>{
-          this.clist = res.data
+          if(res.code == 0){
+            this.clist = res.data
 
-          window.connumb = this.clist.length
-          this.curUrl = CONTRACT_URL+this.clist[this.curTab].url;
-          this.creatFrame(this.curUrl)
-          this.$emit('contactnumb','https://www.baidu.com/img/bd_logo1.png?qua=high')
+            window.connumb = this.clist.length
+            this.curUrl = CONTRACT_URL+this.clist[this.curTab].url;
+            if(this.mydevice){
+              this.creatFrame(this.curUrl)
+            }
+            this.$emit('contactnumb','https://www.baidu.com/img/bd_logo1.png?qua=high')
+          }
+
 
         })
       },
@@ -126,14 +147,23 @@
       text-align: center;
       font-size: 30px;
     }
-    ul{
+    ul.comtrans{
+
 
       padding:30px;
       li{
-        padding:20px;
-        border-bottom: 1px solid #eee;
+         width:33.3333%;
+        position: relative;
+        float:left;
         a{
+          display: block;
           color:#ff4a02;
+          img{width:100%;}
+          span{
+            position: absolute;
+            top:30px;left:30px; right:50px;
+            color:#333;
+          }
 
         }
       }

@@ -54,7 +54,7 @@
             <div class="restinfocontent">
               <img src="../../assets/img/fotgetSuccess.jpg"/>
               <h3>账号找回成功</h3>
-              <p></p>
+              <p style="padding-top:20px;color:#999;">{{backtime}}S后返回登录页</p>
             </div>
             <div   class="compds">
 
@@ -97,12 +97,28 @@
         timerText: '获取验证码',
         codeSending: true,
         phone: '',
-        phoneCode: ''
+        phoneCode: '',
+        backtime:3,
 
       }
     },
     created() {
       this.setpidx = this.$route.query.setp ? this.$route.query.setp : 1
+      var x = this.$route.query.zz || ''
+
+
+      if(this.setpidx == 3 &&  x == 1){
+        var t = setInterval(()=>{
+          if(this.backtime == 0){
+            clearInterval(t)
+            this.gohome()
+
+          }else{
+            this.backtime--
+          }
+
+        },1000)
+      }
     },
     methods: {
       gologin(){
@@ -143,10 +159,15 @@
               this.$toast('请输入验证码')
               return false
             }
-            this.request.post('mapi/bind',{
-              phone:this.phone,
-              code:this.phoneCode
-            }).then(res=>{
+          var idcard = localStorage.getItem('forgetcard') || ''
+          var pdata = {
+            phone:this.phone,
+            id_card:idcard,
+            to_rebind:1,
+            code:this.phoneCode
+          }
+
+            this.request.post('mapi/bind',pdata).then(res=>{
               if(res.code == 0){
                 this.$router.replace({
                   path: '/authPerson',
@@ -157,11 +178,20 @@
                   }
                 })
               }else{
-                this.$toast(res.msg)
+                alert(res.msg)
               }
 
             })
 
+        }
+        if(str ==1){
+          this.$router.replace({
+            path:'authPerson',
+            query:{
+              funCode:'forgetPas',
+              setp:1
+            }
+          })
         }
 
 
@@ -182,8 +212,10 @@
         }
         this.codeSending = false
 
+        var idcard = localStorage.getItem('forgetcard') || ''
         this.request.post('mapi/sendCode',{
-          phone:this.phone
+          phone:this.phone,
+          id_card:idcard
         }).then(res=>{
           if(res.code == 0){
             this.timerText =  this.timer+'S'
@@ -201,7 +233,7 @@
             },1000)
           }else{
             this.codeSending = true
-            this.$toast(res.msg)
+            alert(res.msg)
           }
 
         },error=>{

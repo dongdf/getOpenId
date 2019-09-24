@@ -12,6 +12,7 @@
       </li>
       <div @click="goforget" class="findpas">找回账号</div>
     </ul>
+    {{errorText}}
     <div class="showxy">*登录即同意<a target="_blank" :href="xyUrl">平台服务协议</a></div>
   </div>
 </template>
@@ -28,6 +29,7 @@
         phone:'',
         phoneCode:'',
         xyUrl:'',
+        errorText:'',
 
       }
     },
@@ -131,7 +133,8 @@
           }
 
         },error=>{
-          alert('登录失败！请重新登录');
+          // this.errorText = error
+          alert('登录失败,请联系客服');
           // console.log('登录失败！请重新登录')
         })
 
@@ -171,7 +174,8 @@
             },1000)
           }else{
             this.codeSending = true
-            this.$messagebox.alert(info.msg);
+            // this.$messagebox.alert(info.msg);
+            alert(info.msg);
           }
 
         },error=>{

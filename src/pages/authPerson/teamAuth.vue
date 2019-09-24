@@ -56,7 +56,7 @@
           <li>
             <div class="filelabel">户籍所在地</div>
             <div class="filecontent" style="color:#666;"  >
-              {{curInfo.registration}}
+              {{curInfo.address}}
               <!--<input v-model="curInfo.registration"  type="text" style="text-align: right" placeholder="请输入户籍所在地"/>-->
             </div>
           </li>
@@ -80,8 +80,8 @@
           <li>
             <div class="filelabel">银行开卡号</div>
             <div class="filecontent">
-              <!--{{curInfo.bank_account}}-->
-              <input v-model="curInfo.bank_account"  class="nostyle"  type="text" style="text-align: right" placeholder="请输入银行开卡号"/>
+              {{curInfo.bank_account}}
+              <!--<input v-model="curInfo.bank_account"  class="nostyle"  type="text" style="text-align: right" placeholder="请输入银行开卡号"/>-->
             </div>
           </li>
           <li>
@@ -91,7 +91,8 @@
           <li>
             <div class="filelabel">银行卡开户行</div>
             <div class="filecontent">
-              <input v-model="curInfo.bank_name" class="nostyle"  type="text" style="text-align: right" placeholder="请输入银行卡开户行"/>
+              {{curInfo.bank_name}}
+              <!--<input v-model="curInfo.bank_name" class="nostyle"  type="text" style="text-align: right" placeholder="请输入银行卡开户行"/>-->
             </div>
           </li>
           <!--<li>-->
@@ -142,8 +143,11 @@
          </a><a @click="isallow = true" style="color:#FF4A02" :href="xyUrl" target="_blank">非全管理制度</a></div>
        </div>
     </div>
+   <div v-if="isqz">
+     <elem :showQz="isqz" :numbs="cnumb"   configs="qianzi"></elem>
 
-    <elem :showQz="isqz"   configs="qianzi"></elem>
+   </div>
+
 
 
     <div :is="item.component" v-for="item in itemComponents" :pickerShow="item.isshow" :pickerList="item.data"  @itemok="itemOk" @itemcancle="itemCancle"></div>
@@ -216,12 +220,20 @@
         })
       },
       viewIdcard(){
-        this.$card({
-          funCode:'idcardview',
-          width:'90%',
-          title:'身份证预览',
-          props:{
-            cardinfo:this.curInfo
+        // this.$card({
+        //   funCode:'idcardview',
+        //   width:'90%',
+        //   title:'身份证预览',
+        //   props:{
+        //     cardinfo:this.curInfo
+        //   }
+        // })
+        this.$router.push({
+          path:'/authPerson',
+          query:{
+            funCode:'idcardview',
+            zidimg:this.curInfo.zidimg,
+            fidimg:this.curInfo.fidimg
           }
         })
       },

@@ -37,7 +37,7 @@ window.addRouter({
 })
 window.addRouter({
   name:'forgetPas',
-  title:'找回密码',
+  title:'找回账号',
   component:forgetPas
 })
 window.addRouter({

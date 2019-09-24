@@ -11,13 +11,7 @@
 
         </div>
         <div class="canvasqz">
-
-
            <iframe id="qzq" class="qzban" ref="qzq" frameborder="0" v-if="showQz" src="./static/signature.html"></iframe>
-
-
-
-
         </div>
         <div>
           <button class="main" @click="saveqzq">立即签约({{numbs}})</button>
@@ -377,7 +371,7 @@
         })
       },
       reset(){
-        alert('清楚')
+
         document.getElementById('qzq').contentWindow.clearcanvas()
       },
       upload() {

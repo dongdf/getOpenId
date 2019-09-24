@@ -144,7 +144,10 @@
     methods:{
       gettopInfo(){
         this.request.post('mapi/showTopData').then(res=>{
-          this.topinfo = res.data
+          if(res.code == 0){
+            this.topinfo = res.data
+          }
+
         })
 
       },
@@ -172,6 +175,17 @@
       getallcom(){
         this.request.post('mapi/getCompanyList',{}).then(res=>{
           if(res.code == 0){
+            if(res.data.length == 0){
+              localStorage.removeItem('is_auth')
+              setTimeout(()=>{
+                this.$router.push({
+                  path:'/mlogin'
+                })
+              },200)
+
+              return false;
+
+            }
             this.allcList = res.data;
             if(this.$route.query.id){
               this.getCurinfo(this.$route.query.id)

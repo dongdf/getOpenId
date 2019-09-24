@@ -103,7 +103,7 @@
 <body>
 <div id="layer" class="qianying"></div>
 <canvas id="canvas"></canvas>
-<div id="menuPanel" style="display: none">
+<div id="menuPanel" style="display:none">
     <button id="clearBtn">重置</button>
     <button id="saveBtn">确认签约</button>
 </div>
@@ -119,6 +119,17 @@
         let lastX = null;
         let lastY = null;
         let context = canvas.getContext("2d");
+
+      function  clearcanvas() {
+        // alert('')
+        var x = document.getElementById("canvas").getContext("2d")
+        var xheight = document.getElementById("canvas").offsetHeight
+        var xwidth = document.getElementById("canvas").offsetWidth
+        // alert(xwidth)
+        // alert(xheight)
+        x.clearRect(0, 0, xwidth, xheight);
+
+      }
 
 
       let  cleartips = function() {
@@ -195,9 +206,7 @@
           showtips()
             context.clearRect(0, 0, width, height);
         });
-        function  clearcanvas() {
-          context.clearRect(0, 0, width, height);
-        }
+
         saveBtn.addEventListener("click", function() {
             let returnImg = canvas.toDataURL("image/png");
             let id = getQueryString('id');
