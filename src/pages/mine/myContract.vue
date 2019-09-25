@@ -35,7 +35,8 @@
             </div>
 
           </div>
-          <div class="contractState"><img src="../../assets/img/c_yqy.png"/> </div>
+          <div class="contractState" v-show="c.sign_status == 1"><img src="../../assets/img/c_wgq.png"/> </div>
+          <div class="contractState" v-show="c.sign_status == 0"><img src="../../assets/img/c_yqy.png"/> </div>
         </li>
       </template>
 
@@ -94,6 +95,7 @@
     },
     methods:{
       goqianyue(obj){
+        // alert(obj.company_id)
         if(obj.role_id == 1){//用工宝
 
           this.$router.push({
@@ -101,31 +103,35 @@
             query:{
               funCode:'teamAuth',
               setp:2,
-              cid:this.obj.company_id
+              cid:obj.company_id
             }
           })
 
         }
         if(obj.role_id == 2){//创业宝
+          alert('暂未开放');
+          return false;
 
           this.$router.push({
             path:'/authPerson',
             query:{
               funCode:'businessAuth',
               setp:2,
-              cid:this.obj.company_id
+              cid:obj.company_id
             }
           })
 
         }
         if(obj.role_id == 3){//分工宝
+          alert('暂未开放');
+          return false;
 
           this.$router.push({
             path:'/authPerson',
             query:{
               funCode:'personalAuth',
               setp:2,
-              cid:this.obj.company_id
+              cid:obj.company_id
             }
           })
 

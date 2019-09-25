@@ -14,7 +14,7 @@
            <iframe id="qzq" class="qzban" ref="qzq" frameborder="0" v-if="showQz" src="./static/signature.html"></iframe>
         </div>
         <div>
-          <button class="main" @click="saveqzq">立即签约({{numbs}})</button>
+          <button class="main" @click="saveqzq">立即签约</button>
         </div>
       </div>
     </div>
