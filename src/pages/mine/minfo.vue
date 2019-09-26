@@ -213,7 +213,7 @@
         this.$messagebox.alert('建设中,敬请期待')
       },
       checkcontract(){
-        if(!this.curInfo.sign_status){
+        if(this.curInfo.sign_status == 0){
 
 
             if(this.curInfo.role == 1){//用工宝
@@ -241,60 +241,57 @@
                 }
               })
               return false;
-            } else{
+            }else if(this.curInfo.role == 2){//创业宝宝
+              this.$promot({
+                name:'$promot',
+                width:'80%',
+                title:'基本信息',
+                funCode:'qyts',
+                props:{
+                  isableclose:true,
+                  tipText:'请签约合同创业宝合同'
+
+                },
+                callback:(close)=>{
+                  close();
+                  this.$router.push({
+                    path:'/authPerson',
+                    query:{
+                      funCode:'businessAuth',
+                      setp:1,
+                      cid:this.curInfo.cmpy_id
+                    }
+                  })
+                }
+              })
+              return false;
+            }else if(this.curInfo.role == 3){//用工宝
+              this.$promot({
+                name:'$promot',
+                width:'80%',
+                title:'基本信息',
+                funCode:'qyts',
+                props:{
+                  isableclose:true,
+                  tipText:'请签约分工宝合同'
+
+                },
+                callback:(close)=>{
+                  close();
+                  this.$router.push({
+                    path:'/authPerson',
+                    query:{
+                      funCode:'personalAuth',
+                      setp:2,
+                      cid:this.curInfo.cmpy_id
+                    }
+                  })
+                }
+              })
+              return false;
+            }else{
               return true;
             }
-            // else if(this.curInfo.role == 2){//创业宝宝
-            //   this.$promot({
-            //     name:'$promot',
-            //     width:'80%',
-            //     title:'基本信息',
-            //     funCode:'qyts',
-            //     props:{
-            //       isableclose:true,
-            //       tipText:'请签约合同用工宝合同'
-            //
-            //     },
-            //     callback:(close)=>{
-            //       close();
-            //       this.$router.push({
-            //         path:'/authPerson',
-            //         query:{
-            //           funCode:'businessAuth',
-            //           setp:2,
-            //           cid:this.curInfo.cmpy_id
-            //         }
-            //       })
-            //     }
-            //   })
-            //   return false;
-            // }else if(this.curInfo.role == 3){//用工宝
-            //   this.$promot({
-            //     name:'$promot',
-            //     width:'80%',
-            //     title:'基本信息',
-            //     funCode:'qyts',
-            //     props:{
-            //       isableclose:true,
-            //       tipText:'请签约创业宝合同'
-            //
-            //     },
-            //     callback:(close)=>{
-            //       close();
-            //       this.$router.push({
-            //         path:'/authPerson',
-            //         query:{
-            //           funCode:'personalAuth',
-            //           setp:2,
-            //           cid:this.curInfo.cmpy_id
-            //         }
-            //       })
-            //     }
-            //   })
-            //   return false;
-            // }else{
-            //   return true;
-            // }
 
 
 

@@ -80,8 +80,8 @@
           <li>
             <div class="filelabel">银行开卡号</div>
             <div class="filecontent">
-              <!--{{curInfo.bank_account}}-->
-              <input v-model="curInfo.bank_account"  type="text" style="text-align: right" placeholder="请输入银行开卡号"/>
+              {{curInfo.bank_account}}
+              <!--<input v-model="curInfo.bank_account"  type="text" style="text-align: right" placeholder="请输入银行开卡号"/>-->
             </div>
           </li>
           <li>
@@ -91,17 +91,18 @@
           <li>
             <div class="filelabel">银行卡开户行</div>
             <div class="filecontent">
-              <input v-model="curInfo.bank_name"  type="text" style="text-align: right" placeholder="请输入银行卡开户行"/>
+              {{curInfo.bank_name}}
+              <!--<input v-model="curInfo.bank_name"  type="text" style="text-align: right" placeholder="请输入银行卡开户行"/>-->
             </div>
           </li>
 
 
-          <li>
-            <div class="filelabel">学历</div>
-            <div class="filecontent">
-              <span @click="selectXl()">{{curInfo.education?curInfo.education:'初中'}}<i class="rightas"><img src="../../assets/img/righta.jpg"/> </i></span>
-            </div>
-          </li>
+          <!--<li>-->
+            <!--<div class="filelabel">学历</div>-->
+            <!--<div class="filecontent">-->
+              <!--<span @click="selectXl()">{{curInfo.education?curInfo.education:'初中'}}<i class="rightas"><img src="../../assets/img/righta.jpg"/> </i></span>-->
+            <!--</div>-->
+          <!--</li>-->
           <!--<li>-->
             <!--<div class="filelabel">每小时工资</div>-->
             <!--<div class="filecontent" style="color:#666;"  >￥20</div>-->
@@ -190,12 +191,20 @@
     },
     methods: {
       viewIdcard(){
-        this.$card({
-          funCode:'idcardview',
-          width:'90%',
-          title:'身份证预览',
-          props:{
-            cardinfo:this.curInfo
+        // this.$card({
+        //   funCode:'idcardview',
+        //   width:'90%',
+        //   title:'身份证预览',
+        //   props:{
+        //     cardinfo:this.curInfo
+        //   }
+        // })
+        this.$router.push({
+          path:'/authPerson',
+          query:{
+            funCode:'idcardview',
+            zidimg:this.curInfo.zidimg,
+            fidimg:this.curInfo.fidimg
           }
         })
       },
@@ -312,9 +321,11 @@
             area:this.selectAreaInfo.county.name,
             bank_account:this.curInfo.bank_account,
             bank_name:this.curInfo.bank_name,
-            education:this.curInfo.education,
+            // address:this.curInfo.address?this.curInfo.address:'暂无地址',
+            education:this.curInfo.education?this.curInfo.education:'初中',
             company_id:this.$route.query.cid,
-            id:this.curInfo.id
+            id:this.curInfo.id,
+            hourly_wage:20,
           }
           this.request.post('mapi/saveInfo',pdata).then(res=>{
             if(res.code == 0){

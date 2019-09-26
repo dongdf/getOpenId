@@ -1,6 +1,6 @@
 <template>
     <div class="mondifycontent" >
-      <input type="text" v-model="cname" placeholder="请修改后的公司名称"/>
+      <textarea type="text" class="tx" v-model="cname" placeholder="请修改后的公司名称"/>
       <div class="qbtn" style="bottom:-20px;">
         <span @click="mdok">保存</span>
       </div>
@@ -32,12 +32,13 @@
   .mondifycontent{
     padding:30px 25px;
     margin:20px 0;
-    input[type=text]{
+    .tx{
       font-size:35px;
       padding:10px;
       border:none;
       border-bottom: 1px solid #DDD;
       width:100%;
+      outline: none;
     }
 
   }

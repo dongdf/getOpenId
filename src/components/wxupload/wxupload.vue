@@ -127,8 +127,10 @@
               reject()
             })
           }else{//公司营业执照
+            var cid = this.$route.query.cid
             var pdata={
-              id:mid
+              mediaId:mid,
+              company_id:cid
             }
             this.request.post('mapi/uploadIndustryImg',pdata).then(res => {
               resolve(res);

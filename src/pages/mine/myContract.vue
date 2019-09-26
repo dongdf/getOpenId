@@ -26,17 +26,17 @@
               <h3>{{c.company_name}}/{{c.member_contract_str}}</h3>
               <p class="timer">{{c.contracts}}</p>
             </div>
-            <div class="iteminfobtn" v-if="c.sign_status == 0"  >
+            <div class="iteminfobtn" v-if="c.sign_status == 1"  >
               <a class="main sm" target="_blank" :href="burl+'mapi/getContract/'+c.contracts">查看合同</a>
             </div>
 
-            <div class="iteminfobtn" v-if="c.sign_status == 1"  >
+            <div class="iteminfobtn" v-if="c.sign_status == 0"  >
               <a class="main sm" target="_blank" @click="goqianyue(c)">立即签约</a>
             </div>
 
           </div>
-          <div class="contractState" v-show="c.sign_status == 1"><img src="../../assets/img/c_wgq.png"/> </div>
-          <div class="contractState" v-show="c.sign_status == 0"><img src="../../assets/img/c_yqy.png"/> </div>
+          <div class="contractState" v-show="c.sign_status == 0"><img src="../../assets/img/c_wgq.png"/> </div>
+          <div class="contractState" v-show="c.sign_status == 1"><img src="../../assets/img/c_yqy.png"/> </div>
         </li>
       </template>
 
@@ -109,22 +109,20 @@
 
         }
         if(obj.role_id == 2){//创业宝
-          alert('暂未开放');
-          return false;
+           alert('')
 
           this.$router.push({
             path:'/authPerson',
             query:{
               funCode:'businessAuth',
-              setp:2,
+              setp:1,
               cid:obj.company_id
             }
           })
 
         }
         if(obj.role_id == 3){//分工宝
-          alert('暂未开放');
-          return false;
+
 
           this.$router.push({
             path:'/authPerson',

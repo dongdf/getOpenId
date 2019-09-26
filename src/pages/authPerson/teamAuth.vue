@@ -158,7 +158,7 @@
 
 <script>
 
-  import pickeritem from '../../components//pickercustom/picker'
+  import pickeritem from '../../components/pickercustom/picker'
   import areas from '../../components//area/chsArea'
   import {XIEYI_URL} from '@/constants'
   export default {

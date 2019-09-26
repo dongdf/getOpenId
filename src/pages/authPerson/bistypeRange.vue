@@ -7,27 +7,27 @@
         <!--</h3>-->
         <ul>
 
-          <li class="">商务信息咨询服务部/商务信息咨询工作室
-            <label class="checkbox"></label>
+          <li class=""  v-for="g,index in gslist" @click="seltype(g,index)">{{g}}
+            <label class="checkbox" :class="g == selectStr?'checkboxed':''"></label>
           </li>
-          <li class="">商务信息咨询服务部/商务信息咨询工作室
-            <label class="checkbox"></label>
-          </li>
-          <li class="">商务信息咨询服务部/商务信息咨询工作室
-            <label class="checkbox"></label>
-          </li>
-          <li class="">商务信息咨询服务部/商务信息咨询工作室
-            <label class="checkbox"></label>
-          </li>
-          <li class="">商务信息咨询服务部/商务信息咨询工作室
-            <label class="checkbox checkboxed"></label>
-          </li>
+          <!--<li class="">商务信息咨询服务部/商务信息咨询工作室-->
+            <!--<label class="checkbox"></label>-->
+          <!--</li>-->
+          <!--<li class="">商务信息咨询服务部/商务信息咨询工作室-->
+            <!--<label class="checkbox"></label>-->
+          <!--</li>-->
+          <!--<li class="">商务信息咨询服务部/商务信息咨询工作室-->
+            <!--<label class="checkbox"></label>-->
+          <!--</li>-->
+          <!--<li class="">商务信息咨询服务部/商务信息咨询工作室-->
+            <!--<label class="checkbox checkboxed"></label>-->
+          <!--</li>-->
 
         </ul>
       </div>
-      <!--<div class="bsave">-->
-        <!--<button class="main" @click="conrange()">保存</button>-->
-      <!--</div>-->
+      <div class="bsave">
+        <button class="main" @click="conrange()">确定</button>
+      </div>
     </div>
 
 </template>
@@ -35,9 +35,42 @@
 <script>
   export default {
     name: "bis-range",
+
+    data(){
+      return{
+        gslist:[],
+        selectStr:'',
+        selectIdx:0
+      }
+    },
+    created(){
+      this.getgs()
+    },
     methods:{
+      seltype(obj,idx){
+        this.selectIdx=0
+        this.selectStr = obj
+        this.selectIdx = idx
+
+
+      },
+      getgs(){
+        this.request.post('mapi/getIndustryType').then(res=>{
+          if(res.code == 0){
+            this.gslist = res.data;
+          }else{
+            alert(res.msg)
+          }
+        },error=>{
+          alert('获取失败')
+        })
+      },
       conrange(){
-        this.callback()
+        var otype={
+          name:this.selectStr,
+          id:this.selectIdx
+        }
+        this.callback(otype)
       }
     }
   }
@@ -79,7 +112,7 @@
       }
     }
     ul{
-      padding-top:40px;
+      padding-top:10px;
       li{
         position: relative;
         padding:20px 0;
