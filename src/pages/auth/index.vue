@@ -127,6 +127,7 @@ export default {
         },(e)=>{
           this.shouquanShow = true;
           this.error = '服务器开小差，请关闭后重新进入';
+          alert('抱歉，请关闭页面重新进入')
 
         })
       } else {

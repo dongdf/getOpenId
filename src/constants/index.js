@@ -17,9 +17,6 @@ export const IMG_URL = 'http://renshe.oss-cn-beijing.aliyuncs.com/'//图片地�
 /*测试环境*/
 
 
-
-
-
 /*生产环境*/
 
 // export const ENV = process.env.NODE_ENV

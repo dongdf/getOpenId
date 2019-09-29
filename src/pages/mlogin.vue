@@ -5,10 +5,9 @@
     </div>
     <ul class="loginbox">
       <li><label class="loginicon"><img src="../assets/img/login_phone.jpg"/> </label><input type="text" v-model.trim="phone" placeholder="请输入手机号"/></li>
-      <li><label class="loginicon"><img src="../assets/img/login_lock.jpg"/></label><input type="text" v-model.trim="phoneCode" style="width:70%" placeholder="请输入验证码"/><div @click="getcode"  class="phonecode"><span>{{timerText}}</span></div></li>
+      <li><label class="loginicon"><img src="../assets/img/login_lock.jpg"/></label><input maxlength="4" type="text" v-model.trim="phoneCode" style="width:70%" placeholder="请输入验证码"/><div @click="getcode"  class="phonecode"><span>{{timerText}}</span></div></li>
       <li class="libtn">
         <button @click="login">用户登录</button>
-
       </li>
       <div @click="goforget" class="findpas">找回账号</div>
     </ul>
@@ -180,7 +179,7 @@
 
         },error=>{
           this.codeSending = true
-          alert('请求失败')
+          alert('短信验证码发送失败，请重试')
         })
 
 
