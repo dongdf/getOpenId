@@ -224,7 +224,7 @@
                 funCode:'qyts',
                 props:{
                   isableclose:true,
-                  tipText:'请签约合同用工宝合同'
+                  tipText:'请签约用工宝合同'
 
                 },
                 callback:(close)=>{
@@ -249,7 +249,7 @@
                 funCode:'qyts',
                 props:{
                   isableclose:true,
-                  tipText:'请签约合同创业宝合同'
+                  tipText:'请签约创业宝合同'
 
                 },
                 callback:(close)=>{
@@ -265,7 +265,7 @@
                 }
               })
               return false;
-            }else if(this.curInfo.role == 3){//用工宝
+            }else if(this.curInfo.role == 3){//分工宝
               this.$promot({
                 name:'$promot',
                 width:'80%',
