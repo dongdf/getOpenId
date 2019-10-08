@@ -60,6 +60,7 @@
                   }else if(str ==2){
                     that.$emit('upinfofm',ossimg.url)
                   }else {
+                    // alert(JSON.stringify(ossimg))
                     that.$emit('upinfo',ossimg.url)
                   }
 
@@ -132,6 +133,7 @@
               mediaId:mid,
               company_id:cid
             }
+            // alert(JSON.stringify(pdata))
             this.request.post('mapi/uploadIndustryImg',pdata).then(res => {
               resolve(res);
             },error=>{

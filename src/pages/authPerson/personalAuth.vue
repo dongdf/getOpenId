@@ -56,7 +56,7 @@
           <li>
             <div class="filelabel">户籍所在地</div>
             <div class="filecontent" style="color:#666;"  >
-              {{curInfo.registration}}
+              {{curInfo.address}}
               <!--<input v-model="curInfo.registration"  type="text" style="text-align: right" placeholder="请输入户籍所在地"/>-->
             </div>
           </li>

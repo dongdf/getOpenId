@@ -492,6 +492,15 @@
           if(this.upimgzm.length==0){
             this.$toast('请上传工商截图')
             return false;
+          }else {
+            this.$router.push({
+              path:'/authPerson',
+              query:{
+                funCode:'businessAuth',
+                cid:this.$route.query.cid,
+                setp:str
+              }
+            })
           }
         }else{
           this.$router.push({
@@ -509,6 +518,7 @@
       upinfozm(value){
         // alert(value)
         this.upimgzm.push(IMG_URL+value)
+        // alert(IMG_URL+value)
       },
 
       delimgzm(){

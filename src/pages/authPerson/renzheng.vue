@@ -28,6 +28,10 @@
     // components:{authperson},
     methods:{
       goforget(){
+
+
+        localStorage.removeItem('is_auth')
+        localStorage.removeItem('myphone')
         this.$router.push({
           path:'/authPerson',
           query:{

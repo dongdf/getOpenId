@@ -4,8 +4,8 @@
       <div data-v-5c8289c0="" ref="carsContent"  >
         <div  class="popw"    :style="{width:width}">
           <div class="el-dialog__header"><span class="el-dialog__title">{{title}}</span>
-            <button @click="close" type="button"   class="el-dialog__headerbtn"><i
-              class="el-dialog__close el-icon el-icon-close"><img src="../assets/img/close.png"/> </i></button>
+            <label @click="close" type="button"   class="el-dialog__headerbtn"><i
+              class="el-dialog__close el-icon el-icon-close"><img src="../assets/img/close.png"/> </i></label>
           </div>
           <div class="el-dialog__body">
             <div id="bodyContent" ref="bodyContent"></div>
