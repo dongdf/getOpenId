@@ -125,7 +125,7 @@
       <elem configs="contractList" ref="cons"  v-show="!isqz"></elem>
       <div class="tx">
         <button class="main"  @click="isqz = true">一键签约({{cnumb}})</button>
-        <div class="xieyi"><span class="ckbox"><img src="../../assets/img/checkbox.jpg"/> </span>我已阅读并同意非全制度</div>
+        <!--<div class="xieyi"><span class="ckbox"><img src="../../assets/img/checkbox.jpg"/> </span>我已阅读并同意非全制度</div>-->
       </div>
     </div>
 
