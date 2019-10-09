@@ -29,8 +29,8 @@
         <button @click="gonext(2)" class="main">下一步</button>
       </div>
       <div class="auDemo">
-        <img v-if="!myphones" src="../../assets/img/androidtips.jpg"/>
-        <img v-if="myphones"  src="../../assets/img/iostips.jpg"/>
+        <img v-if="!myphones" src="https://renshe.oss-cn-beijing.aliyuncs.com/miniProgram/androidtips.jpg"/>
+        <img v-if="myphones"  src="https://renshe.oss-cn-beijing.aliyuncs.com/miniProgram/iostips.jpg"/>
       </div>
     </div>
 
