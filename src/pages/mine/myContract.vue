@@ -97,7 +97,6 @@
       goqianyue(obj){
         // alert(obj.company_id)
         if(obj.role_id == 1){//用工宝
-
           this.$router.push({
             path:'/authPerson',
             query:{
@@ -109,8 +108,6 @@
 
         }
         if(obj.role_id == 2){//创业宝
-           alert('')
-
           this.$router.push({
             path:'/authPerson',
             query:{
