@@ -329,6 +329,7 @@
           }
           this.request.post('mapi/saveInfo',pdata).then(res=>{
             if(res.code == 0){
+              localStorage.setItem('personalAuth' + this.$route.query.cid, str);
               this.$router.push({
                 path:'/authPerson',
                 query:{
