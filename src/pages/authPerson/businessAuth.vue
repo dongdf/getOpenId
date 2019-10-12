@@ -204,7 +204,7 @@
       </div>
     </div>
 
-    <elem :showQz="isqz" configs="qianzi"></elem>
+    <elem :showQz="isqz" :qname="curInfo.name" configs="qianzi"></elem>
 
 
     <areas :pickerShow="areaShow" @areaok="areaOk" @areacancle="areaCancle"></areas>

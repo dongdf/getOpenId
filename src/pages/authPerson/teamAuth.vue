@@ -144,7 +144,7 @@
        </div>
     </div>
    <div v-if="isqz">
-     <elem :showQz="isqz" :numbs="cnumb"   configs="qianzi"></elem>
+     <elem :showQz="isqz" :numbs="cnumb" :qname="curInfo.name"  configs="qianzi"></elem>
 
    </div>
 
