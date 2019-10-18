@@ -24,7 +24,7 @@
               <div class="iteminfo">
                 <p class="jtitle">签约时间:{{c.start_at}}</p>
                 <h3>{{c.company_name}}/{{c.member_contract_str}}</h3>
-                <p class="timer" v-show="c.sign_status == 1">{{c.contracts}}</p>
+                <p class="timer" v-show="c.sign_status == 1">合同编号:{{c.contracts}}</p>
               </div>
               <div class="iteminfobtn" v-if="c.sign_status == 1">
                 <a class="main sm" target="_blank" :href="burl+'mapi/getContract/'+c.contracts">查看合同</a>
