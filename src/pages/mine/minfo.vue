@@ -151,22 +151,22 @@
           if (res.code == 0) {
             this.topinfo = res.data
           }
-
         })
-
       },
       gopage (str) {
-
-        if (this.checkcontract()) {
-
-          this.$router.push({
-            path: '/mine',
-            query: {
-              funCode: str
-            }
-          })
+        var flag = this.curInfo.role_address
+        if (this.curInfo.role === 2 && flag === '宿迁') {
+          return
+        } else {
+          if (this.checkcontract()) {
+            this.$router.push({
+              path: '/mine',
+              query: {
+                funCode: str
+              }
+            })
+          }
         }
-
       },
       gocompany () {
         this.$router.replace({
@@ -305,10 +305,13 @@
         this.request.post('mapi/getOneCompanyInfo', {company_id: id}).then(res => {
           if (res.code == 0) {
             this.curInfo = res.data
-
-            this.checkcontract()
+            var flag = this.curInfo.role_address
+            if (this.curInfo.role === 2 && flag === '宿迁') {
+              return
+            } else {
+              this.checkcontract()
+            }
             // this.$toast(res.msg)
-
           } else {
             alert(res.msg)
           }
