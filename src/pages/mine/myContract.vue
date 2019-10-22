@@ -22,7 +22,7 @@
           <li v-for="c,idx in d">
             <div class="coninfo">
               <div class="iteminfo">
-                <p class="jtitle">签约时间:{{c.start_at}}</p>
+                <p class="jtitle">签约时间:{{c.start_at?c.start_at.substr(0,10):c.start_at}}</p>
                 <h3>{{c.company_name}}/{{c.member_contract_str}}</h3>
                 <p class="timer" v-show="c.sign_status == 1">编号:{{c.contracts}}</p>
               </div>
