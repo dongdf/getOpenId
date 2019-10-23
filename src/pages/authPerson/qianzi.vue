@@ -83,7 +83,7 @@
           }).then(sidata => {
             this.showDisabled = false
             this.$indicator.close()
-            if (sidata.code == 0) {
+            if(sidata.code == 0) {
               this.$toast('签约完成')
               this.$router.push({
                 path: '/mine',
@@ -99,7 +99,7 @@
             this.$indicator.close()
             alert('签约失败。')
           })
-        }, error => {
+        },error => {
           this.showDisabled = false
           alert(error)
         })
