@@ -67,8 +67,8 @@
           this.$toast('签名图片过大，请重新签名')
           return false
         }
+        this.showDisabled = true
         this.saveqm(returnImg).then(res => {
-          this.showDisabled = true
           setTimeout(() => {
             this.$indicator.open({
               text: '签约中,请稍后...',
@@ -76,11 +76,12 @@
             })
           }, 220)
           //进行签名
-          this.request.post('mapi/upSign', {
+          this.$http.post('mapi/upSign?connect_redirect=1', {
             url: res.data,
             company_id: this.$route.query.cid,
             cmloading: true
-          }).then(sidata => {
+          }, {timeout: 1000 * 60 * 20}).then(result => {
+            var sidata = JSON.parse(result.data)
             this.showDisabled = false
             this.$indicator.close()
             if (sidata.code == 0) {
@@ -106,15 +107,14 @@
 
       },
       saveqm (baseimg) {//保存base64
-
         return new Promise((resolve, reject) => {
-          this.request.post('mapi/uploadSignImg', {img: baseimg}).then(res => {
-            if (res.code == 0) {
-              resolve(res)
+          this.$http.post('mapi/uploadSignImg?connect_redirect=1', {img: baseimg}, {timeout: 1000 * 60 * 20}).then(res => {
+            var result = JSON.parse(res.data)
+            if (result.code == 0) {
+              resolve(result)
             } else {
               reject('上传失败，请清空重新签名')
             }
-
           }, error => {
             reject('上传失败,请重试')
           })
