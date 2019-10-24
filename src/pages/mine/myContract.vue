@@ -121,7 +121,7 @@
           })
 
         }
-        if (obj.role_id == 3) {//分工宝
+        if(obj.role_id == 3) {//分工宝
           var setp = localStorage.getItem('personalAuth' + obj.company_id)
           this.$router.push({
             path: '/authPerson',
@@ -131,7 +131,6 @@
               cid: obj.company_id
             }
           })
-
         }
 
       },
