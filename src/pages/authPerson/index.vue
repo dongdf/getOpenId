@@ -8,16 +8,15 @@
   import '../mine/router.js'
 
   export default {
-    name: "index",
-    data(){
-      return{
-        funCode:''
+    name: 'index',
+    data () {
+      return {
+        funCode: ''
       }
     },
-    created(){
-      if(this.$route.query.funCode){
+    created () {
+      if (this.$route.query.funCode) {
         this.funCode = this.$route.query.funCode
-        // alert(this.funCode)
       }
     }
   }

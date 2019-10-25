@@ -262,11 +262,19 @@
               },
               callback: (close) => {
                 close()
-                this.$router.push({
+                /*this.$router.push({
                   path: '/authPerson',
                   query: {
                     funCode: 'personalAuth',
                     setp: setp == null ? 2 : setp,
+                    cid: this.curInfo.cmpy_id
+                  }
+                })*/
+                this.$router.push({
+                  path: '/authPerson',
+                  query: {
+                    funCode: 'suqianAuth',
+                    setp: setp == null ? 1 : setp,
                     cid: this.curInfo.cmpy_id
                   }
                 })
@@ -284,6 +292,9 @@
         this.request.post('mapi/getOneCompanyInfo', {company_id: id}).then(res => {
           if (res.code === 0) {
             this.curInfo = res.data
+            if (this.curInfo.id_card) {
+              this.reSaveInfo(this.curInfo.id_card)
+            }
             var flag = this.curInfo.role_address
             if (this.curInfo.role === 2 && flag === '宿迁') {
               return false
@@ -295,6 +306,17 @@
           }
         }, error => {
           this.$messagebox.alert('获取信息失败,点击右上角三个点选择刷新！')
+        })
+      },
+      reSaveInfo (idcard) {
+        let myphone = localStorage.getItem('myphone') || ''
+        this.request.post('mapi/reSaveInfo', {id_card: idcard, phone: myphone}).then(res => {
+          if (res.code === 0) {
+          } else {
+            this.$toast(res.msg)
+          }
+        }, error => {
+          this.$messagebox.alert('更新用户信息失败！')
         })
       }
     }
