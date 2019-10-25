@@ -15,8 +15,8 @@
             <p @click="gocompany()" v-show="allcList.length>1"><label v-show="curInfo.role !=0" class="micons">
               <img v-show="curInfo.role == 2" src="../../assets/img/storeicon2.png"/>
               <img v-show="curInfo.role == 1 || curInfo.role == 3 " src="../../assets/img/storeicon1.png"/>
-            </label> {{curInfo.company_name}}<label class="micons"><img class="downimg"
-                                                                        src="../../assets/img/storedown.png"/> </label>
+            </label> {{curInfo.company_name}}<label class="micons">
+              <img class="downimg" src="../../assets/img/storedown.png"/> </label>
             </p>
             <p v-show="allcList.length==1"><label v-show="curInfo.role !=0" class="micons">
               <img v-show="curInfo.role == 2" src="../../assets/img/storeicon2.png"/>
@@ -26,7 +26,6 @@
         </div>
       </div>
       <div class="quickinfo">
-
         <div class="quickItem">
           <h3>--</h3>
           <p>钱包(元)</p>
@@ -41,9 +40,7 @@
           <h3>{{topinfo.contract_count}}</h3>
           <p>合同</p>
         </div>
-
       </div>
-
       <div class="quickicon" @click="showtip">
         <div class="quickiconItem">
           <div class="iconimg"><img src="../../assets/img/picon1_1.jpg"/></div>
@@ -98,12 +95,8 @@
         </li>
       </ul>
       <!--创业宝-->
-
-
       <!--分工宝-->
-
       <ul @click="showtip()" v-show="curInfo.role  == 3">
-
         <li>
           <div class="lname">我的业务承揽</div>
           <div class="lbq"><i class="aright"><img src="../../assets/img/arrowRight.jpg"/> </i></div>
@@ -118,7 +111,6 @@
         </li>
       </ul>
       <!--分工宝-->
-
     </div>
   </div>
 </template>
@@ -132,23 +124,16 @@
         morehead: require('../../assets/img/moren.jpg'),
         allcList: [],
         topinfo: {}
-
       }
     },
     created () {
-      // if(this.$route.query.id){
-      //   this.getCurinfo(this.$route.query.id)
-      // }else {
       this.getallcom()
-      // }
-
-      // this.getCurinfo()
       this.gettopInfo()
     },
     methods: {
       gettopInfo () {
         this.request.post('mapi/showTopData').then(res => {
-          if (res.code == 0) {
+          if (res.code === 0) {
             this.topinfo = res.data
           }
         })
@@ -156,7 +141,7 @@
       gopage (str) {
         var flag = this.curInfo.role_address
         if (this.curInfo.role === 2 && flag === '宿迁') {
-          return
+          return false
         } else {
           if (this.checkcontract()) {
             this.$router.push({
@@ -176,19 +161,20 @@
           }
         })
       },
+      /**
+       * 获取公司列表
+       */
       getallcom () {
         this.request.post('mapi/getCompanyList', {}).then(res => {
-          if (res.code == 0) {
-            if (res.data.length == 0) {
+          if (res.code === 0) {
+            if (res.data.length === 0) {
               localStorage.removeItem('is_auth')
               setTimeout(() => {
                 this.$router.push({
                   path: '/mlogin'
                 })
               }, 200)
-
               return false
-
             }
             this.allcList = res.data
             if (this.$route.query.id) {
@@ -200,23 +186,20 @@
                 this.getCurinfo(res.data[0].cmpy_id)
               }
             }
-
           } else {
             this.$toast(res.msg)
           }
-
         }, error => {
-
           this.$messagebox.alert('获取公司列表失败！')
-
         })
       },
       showtip () {
         this.$messagebox.alert('建设中,敬请期待')
       },
       checkcontract () {
-        if (this.curInfo.sign_status == 0) {
-          if (this.curInfo.role == 1) {//用工宝
+        if (this.curInfo.sign_status === 0) {
+          if (this.curInfo.role === 1) {
+            // 用工宝
             var setp = localStorage.getItem('teamAuth' + this.curInfo.cmpy_id)
             this.$promot({
               name: '$promot',
@@ -226,10 +209,8 @@
               props: {
                 isableclose: true,
                 tipText: '请签约用工宝合同'
-
               },
               callback: (close) => {
-
                 close()
                 this.$router.push({
                   path: '/authPerson',
@@ -242,8 +223,9 @@
               }
             })
             return false
-          } else if (this.curInfo.role == 2) {//创业宝宝
-            var setp = localStorage.getItem('businessAuth' + this.curInfo.cmpy_id)
+          } else if (this.curInfo.role === 2) {
+            // 创业宝
+            let setp = localStorage.getItem('businessAuth' + this.curInfo.cmpy_id)
             this.$promot({
               name: '$promot',
               width: '80%',
@@ -252,7 +234,6 @@
               props: {
                 isableclose: true,
                 tipText: '请签约创业宝合同'
-
               },
               callback: (close) => {
                 close()
@@ -267,8 +248,9 @@
               }
             })
             return false
-          } else if (this.curInfo.role == 3) {//分工宝
-            var setp = localStorage.getItem('personalAuth' + this.curInfo.cmpy_id)
+          } else if (this.curInfo.role === 3) {
+            // 分工宝
+            let setp = localStorage.getItem('personalAuth' + this.curInfo.cmpy_id)
             this.$promot({
               name: '$promot',
               width: '80%',
@@ -277,7 +259,6 @@
               props: {
                 isableclose: true,
                 tipText: '请签约分工宝合同'
-
               },
               callback: (close) => {
                 close()
@@ -295,27 +276,23 @@
           } else {
             return true
           }
-
         } else {
           return true
         }
-
       },
       getCurinfo (id) {
         this.request.post('mapi/getOneCompanyInfo', {company_id: id}).then(res => {
-          if (res.code == 0) {
+          if (res.code === 0) {
             this.curInfo = res.data
             var flag = this.curInfo.role_address
             if (this.curInfo.role === 2 && flag === '宿迁') {
-              return
+              return false
             } else {
               this.checkcontract()
             }
-            // this.$toast(res.msg)
           } else {
             alert(res.msg)
           }
-
         }, error => {
           this.$messagebox.alert('获取信息失败,点击右上角三个点选择刷新！')
         })
@@ -343,7 +320,6 @@
         display: flex;
         padding: 25px 0;
         position: relative;
-
 
         .lname {
           width: 100%;
@@ -511,8 +487,6 @@
 
           padding-top: 10px;
         }
-
-
       }
     }
   }
