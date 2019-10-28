@@ -268,7 +268,7 @@
         let size = Math.floor(mediaFileSize / 1024)
         if (size > 1024 * 200) {
           // 这里可以加个文件大小控制
-          $.toast('上传视频文件不要超过200M')
+          this.$toast('上传视频文件不要超过200M')
           return false
         }
         this.uploadFile(mediaFile)
@@ -333,11 +333,53 @@
         this.request.post('mapi/uploadMidAuthVideo', pdata).then(res => {
           if (res.code === 0) {
             this.videoUrl = res.url
+            this.$promot({
+              name: '$promot',
+              width: '80%',
+              title: '基本信息',
+              funCode: 'success',
+              props: {
+                isableclose: false,
+                tipText: '上传成功'
+              },
+              callback: (close) => {
+                close()
+                this.upVideo()
+              }
+            })
           } else {
-            alert(res.msg)
+            this.$promot({
+              name: '$promot',
+              width: '80%',
+              title: '基本信息',
+              funCode: 'error',
+              props: {
+                isableclose: false,
+                tipText: '视频上传失败请重新上传'
+              },
+              callback: (close) => {
+                close()
+                this.upVideo()
+              }
+            })
+            // alert(res.msg)
           }
         }, error => {
-          alert('请重新保存')
+          this.$promot({
+            name: '$promot',
+            width: '80%',
+            title: '基本信息',
+            funCode: 'error',
+            props: {
+              isableclose: false,
+              tipText: '视频上传失败请重新上传'
+            },
+            callback: (close) => {
+              close()
+              this.upVideo()
+            }
+          })
+          // alert('请重新保存')
         })
       },
       areaOk (areaObj) {
@@ -547,16 +589,16 @@
             name: '$promot',
             width: '80%',
             title: '基本信息',
-            funCode: 'success',
+            funCode: 'error',
             props: {
               isableclose: false,
-              tipText: '上传成功'
+              tipText: '视频上传失败请重新上传'
             },
             callback: (close) => {
               close()
             }
           })
-          return false;
+          return false
           if (this.videoUrl.length === 0) {
             this.$toast('请上传认证视频')
             return false
