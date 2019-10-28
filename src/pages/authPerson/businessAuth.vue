@@ -6,26 +6,19 @@
         <li class="leftli " :class="setpidx>=2?'active':''"><a href=""><i>2</i><span>完善信息</span></a></li>
         <li class="leftli " :class="setpidx>=3?'active':''"><a href=""><i>3</i><span>确认信息</span></a></li>
         <li class="" :class="setpidx>=4?'active':''"><a href=""><i>4</i><span>签约</span></a></li>
-
       </ul>
     </div>
     <div v-show="setpidx == 1">
       <div class="aucontent">
         <ul>
-
           <li v-if="upimgzm.length>0">
             <img :src="upimgzm[0]"/>
             <span class="delicon" @click="delimgzm()">删除</span></li>
           <li v-else @click="upimgadd"><img src="../../assets/img/bsiup.jpg"/>
             <wxupload ref="gsup" @upinfo="upinfozm"></wxupload>
           </li>
-
-
         </ul>
-
       </div>
-
-
       <div class="subc">
         <button @click="gonext(2)" class="main">下一步</button>
       </div>
@@ -34,16 +27,13 @@
         <img v-if="myphones" src="https://renshe.oss-cn-beijing.aliyuncs.com/miniProgram/iostips.jpg"/>
       </div>
     </div>
-
     <div v-show="setpidx == 2">
       <div class="busContent">
         <ul>
-
           <li class="fileTitle">基本信息</li>
           <li>
             <div class="filelabel">姓名</div>
             <div class="filecontent" style="color:#666;">
-              <!--<input v-model="curInfo.name"  type="text" style="text-align: right" placeholder="请输入姓名"/>-->
               {{curInfo.name}}
             </div>
           </li>
@@ -51,17 +41,12 @@
             <div class="filelabel">性别</div>
             <div class="filecontent" style="color:#666;">
               <span>{{curInfo.sex_str}}</span>
-              <!--<div class="resext">-->
-              <!--<label><i class="ichecked"></i>男</label>-->
-              <!--<label><i></i>女</label>-->
-              <!--</div>-->
             </div>
           </li>
           <li>
             <div class="filelabel">身份证</div>
             <div class="filecontent" style="color:#666;">
               {{curInfo.id_card}}
-              <!--<input v-model="curInfo.id_card"  type="text" style="text-align: right" placeholder="请输入身份证"/>-->
             </div>
           </li>
           <li>
@@ -72,7 +57,6 @@
             <div class="filelabel">户籍所在地</div>
             <div class="filecontent" style="color:#666;">
               {{curInfo.address}}
-              <!--<input v-model="curInfo.registration"  type="text" style="text-align: right" placeholder="请输入户籍所在地"/>-->
             </div>
           </li>
           <li>
@@ -81,22 +65,17 @@
               <span>已上传<i class="rightas"><img src="../../assets/img/righta.jpg"/> </i></span>
             </div>
           </li>
-
           <li class="fileTitle">其它信息</li>
-
           <li>
             <div class="filelabel">手机号</div>
             <div class="filecontent" style="color:#666;">
               {{curInfo.phone}}
-              <!--<input v-model="curInfo.phone"  type="number" style="text-align: right" placeholder="请输入手机号"/>-->
-              <!--<input v-model="curInfo.phone"  type="number" style="text-align: right" placeholder="请输入手机号"/>-->
             </div>
           </li>
           <li>
             <div class="filelabel">银行开卡号</div>
             <div class="filecontent">
               {{curInfo.bank_account}}
-              <!--<input v-model="curInfo.bank_account"  class="nostyle"  type="text" style="text-align: right" placeholder="请输入银行开卡号"/>-->
             </div>
           </li>
           <li>
@@ -108,42 +87,10 @@
             <div class="filelabel">银行卡开户行</div>
             <div class="filecontent">
               {{curInfo.bank_name}}
-              <!--<input v-model="curInfo.bank_name" class="nostyle"  type="text" style="text-align: right" placeholder="请输入银行卡开户行"/>-->
             </div>
           </li>
-          <!--<li>-->
-          <!--<div class="filelabel">现居住地址</div>-->
-          <!--<div class="filecontent">-->
-          <!--<input v-model="curInfo.address" class="nostyle"  type="text" style="text-align: right" placeholder="请输入现居住地址"/>-->
-          <!--</div>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<div class="filelabel">工种</div>-->
-          <!--<div class="filecontent">-->
-          <!--<input v-model="curInfo.work_type" class="nostyle"  type="text" style="text-align: right" placeholder="请输入工种"/>-->
-          <!--</div>-->
-          <!--</li>-->
-
-
-          <!--<li>-->
-          <!--<div class="filelabel">学历</div>-->
-          <!--<div class="filecontent">-->
-          <!--<span @click="selectXl()">{{curInfo.education?curInfo.education:'初中'}}<i class="rightas"><img src="../../assets/img/righta.jpg"/> </i></span>-->
-          <!--</div>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<div class="filelabel">每小时工资</div>-->
-          <!--<div class="filecontent" style="color:#666;"  >￥20</div>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<div class="filelabel">工种</div>-->
-          <!--<div class="filecontent">初中，小学，默认初中</div>-->
-          <!--</li>-->
-
-
         </ul>
       </div>
-
       <div class="subc">
         <button @click="gonext(3)" class="main">提交</button>
       </div>
@@ -155,15 +102,12 @@
             <h3>个体工商户类型</h3>
             <p v-if="!confirmType.id">请选择个体工商户类型</p>
             <p v-else="confirmType.id">{{confirmType.name}}</p>
-
           </li>
 
           <li>
             <h3>经营范围</h3>
-            <!--<p @click="openrange()">请选择个体工商户类型</p>-->
             <div class="comrange">
               <ul>
-                <!--<li class="dis">经营范经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围围</li>-->
                 <li class="dis">网上从事：化工产品市场推广服务、企业形象策划服务
                   市场营销策划服务、保健用品市场推广服务
                   室内设计及市场推广服务、陶瓷产品市场推广服务
@@ -177,12 +121,9 @@
                   电脑图文设计制作、多媒体技术开发服务
                   网页设计（涉及前置审批的除外）
                 </li>
-                <!--<li>经营范经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围经营范围围</li>-->
               </ul>
             </div>
           </li>
-
-
           <li style="border:none;" v-show="mynamelist">
             <h3>个体申请名称</h3>
             <ul class="rangnamelist">
@@ -192,21 +133,16 @@
           </li>
           <button class="main" @click="gonext(4)">确认注册信息,开始签约</button>
         </ul>
-
       </div>
-
     </div>
     <div v-show="setpidx == 4">
       <elem configs="contractList" v-if="!isqz"></elem>
       <div class="tx">
         <button class="main" @click="isqz = true">一键签约({{cnumb}})</button>
-        <!--<div class="xieyi"><span class="ckbox"><img src="../../assets/img/checkbox.jpg"/> </span>我已阅读并同意非全制度</div>-->
       </div>
     </div>
-
     <elem :showQz="isqz" :qname="curInfo.name" configs="qianzi"></elem>
     <areas :pickerShow="areaShow" @areaok="areaOk" @areacancle="areaCancle"></areas>
-
   </div>
 </template>
 
@@ -236,23 +172,20 @@
         areaselectname: '',
         selectAreaInfo: {},
         cnumb: 0,
-        areaShow: false,
-
+        areaShow: false
       }
     },
     created () {
       this.setpidx = this.$route.query.setp ? this.$route.query.setp : 1
-      var u = navigator.userAgent
+      let u = navigator.userAgent
       if (u.indexOf('iPhone') > -1 || u.indexOf('iOS') > -1) {
         this.myphones = true
       } else {
         this.myphones = false
       }
-
       if (this.$route.query.cid) {
         this.getCurinfo(this.$route.query.cid)
       }
-
       setTimeout(() => {
         this.cnumb = window.connumb
       }, 500)
@@ -267,15 +200,10 @@
       areaCancle () {
         this.areaShow = false
       },
+      /**
+       * 身份证预览
+       */
       viewIdcard () {
-        // this.$card({
-        //   funCode:'idcardview',
-        //   width:'90%',
-        //   title:'身份证预览',
-        //   props:{
-        //     cardinfo:this.curInfo
-        //   }
-        // })
         this.$router.push({
           path: '/authPerson',
           query: {
@@ -306,12 +234,9 @@
                 }
               }
             }
-
           } else {
             this.$toast(res.msg)
-
           }
-
         }, error => {
           this.$messagebox.alert('获取信息失败,点击右上角三个点选择刷新！')
         })
@@ -331,12 +256,10 @@
           props: {
             isableclose: true,
             comName: k
-
           },
           callback: (close, str) => {
             this.mynamelist[idx] = str
             close()
-
           }
         })
       },
@@ -352,12 +275,10 @@
           },
           callback: (close, str) => {
             this.confirmType = str
-
             close()
             this.getmyname()
           }
         })
-
       },
       getmyname () {
         this.request.post('mapi/getIndustryPersonName', {
@@ -369,7 +290,6 @@
           } else {
             alert(res.msg)
           }
-
         }, error => {
           alert('获取失败')
         })
@@ -385,23 +305,19 @@
             b: 2
           },
           callback: (close, str) => {
-            // alert(str)
             this.confirmType = str
             close()
           }
         })
-
       },
       checkThree (obj) {
         return new Promise((reslove, reject) => {
-
           this.request.post('mapi/checkThree', {
             company_id: this.$route.query.cid,
             name: obj.name,
             bank_account: obj.bank_account,
             bank_name: obj.bank_name,
             id_card: obj.id_card
-
           }).then(res => {
             if (res.code == 0) {
               reslove()
@@ -434,19 +350,15 @@
             } else {
               alert(res.msg)
             }
-
           }, error => {
             alert('提交失败，请重试')
           })
-
         } else if (str == 3) {
-
           if (!this.selectAreaInfo.county) {
             this.$toast('请选择银行卡开户地址')
             return false
           }
           this.checkThree(this.curInfo).then(cres => {
-
             var pdata = {
               province_id: this.selectAreaInfo.province.code,
               province: this.selectAreaInfo.province.name,
@@ -456,12 +368,10 @@
               area: this.selectAreaInfo.county.name,
               bank_account: this.curInfo.bank_account,
               bank_name: this.curInfo.bank_name,
-              // address:this.curInfo.address?this.curInfo.address:'暂无地址',
               education: this.curInfo.education ? this.curInfo.education : '初中',
               company_id: this.$route.query.cid,
               id: this.curInfo.id,
-              hourly_wage: 20,
-              // work_type:this.curInfo.work_type?this.curInfo.work_type:'保洁员'
+              hourly_wage: 20
             }
             this.request.post('mapi/saveInfo', pdata).then(res => {
               if (res.code == 0) {
@@ -477,15 +387,12 @@
               } else {
                 alert(res.msg)
               }
-
             }, error => {
               alert('请重新保存')
             })
-
           }, error => {
             alert(error)
           })
-
         } else if (str == 2) {
           if (this.upimgzm.length == 0) {
             this.$toast('请上传工商截图')
@@ -497,7 +404,6 @@
               img: this.upimgzm[0]
             }
             this.request.post('/mapi/checkIndustryImg', data).then(res => {
-              console.log(res)
               if (res.code !== 0) {
                 that.$toast(res.msg)
                 return false
@@ -524,23 +430,14 @@
             }
           })
         }
-
       },
       upinfozm (value) {
-        // alert(value)
         this.upimgzm.push(IMG_URL + value)
-        // alert(IMG_URL+value)
       },
 
       delimgzm () {
         this.upimgzm.splice(0, 1)
-      },
-      /**
-       * 验证工商总局上传图片
-       */
-      checkIndustryImg (storeKey) {
-
-      },
+      }
     }
   }
 </script>
@@ -783,11 +680,9 @@
     }
   }
 
-
   .itmess {
     background: #FF4A02;
   }
-
 
   .findpas {
     text-align: center;
