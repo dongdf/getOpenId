@@ -1,20 +1,47 @@
 <template>
   <div class="qytscontent">
-    <div class="qbtn">
-      <img src="../../assets/img/successIcon.jpg">
+    <div class="iconimg">
+      <img src="../../assets/img/successIcon.png">
     </div>
-    <p>{{tipText}}</p>
-    <p>3s后自动关闭</p>
+    <p class="tip_text">{{tipText}}</p>
+    <div class="timer">{{second}}s后自动关闭</div>
   </div>
 </template>
 
 <script>
   export default {
     props: ['ableClose', 'tipText'],
-    name: 'qyts',
-    created () {
+    name: 'success',
+    data () {
+      return {
+        second: 3
+      }
     },
-    methods: {}
+    mounted () {
+      this.timer()
+    },
+    methods: {
+      /**
+       * 验证码倒计时
+       */
+      timer () {
+        let promise = new Promise((resolve, reject) => {
+          let setTimer = setInterval(
+            () => {
+              let second = this.second - 1
+              this.second = second
+              if (this.second <= 0) {
+                this.second = 3
+                resolve(setTimer)
+                this.close()
+              }
+            }, 1000)
+        })
+        promise.then((setTimer) => {
+          clearInterval(setTimer)
+        })
+      }
+    }
   }
 </script>
 
@@ -26,22 +53,27 @@
 
     p {
       font-size: 35px;
-      padding: 0px 0 20px 0;
+      font-weight: bold;
+      padding: 40px 0 20px 0;
       position: relative;
-      top: -20px;
     }
 
     img {
       width: 120px;
       height: 120px;
     }
+  }
 
-    .qtbn {
-      top:-50px;
-      left: 0;
-      text-align: center;
-      position: relative;
-      width: 100%;
-    }
+  .iconimg {
+    margin-top: -100px;
+    z-index: 1;
+    left: 0;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+  }
+
+  .timer {
+    color: #A3A3A3;
   }
 </style>
