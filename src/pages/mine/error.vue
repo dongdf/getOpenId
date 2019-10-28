@@ -1,9 +1,9 @@
 <template>
   <div class="qytscontent">
-    <img src="../../assets/img/qyts.jpg">
+    <div class="title"><img src="../../assets/img/errorIcon.png"><span>错误</span></div>
     <p>{{tipText}}</p>
     <div class="qbtn">
-      <span @click="callback()">立即签约</span>
+      <span @click="callback()">重新上传</span>
     </div>
   </div>
 </template>
@@ -24,15 +24,23 @@
     margin: 0 auto;
 
     p {
-      font-size: 35px;
-      padding: 0px 0 20px 0;
+      font-weight: bold;
+      padding: 40px 0 40px 0;
       position: relative;
-      top: -20px;
     }
 
     img {
-      width: 80%;
+      width: 60px;
+      height: 60px;
+      vertical-align: middle;
     }
 
+    .title span {
+      font-size: 37px;
+      font-weight: bold;
+      color: #FF5B2C;
+      padding-left: 10px;
+      vertical-align: middle;
+    }
   }
 </style>
