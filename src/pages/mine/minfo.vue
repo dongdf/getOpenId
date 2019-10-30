@@ -139,18 +139,13 @@
         })
       },
       gopage (str) {
-        var flag = this.curInfo.role_address
-        if (this.curInfo.role === 2 && flag === '宿迁') {
-          return false
-        } else {
-          if (this.checkcontract()) {
-            this.$router.push({
-              path: '/mine',
-              query: {
-                funCode: str
-              }
-            })
-          }
+        if (this.checkcontract()) {
+          this.$router.push({
+            path: '/mine',
+            query: {
+              funCode: str
+            }
+          })
         }
       },
       gocompany () {
@@ -224,8 +219,10 @@
             })
             return false
           } else if (this.curInfo.role === 2) {
-            // 创业宝
-            let setp = localStorage.getItem('businessAuth' + this.curInfo.cmpy_id)
+            // 创业宝--芜湖
+            let setp1 = localStorage.getItem('businessAuth' + this.curInfo.cmpy_id)
+            // 创业宝--宿迁
+            let setp2 = localStorage.getItem('suqianAuth' + this.curInfo.cmpy_id)
             this.$promot({
               name: '$promot',
               width: '80%',
@@ -237,14 +234,26 @@
               },
               callback: (close) => {
                 close()
-                this.$router.push({
-                  path: '/authPerson',
-                  query: {
-                    funCode: 'businessAuth',
-                    setp: setp == null ? 1 : setp,
-                    cid: this.curInfo.cmpy_id
-                  }
-                })
+                var flag = this.curInfo.role_address
+                if (this.curInfo.role === 2 && flag === '宿迁') {
+                  this.$router.push({
+                    path: '/authPerson',
+                    query: {
+                      funCode: 'suqianAuth',
+                      setp: setp2 == null ? 1 : setp2,
+                      cid: this.curInfo.cmpy_id
+                    }
+                  })
+                } else {
+                  this.$router.push({
+                    path: '/authPerson',
+                    query: {
+                      funCode: 'businessAuth',
+                      setp: setp1 == null ? 1 : setp1,
+                      cid: this.curInfo.cmpy_id
+                    }
+                  })
+                }
               }
             })
             return false
@@ -262,19 +271,11 @@
               },
               callback: (close) => {
                 close()
-                /*this.$router.push({
+                this.$router.push({
                   path: '/authPerson',
                   query: {
                     funCode: 'personalAuth',
                     setp: setp == null ? 2 : setp,
-                    cid: this.curInfo.cmpy_id
-                  }
-                })*/
-                this.$router.push({
-                  path: '/authPerson',
-                  query: {
-                    funCode: 'suqianAuth',
-                    setp: setp == null ? 1 : setp,
                     cid: this.curInfo.cmpy_id
                   }
                 })
@@ -295,12 +296,7 @@
             if (this.curInfo.id_card) {
               this.reSaveInfo(this.curInfo.id_card)
             }
-            var flag = this.curInfo.role_address
-            if (this.curInfo.role === 2 && flag === '宿迁') {
-              return false
-            } else {
-              this.checkcontract()
-            }
+            this.checkcontract()
           } else {
             alert(res.msg)
           }
