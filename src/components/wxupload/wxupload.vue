@@ -36,8 +36,6 @@
          //   this.$emit('upinfo','https://mat1.gtimg.com/pingjs/ext2020/qqindex2018/dist/img/qq_logo_2x.png')
          //
          // }
-
-
         let that = this;
         wx.ready(function () {
           wx.chooseImage({
