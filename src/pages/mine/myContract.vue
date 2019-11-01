@@ -1,25 +1,17 @@
 <template>
   <div class="mycon">
-    <!--<div class="contypes">-->
-    <!--&lt;!&ndash;<div class="tabc">&ndash;&gt;-->
-    <!--&lt;!&ndash;<div class="curent">已签约</div>&ndash;&gt;-->
-    <!--&lt;!&ndash;<div>未签约</div>&ndash;&gt;-->
-    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-    <!--</div>-->
     <div class="conlist">
       <ul>
-        <!--v-show="conlist.length == 0"-->
         <div v-show="conlist.length == 0" class="nocon">
           <img src="../../assets/img/nohetong.png"/>
           <br>
           暂无合同
         </div>
-        <template v-for="d,index in  conlist">
+        <div v-for="d in conlist" v-bind:key="d.id">
           <div v-if="d.length>0" class="comtitle">
             {{d[0].company_name}}
           </div>
-          <li v-for="c,idx in d">
+          <li v-for="c in d" v-bind:key="c.id">
             <div class="coninfo">
               <div class="iteminfo">
                 <p class="jtitle">签约时间:{{c.start_at?c.start_at.substr(0,10):c.start_at}}</p>
@@ -29,50 +21,17 @@
               <div class="iteminfobtn" v-if="c.sign_status == 1">
                 <a class="main sm" target="_blank" :href="burl+'mapi/getContract/'+c.contracts">查看合同</a>
               </div>
-
-              <div class="iteminfobtn" v-if="c.sign_status == 0">
+              <div class="iteminfobtn" v-if="c.sign_status == 0||c.video_status == 3">
                 <a class="main sm" target="_blank" @click="goqianyue(c)">立即签约</a>
               </div>
-
             </div>
             <div class="contractState" v-show="c.sign_status == 0"><img src="../../assets/img/c_wgq.png"/></div>
-            <div class="contractState" v-show="c.sign_status == 1"><img src="../../assets/img/c_yqy.png"/></div>
+            <div class="contractState" v-show="c.sign_status == 1&&c.video_status!= 3"><img
+              src="../../assets/img/c_yqy.png"/></div>
+            <div class="contractState" v-show="c.sign_status == 1&&c.video_status == 3"><img
+              src="../../assets/img/c_sb.png"/></div>
           </li>
-        </template>
-
-
-        <!--<li>-->
-        <!--<div class="coninfo">-->
-        <!--<div class="iteminfo">-->
-        <!--<p class="jtitle">sdsdfdfsfddsfdfsfd</p>-->
-        <!--<h3>合同名称合同名称合同名称合同名称合同名称合同名称</h3>-->
-        <!--<p class="timer">230230932902390</p>-->
-        <!--</div>-->
-        <!--<div class="iteminfobtn">-->
-        <!--<button class="main sm trans">立即续签</button>-->
-        <!--</div>-->
-
-        <!--</div>-->
-        <!--<div class="contractState"><img src="../../assets/img/c_ygq.png"/> </div>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<div class="coninfo">-->
-        <!--<div class="iteminfo">-->
-        <!--<p class="jtitle">sdsdfdfsfddsfdfsfd</p>-->
-        <!--<h3>合同名称合同名称合同名称合同名称合同名称合同名称</h3>-->
-        <!--<p class="timer">230230932902390</p>-->
-        <!--</div>-->
-        <!--<div class="iteminfobtn">-->
-        <!--<button class="main sm trans">立即续签</button>-->
-        <!--</div>-->
-
-        <!--</div>-->
-        <!--<div class="errin">-->
-        <!--这里展示审核失败原因！！这里展示审核失败原因这里展示审核失败原因-->
-        <!--</div>-->
-        <!--<div class="contractState"><img src="../../assets/img/c_sb.png"/> </div>-->
-        <!--</li>-->
-
+        </div>
       </ul>
     </div>
   </div>
@@ -95,10 +54,14 @@
       this.burl = XIEYI_URL
     },
     methods: {
+      /**
+       * 立即签约
+       * @param obj
+       */
       goqianyue (obj) {
-        // alert(obj.company_id)
-        if (obj.role_id == 1) {//用工宝
-          var setp = localStorage.getItem('teamAuth' + obj.company_id)
+        // 用工宝
+        if (obj.role_id === 1) {
+          let setp = localStorage.getItem('teamAuth' + obj.company_id)
           this.$router.push({
             path: '/authPerson',
             query: {
@@ -107,22 +70,40 @@
               cid: obj.company_id
             }
           })
-
         }
-        if (obj.role_id == 2) {//创业宝
-          var setp = localStorage.getItem('businessAuth' + obj.company_id)
-          this.$router.push({
-            path: '/authPerson',
-            query: {
-              funCode: 'businessAuth',
-              setp: setp == null ? 1 : setp,
-              cid: obj.company_id
+        // 创业宝
+        if (obj.role_id === 2) {
+          // 创业宝--芜湖
+          let setp1 = localStorage.getItem('businessAuth' + obj.company_id)
+          // 创业宝--宿迁
+          let setp2 = localStorage.getItem('suqianAuth' + obj.company_id)
+          let flag = obj.role_address
+          if (obj.role_id === 2 && flag === '宿迁') {
+            if (obj.video_status === 3) {
+              setp2 = 1
             }
-          })
-
+            this.$router.push({
+              path: '/authPerson',
+              query: {
+                funCode: 'suqianAuth',
+                setp: setp2 == null ? 1 : setp2,
+                cid: obj.company_id
+              }
+            })
+          } else {
+            this.$router.push({
+              path: '/authPerson',
+              query: {
+                funCode: 'businessAuth',
+                setp: setp1 == null ? 1 : setp1,
+                cid: obj.company_id
+              }
+            })
+          }
         }
-        if(obj.role_id == 3) {//分工宝
-          var setp = localStorage.getItem('personalAuth' + obj.company_id)
+        // 分工宝
+        if (obj.role_id === 3) {
+          let setp = localStorage.getItem('personalAuth' + obj.company_id)
           this.$router.push({
             path: '/authPerson',
             query: {
@@ -132,15 +113,7 @@
             }
           })
         }
-
       },
-      // viewpdf(obj){
-      //   var x = XIEYI_URL+'mapi/getContract/'+obj.contracts
-      //
-      //   location.href = ;
-      //   return false;
-      //
-      // },
       getcon () {
         this.request.post('mapi/showContracts').then(res => {
           this.conlist = res.data

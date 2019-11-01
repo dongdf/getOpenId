@@ -9,15 +9,17 @@
       </ul>
     </div>
     <div v-show="setpidx == 1">
-      <div v-show="!showVideo">
+      <div v-show="showVideo">
         <div class="notice"><img class="info_img" src="../../assets/img/info.png"><span>请仔细观看下方视频</span></div>
         <div class="aucontent">
           <ul>
             <div class="vid-wrap">
-              <video id="myVideo" controls="controls" poster='预览图' preload="auto" x5-playsinline="" playsinline=""
+              <video id="myVideo" controls="controls"
+                     poster='https://renshe.oss-cn-beijing.aliyuncs.com/miniProgram/authentication.png' preload="auto"
+                     x5-playsinline="" playsinline=""
                      webkit-playsinline="">
                 <source src="https://renshe.oss-cn-beijing.aliyuncs.com/miniProgram/authentication.mp4"
-                        type="video/mp4">
+                        type="video/mp4"/>
               </video>
             </div>
           </ul>
@@ -26,27 +28,28 @@
           <button @click="nextButton" class="main">下一步</button>
         </div>
       </div>
-      <div v-show="showVideo">
+      <div v-show="!showVideo">
         <div class="tip">
           <img class="info_img" src="../../assets/img/info.png">
           <span>请手持身份证正面，<strong>正确读取下列文字，录制视频并上传</strong>，录制过程请保证视频、声音清晰</span>
         </div>
-        <div class="msg">我叫XXX,身份证号是XXX,联系电话是XXX,我自愿注册个体工商户</div>
+        <div class="msg">我叫{{curInfo.name}},身份证号是{{curInfo.id_card}},联系电话是{{curInfo.phone}},我自愿注册个体工商户</div>
         <div class="aucontent">
           <ul v-if="videoUrl.length>0">
             <div class="vid-wrap">
-              <video id="authVideo" controls="controls" poster='预览图' preload="auto" x5-playsinline="" playsinline=""
+              <video id="authVideo" controls="controls"
+                     poster='https://renshe.oss-cn-beijing.aliyuncs.com/miniProgram/authentication.png' preload="auto"
+                     x5-playsinline="" playsinline=""
                      webkit-playsinline="">
                 <source :src="videoUrl" type="video/mp4">
               </video>
             </div>
           </ul>
           <ul v-else @click="upVideo">
-            <li><img src="../../assets/img/upload_voide.png"/>
-              <input type="file" ref="inputerVideo" accept="video/*" id="fileUpload"
-                     style="position:absolute; clip:rect(0 0 0 0);" @change="uploadVideo($event)">
-            </li>
+            <li><img src="../../assets/img/upload_voide.png"/></li>
           </ul>
+          <input type="file" ref="inputerVideo" accept="video/*" id="fileUpload"
+                 style="position:absolute; clip:rect(0 0 0 0);" @change="uploadVideo($event)">
           <div class="viewVideo" @click="viewVideo">
             <img class="info_img" src="../../assets/img/play.png">
             <span>查看视频样例</span>
@@ -159,7 +162,7 @@
           <li style="border:none;" v-show="mynamelist">
             <h3>个体申请名称</h3>
             <ul class="rangnamelist">
-              <li v-for="(k,index) in mynamelist">{{k}}
+              <li v-for="(k,index) in mynamelist" v-bind:key="k.id">{{k}}
                 <label @click="editcomName(k,index)" class="eidtname">
                   <img src="../../assets/img/edit.jpg"/>
                 </label>
@@ -192,6 +195,7 @@
     components: {pickeritem, areas},
     data () {
       return {
+        poster: '',
         showNextButton: false,
         showVideo: true,
         videoUrl: '',
@@ -230,6 +234,7 @@
     },
     mounted () {
       let myVideo = document.getElementById('myVideo')
+      myVideo.currentTime = 1 // 第一帧
       // 监听播放开始
       let that = this
       myVideo.addEventListener('play', function () {
@@ -292,7 +297,7 @@
             param.append('key', res.data.dir + chuo) // 添加form表单中其他数据
             param.append('success_action_status', '200') // 添加form表单中其他数据
             param.append('Access-Control-Allow-Origin', '*') // 添加form表单中其他数据
-            param.append('file', file, file.name)  // 通过append向form对象添加数据
+            param.append('file', file, file.name) // 通过append向form对象添加数据
             console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
             let config = {
               headers: {'Content-Type': 'multipart/form-data'}
@@ -344,7 +349,6 @@
               },
               callback: (close) => {
                 close()
-                this.upVideo()
               }
             })
           } else {
@@ -362,7 +366,6 @@
                 this.upVideo()
               }
             })
-            // alert(res.msg)
           }
         }, error => {
           this.$promot({
@@ -383,7 +386,6 @@
         })
       },
       areaOk (areaObj) {
-        console.log(JSON.stringify(areaObj))
         this.areaShow = false
         this.areaselectname = areaObj.province.name + '/' + areaObj.city.name + '/' + areaObj.county.name
         this.selectAreaInfo = areaObj
@@ -501,8 +503,8 @@
           }
         })
       },
-      checkThree (obj) {
-        return new Promise((reslove, reject) => {
+      checkThree: function (obj) {
+        return new Promise((resolve, reject) => {
           this.request.post('mapi/checkThree', {
             company_id: this.$route.query.cid,
             name: obj.name,
@@ -511,17 +513,17 @@
             id_card: obj.id_card
           }).then(res => {
             if (res.code === 0) {
-              reslove()
+              resolve()
             } else {
               reject(res.msg)
             }
           }, error => {
-            reject('请求失败，请重新提交')
+            reject(new Error('请求失败，请重新提交'))
           })
         })
       },
       gonext (str) {
-        if (str == 4) {
+        if (str === 4) {
           if (!this.confirmType.id) {
             this.$toast('请选择个体工商户类型')
           }
@@ -585,20 +587,6 @@
             alert(error)
           })
         } else if (str === 2) {
-          this.$promot({
-            name: '$promot',
-            width: '80%',
-            title: '基本信息',
-            funCode: 'error',
-            props: {
-              isableclose: false,
-              tipText: '视频上传失败请重新上传'
-            },
-            callback: (close) => {
-              close()
-            }
-          })
-          return false
           if (this.videoUrl.length === 0) {
             this.$toast('请上传认证视频')
             return false
@@ -635,6 +623,10 @@
 </script>
 
 <style lang="scss" scoped>
+
+  video::-webkit-media-controls-enclosure {
+    display: none !important;
+  }
 
   .nostyle {
     border: none;
@@ -1039,7 +1031,7 @@
 
   .vid-wrap {
     width: 100%;
-    background: #000;
+    background: #fff;
     position: relative;
     padding-bottom: 56.25%; /*需要用padding来维持16:9比例,也就是9除以16*/
     height: 0;
@@ -1050,17 +1042,18 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
     object-fit: fill;
+    max-height: 400px;
   }
 
   .sizeBox {
-    height: 40px;
+    height: 60px;
   }
 
   .viewVideo {
     text-align: right;
     padding-right: 0.4rem;
+    padding-top: 20px;
     color: #1D56FE;
   }
 
