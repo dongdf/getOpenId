@@ -35,17 +35,19 @@
         </div>
         <div class="msg">我叫{{curInfo.name}},身份证号是{{curInfo.id_card}},联系电话是{{curInfo.phone}},我自愿注册个体工商户</div>
         <div class="aucontent">
-          <ul v-if="videoUrl.length>0">
-            <div class="vid-wrap">
-              <video id="authVideo" controls="controls"
-                     poster='https://renshe.oss-cn-beijing.aliyuncs.com/miniProgram/authentication.png' preload="auto"
-                     x5-playsinline="" playsinline=""
-                     webkit-playsinline="">
-                <source :src="videoUrl" type="video/mp4">
+          <ul v-show="file!=''">
+            <div class="vid-wrap" id="wrapper">
+              <video id="video" ref="authVideo" src="" :poster="previewImg" controls="controls" preload="auto"
+                     webkit-playsinline="true"
+                     playsinline="true"
+                     x-webkit-airplay="allow"
+                     x5-video-player-type="h5"
+                     x5-video-player-fullscreen="true"
+                     x5-video-orientation="portraint">
               </video>
             </div>
           </ul>
-          <ul v-else @click="upVideo">
+          <ul v-show="file==''" @click="upVideo">
             <li><img src="../../assets/img/upload_voide.png"/></li>
           </ul>
           <input type="file" ref="inputerVideo" accept="video/*" id="fileUpload"
@@ -195,7 +197,9 @@
     components: {pickeritem, areas},
     data () {
       return {
+        file: '',
         poster: '',
+        previewImg: '',
         showNextButton: false,
         showVideo: true,
         videoUrl: '',
@@ -219,7 +223,7 @@
     },
     created () {
       this.setpidx = this.$route.query.setp ? this.$route.query.setp : 1
-      var u = navigator.userAgent
+      let u = navigator.userAgent
       if (u.indexOf('iPhone') > -1 || u.indexOf('iOS') > -1) {
         this.myphones = true
       } else {
@@ -254,6 +258,7 @@
        * 查看视频样例
        */
       viewVideo () {
+        this.file = ''
         this.videoUrl = ''
         this.showVideo = true
         this.showNextButton = false
@@ -273,9 +278,31 @@
         let size = Math.floor(mediaFileSize / 1024)
         if (size > 1024 * 200) {
           // 这里可以加个文件大小控制
-          this.$toast('上传视频文件不要超过200M')
+          this.$promot({
+            name: '$promot',
+            width: '80%',
+            title: '基本信息',
+            funCode: 'error',
+            props: {
+              isableclose: false,
+              tipText: '上传视频文件不要超过200M'
+            },
+            callback: (close) => {
+              close()
+              this.upVideo()
+            }
+          })
           return false
         }
+        let _this = this
+        let files = e.target.files || e.dataTransfer.files
+        this.file = files[0]
+        // 视频预览
+        let reader = new FileReader()
+        reader.onload = function () {
+          _this.$refs.authVideo.src = this.result
+        }
+        reader.readAsDataURL(this.file)
         this.uploadFile(mediaFile)
       },
       /**
@@ -318,6 +345,7 @@
                   that.$indicator.close()
                   that.$refs.inputerVideo.value = ''
                   let videoUrl = res.data.host + '/' + rimg.key
+                  that.previewImg = videoUrl + '?x-oss-process=video/snapshot,t_1000,f_jpg,w_800,h_600,m_fast'
                   that.uploadMidAuthVideo(videoUrl)
                 }
               })
@@ -383,6 +411,21 @@
             }
           })
           // alert('请重新保存')
+        })
+      },
+      // 保存base64
+      saveqm (baseimg) {
+        return new Promise((resolve, reject) => {
+          this.$http.post('mapi/uploadSignImg?connect_redirect=1', {img: baseimg}, {timeout: 1000 * 60 * 20}).then(res => {
+            var result = JSON.parse(res.data)
+            if (result.code === 0) {
+              resolve(result)
+            } else {
+              reject('上传失败，请清空重新签名')
+            }
+          }, error => {
+            reject('上传失败,请重试')
+          })
         })
       },
       areaOk (areaObj) {
