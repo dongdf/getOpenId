@@ -307,10 +307,6 @@
       reSaveInfo (idcard) {
         let myphone = localStorage.getItem('myphone') || ''
         this.request.post('mapi/reSaveInfo', {id_card: idcard, phone: myphone}).then(res => {
-          if (res.code === 0) {
-          } else {
-            this.$toast(res.msg)
-          }
         }, error => {
           this.$messagebox.alert('更新用户信息失败！')
         })
