@@ -34,7 +34,7 @@
     },
     methods: {
       chooseimgs (str) {
-        if (str === 1) {
+        if (str == 1) {
           this.$refs.zm.chooseImg('1')
         } else {
           this.$refs.fm.chooseImg('2')
