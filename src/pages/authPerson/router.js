@@ -45,7 +45,7 @@ window.addRouter({
 })
 window.addRouter({
   name: 'suqianAuth',
-  title: '工商认证-创业宝',
+  title: '视频认证-创业宝',
   component: suqianAuth
 })
 window.addRouter({
