@@ -100,7 +100,7 @@
           if (res.code === 0) {
             localStorage.setItem('is_auth', res.is_auth)
             localStorage.setItem('myphone', this.phone)
-            if (res.is_auth === 1) {
+            if (res.is_auth == 1) {
               this.$router.push({
                 path: '/authPerson',
                 query: {
