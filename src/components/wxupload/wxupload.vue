@@ -56,7 +56,6 @@
                   alert(ossimg.msg)
                 }
               }, error => {
-                // that.$emit('upinfozm','111')
                 alert('上传失败请重新选择')
               })
             }
@@ -82,7 +81,7 @@
       getwxImg (mid, str, name) {
         return new Promise((resolve, reject) => {
           // 身份证验证
-          if (str === 1 || str === 2) {
+          if (str == 1 || str == 2) {
             let pdata
             let phone = this.$route.query.phone || ''
             let m = localStorage.getItem('myphone') || ''
@@ -99,7 +98,7 @@
               pdata.phone = phone
               pdata.is_return = 1
             }
-            if (str === 2) {
+            if (str == 2) {
               pdata.id_card = this.$parent.$data.idcard
             }
             this.request.post('mapi/uploadCardImages', pdata).then(res => {
