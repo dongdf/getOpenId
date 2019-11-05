@@ -1,71 +1,13 @@
 <template>
   <div>
-    <div class="forgetSetp breakfour">
+    <div class="forgetSetp">
       <ul class="clearfix">
-        <li class="leftli active "><a href=""><i>1</i><span>视频认证</span></a></li>
-        <li class="leftli " :class="setpidx>=2?'active':''"><a href=""><i>2</i><span>完善信息</span></a></li>
-        <li class="leftli " :class="setpidx>=3?'active':''"><a href=""><i>3</i><span>确认信息</span></a></li>
-        <li class="" :class="setpidx>=4?'active':''"><a href=""><i>4</i><span>签约</span></a></li>
+        <li class="leftli active"><a href=""><i>1</i><span>完善信息</span></a></li>
+        <li class="leftli " :class="setpidx>=2?'active':''"><a href=""><i>2</i><span>视频认证</span></a></li>
+        <li class="" :class="setpidx>=3?'active':''"><a href=""><i>3</i><span>签约</span></a></li>
       </ul>
     </div>
     <div v-show="setpidx == 1">
-      <div v-show="showVideo">
-        <div class="notice"><img class="info_img" src="../../assets/img/info.png"><span>请仔细观看下方视频</span></div>
-        <div class="aucontent">
-          <ul>
-            <div class="vid-wrap">
-              <video id="myVideo" controls="controls"
-                     poster='https://renshe.oss-cn-beijing.aliyuncs.com/miniProgram/authentication.png' preload="auto"
-                     x5-playsinline="" playsinline=""
-                     webkit-playsinline="">
-                <source src="https://renshe.oss-cn-beijing.aliyuncs.com/miniProgram/authentication.mp4"
-                        type="video/mp4"/>
-              </video>
-            </div>
-          </ul>
-        </div>
-        <div class="subc" v-show="showNextButton">
-          <button @click="nextButton" class="main">下一步</button>
-        </div>
-      </div>
-      <div v-show="!showVideo">
-        <div class="tip">
-          <img class="info_img" src="../../assets/img/info.png">
-          <span>请手持身份证正面，<strong>正确读取下列文字，录制视频并上传</strong>，录制过程请保证视频、声音清晰</span>
-        </div>
-        <div class="msg">我叫{{curInfo.name}},身份证号是{{curInfo.id_card}},联系电话是{{curInfo.phone}},我自愿注册个体工商户</div>
-        <div class="aucontent">
-          <ul v-show="file!=''">
-            <div class="vid-wrap" id="wrapper">
-              <video id="video" ref="authVideo" src="" :poster="previewImg" controls="controls" preload="auto"
-                     webkit-playsinline="true"
-                     playsinline="true"
-                     x-webkit-airplay="allow"
-                     x5-video-player-type="h5"
-                     x5-video-player-fullscreen="true"
-                     x5-video-orientation="portraint">
-              </video>
-            </div>
-          </ul>
-          <ul v-show="file==''" @click="upVideo">
-            <li><img src="../../assets/img/upload_voide.png"/></li>
-          </ul>
-          <input type="file" ref="inputerVideo" accept="video/*" id="fileUpload"
-                 style="position:absolute; clip:rect(0 0 0 0);" @change="uploadVideo($event)">
-          <div class="viewVideo" @click="viewVideo">
-            <img class="info_img" src="../../assets/img/play.png">
-            <span>查看视频样例</span>
-          </div>
-        </div>
-        <div class="sizeBox"></div>
-        <div class="subc">
-          <button class="reUpload" @click="upVideo">重新上传</button>
-          <div class="sizeBox"></div>
-          <button @click="gonext(2)" class="main">提交</button>
-        </div>
-      </div>
-    </div>
-    <div v-show="setpidx == 2">
       <div class="busContent">
         <ul>
           <li class="fileTitle">基本信息</li>
@@ -130,10 +72,67 @@
         </ul>
       </div>
       <div class="subc">
-        <button @click="gonext(3)" class="main">提交</button>
+        <button @click="gonext(2)" class="main">提交</button>
       </div>
     </div>
-    <div v-show="setpidx == 3">
+    <div v-show="setpidx == 2">
+      <div v-show="showVideo">
+        <div class="notice"><img class="info_img" src="../../assets/img/info.png"><span>请仔细观看下方视频</span></div>
+        <div class="aucontent">
+          <ul>
+            <div class="vid-wrap">
+              <video id="myVideo" controls="controls"
+                     poster='https://renshe.oss-cn-beijing.aliyuncs.com/miniProgram/authentication.png' preload="auto"
+                     x5-playsinline="" playsinline=""
+                     webkit-playsinline="">
+                <source src="https://renshe.oss-cn-beijing.aliyuncs.com/miniProgram/authentication.mp4"
+                        type="video/mp4"/>
+              </video>
+            </div>
+          </ul>
+        </div>
+        <div class="subc" v-show="showNextButton">
+          <button @click="nextButton" class="main">下一步</button>
+        </div>
+      </div>
+      <div v-show="!showVideo">
+        <div class="tip">
+          <img class="info_img" src="../../assets/img/info.png">
+          <span>请手持身份证正面，<strong>正确读取下列文字，录制视频并上传</strong>，录制过程请保证视频、声音清晰</span>
+        </div>
+        <div class="msg">我叫{{curInfo.name}},身份证号是{{curInfo.id_card}},联系电话是{{curInfo.phone}},我自愿注册个体工商户</div>
+        <div class="aucontent">
+          <ul v-show="file!=''">
+            <div class="vid-wrap" id="wrapper">
+              <video id="video" ref="authVideo" src="" :poster="previewImg" controls="controls" preload="auto"
+                     webkit-playsinline="true"
+                     playsinline="true"
+                     x-webkit-airplay="allow"
+                     x5-video-player-type="h5"
+                     x5-video-player-fullscreen="true"
+                     x5-video-orientation="portraint">
+              </video>
+            </div>
+          </ul>
+          <ul v-show="file==''" @click="upVideo">
+            <li><img src="../../assets/img/upload_voide.png"/></li>
+          </ul>
+          <input type="file" ref="inputerVideo" accept="video/*" id="fileUpload"
+                 style="position:absolute; clip:rect(0 0 0 0);" @change="uploadVideo($event)">
+          <div class="viewVideo" @click="viewVideo">
+            <img class="info_img" src="../../assets/img/play.png">
+            <span>查看视频样例</span>
+          </div>
+        </div>
+        <div class="sizeBox"></div>
+        <div class="subc">
+          <button class="reUpload" @click="upVideo">重新上传</button>
+          <div class="sizeBox"></div>
+          <button @click="gonext(3)" class="main">提交</button>
+        </div>
+      </div>
+    </div>
+    <!--<div v-show="setpidx == 3">
       <div class="chooseMain">
         <ul>
           <li @click="openrangetype">
@@ -174,8 +173,8 @@
           <button class="main" @click="gonext(4)">确认注册信息,开始签约</button>
         </ul>
       </div>
-    </div>
-    <div v-show="setpidx == 4">
+    </div>-->
+    <div v-show="setpidx == 3">
       <elem configs="contractList" v-if="!isqz"></elem>
       <div class="tx">
         <button class="main" @click="isqz = true">一键签约({{cnumb}})</button>
@@ -566,30 +565,7 @@
         })
       },
       gonext (str) {
-        if (str === 4) {
-          if (!this.confirmType.id) {
-            this.$toast('请选择个体工商户类型')
-          }
-          this.mynamelist.type = this.confirmType.id
-          this.mynamelist.company_id = this.$route.query.cid
-          this.request.post('mapi/saveIndustryInfo', this.mynamelist).then(res => {
-            if (res.code === 0) {
-              localStorage.setItem('suqianAuth' + this.$route.query.cid, str)
-              this.$router.push({
-                path: '/authPerson',
-                query: {
-                  funCode: 'suqianAuth',
-                  setp: str,
-                  cid: this.$route.query.cid
-                }
-              })
-            } else {
-              alert(res.msg)
-            }
-          }, error => {
-            alert('提交失败，请重试')
-          })
-        } else if (str === 3) {
+        if (str === 2) {
           if (!this.selectAreaInfo.county) {
             this.$toast('请选择银行卡开户地址')
             return false
@@ -629,7 +605,7 @@
           }, error => {
             alert(error)
           })
-        } else if (str === 2) {
+        } else if (str === 3) {
           if (this.videoUrl.length === 0) {
             this.$toast('请上传认证视频')
             return false
