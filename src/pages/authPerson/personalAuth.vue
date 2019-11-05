@@ -11,7 +11,7 @@
     <div v-show="setpidx == 1">
       <div class="ptips">
         <!--请拍摄上传<span>张三</span>的身份证-->
-        <p>国家要求网络运营者为在与用户签订协议或者提供服务时，用户需提供真实身份信息</p>
+        <p>国家要求网络运营者在与用户签订协议或者提供服务时，用户需提供真实身份信息</p>
       </div>
       <elem configs="basicAuthPerson"></elem>
       <div class="subc">
